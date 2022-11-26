@@ -16,3 +16,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//admin
+Route::prefix('admin')->group(function(){
+    Route::geT('/', function(){
+        return view('admin.homeadmin');
+    });
+    Route::get('listpasien', function(){
+        return view('admin.listpasien');
+    });
+    Route::get('listrumahsakit', function(){
+        return view('admin.listrumahsakit');
+    });
+    Route::get('listdokter', function(){
+        return view('admin.listdokter');
+    });
+    Route::get('listobat', function(){
+        return view('admin.listobat');
+    });
+});
