@@ -16,10 +16,9 @@ return new class extends Migration
         if(!Schema::hasTable("obat")){
             Schema::create('obat', function (Blueprint $table) {
                 $table->id("ob_id");
-                $table->string("ob_na",100);
+                $table->string("ob_nama",100);
                 $table->integer("ob_beratVal");
                 $table->string("ob_beratSatuan",20);
-                $table->smallInteger("ob_status");
                 $table->timestamps();
                 $table->softDeletes();
             });
