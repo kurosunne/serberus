@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string("dk_telp", 15);
             $table->string("dk_password", 255);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign("rs_id")->references("rs_id")->on("rumah_sakit")->onUpdate("cascade")->onDelete("cascade");
             $table->foreign("sp_id")->references("sp_id")->on("spesialis")->onUpdate("cascade")->onDelete("cascade");

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("ps_telp",15);
             $table->string("ps_password",255);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

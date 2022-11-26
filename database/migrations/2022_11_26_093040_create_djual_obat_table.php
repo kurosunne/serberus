@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date("do_tanggal");
             $table->double("do_total");
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign("ps_id")->references("ps_id")->on("pasien")->onUpdate("cascade")->onDelete("cascade");
         });

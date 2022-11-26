@@ -18,7 +18,7 @@ return new class extends Migration
                 $table->id("ob_id");
                 $table->string("ob_na",100);
                 $table->integer("ob_beratVal");
-                $table->integer("ob_beratSatuan");
+                $table->string("ob_beratSatuan",20);
                 $table->smallInteger("ob_status");
                 $table->timestamps();
                 $table->softDeletes();

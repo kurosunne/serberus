@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger("pr_id");
             $table->date("jr_tanggal");
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign("ps_id")->references("ps_id")->on("pasien")->onUpdate("cascade")->onDelete("cascade");
             $table->foreign("pr_id")->references("pr_id")->on("perawat")->onUpdate("cascade")->onDelete("cascade");
