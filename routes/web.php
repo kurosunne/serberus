@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,20 +19,10 @@ Route::get('/', function () {
 });
 
 //admin
-Route::prefix('admin')->group(function(){
-    Route::geT('/', function(){
-        return view('admin.homeadmin');
-    });
-    Route::get('listpasien', function(){
-        return view('admin.listpasien');
-    });
-    Route::get('listrumahsakit', function(){
-        return view('admin.listrumahsakit');
-    });
-    Route::get('listdokter', function(){
-        return view('admin.listdokter');
-    });
-    Route::get('listobat', function(){
-        return view('admin.listobat');
-    });
+Route::prefix('admin')->controller(AdminController::class)->group(function(){
+    Route::get('/', 'home')->name('admin.home');
+    Route::get('/pasien', 'pasien')->name('admin.pasien');
+    Route::get('/rumahsakit', 'rumahsakit')->name('admin.rumahsakit');
+    Route::get('/dokter', 'dokter')->name('admin.dokter');
+    Route::get('/obat', 'obat')->name('admin.obat');
 });
