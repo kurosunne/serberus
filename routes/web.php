@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Session;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login.indexpasien');
 })->name('welcome');
 
 Route::prefix('login')->controller(AuthController::class)->group(function ()
