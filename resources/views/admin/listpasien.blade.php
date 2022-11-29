@@ -12,11 +12,11 @@
     </div>
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal p-0">
-        <li class="text-white"><a href="listpasien" class="btn btn-ghost normal-case text-xl">Beranda</a></li>
-        <li><a href ="listrumahsakit" class="btn btn-ghost normal-case text-xl">Rumah Sakit</a></li>
-        <li><a href ="listdokter" class="btn btn-ghost normal-case text-xl">Dokter</a></li>
-        <li><a href ="listobat" class="btn btn-ghost normal-case text-xl">Obat</a></li>
-        <li><a class="btn btn-ghost normal-case text-xl">Riwayat</a></li>
+        <li><a href="{{ route('admin.home')}}"class="btn btn-ghost normal-case text-xl">Beranda</a></li>
+        <li class="text-white"><a href ="{{route ('admin.pasien')}}" class="btn btn-ghost normal-case text-xl">Rumah Sakit</a></li>
+        <li><a href="{{route('admin.dokter')}}" class="btn btn-ghost normal-case text-xl">Dokter</a></li>
+        <li><a href="{{route('admin.obat')}}" class="btn btn-ghost normal-case text-xl">Obat</a></li>
+        <li><a href="" class="btn btn-ghost normal-case text-xl">Riwayat</a></li>
       </ul>
     </div>
     <div class="navbar-end">

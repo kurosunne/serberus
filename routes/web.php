@@ -48,7 +48,7 @@ Route::prefix('register')->controller(AuthController::class)->group(function ()
 Route::prefix('admin')->controller(AdminController::class)->group(function(){
     Route::get('/', 'home')->name('admin.home');
     Route::get('/pasien', 'pasien')->name('admin.pasien');
-    Route::get('/rumahsakit', 'rumahsakit')->name('admin.rumahsakit');
+    Route::get('/rumahsakit', 'listRumahSakit')->name('admin.rumahsakit');
     Route::get('/dokter', 'dokter')->name('admin.dokter');
     Route::get('/obat', 'obat')->name('admin.obat');
 });

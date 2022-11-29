@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\RumahSakit;
 
 class AdminController extends Controller
 {
@@ -20,5 +21,13 @@ class AdminController extends Controller
     }
     public function obat(){
         return view('admin.listobat');
+    }
+
+    //SELECT DATABASE MODEL
+
+    public function listRumahSakit(Request $req)
+    {
+        $rumahsakit = RumahSakit::select(['rs_id', 'rs_nama', 'rs_alamat', 'created_at'])->get();
+        return view('admin.listrumahsakit', ['rumahsakit' => $rumahsakit]);
     }
 }
