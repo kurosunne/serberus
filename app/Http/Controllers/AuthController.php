@@ -14,7 +14,7 @@ class AuthController extends Controller
     public function indexPasien(Request $req)
     {
         # code...
-        return view('welcome');
+        return view('loginregis/welcome');
     }
 
     public function loginPasien(Request $req)
@@ -47,7 +47,7 @@ class AuthController extends Controller
     public function indexPerawat(Request $req)
     {
         # code...
-        return view('LoginPerawat');
+        return view('loginregis/LoginPerawat');
     }
 
     public function loginPerawat(Request $req)
@@ -80,7 +80,7 @@ class AuthController extends Controller
     public function indexDokter(Request $req)
     {
         # code...
-        return view('LoginDokter');
+        return view('loginregis/LoginDokter');
     }
 
     public function loginDokter(Request $req)
@@ -113,7 +113,7 @@ class AuthController extends Controller
     public function formPasien(Request $req)
     {
         # code...
-        return view('RegisterPasien');
+        return view('loginregis/RegisterPasien');
     }
 
     public function registerPasien(Request $req)
@@ -143,7 +143,7 @@ class AuthController extends Controller
     public function formPerawat(Request $req)
     {
         # code...
-        return view('RegisterPerawat');
+        return view('loginregis/RegisterPerawat');
     }
 
     public function registerPerawat(Request $req)
@@ -175,7 +175,7 @@ class AuthController extends Controller
     public function formDokter(Request $req)
     {
         # code...
-        return view('RegisterDokter');
+        return view('loginregis/RegisterDokter');
     }
 
     public function registerDokter(Request $req)

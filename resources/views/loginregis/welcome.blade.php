@@ -15,9 +15,9 @@
                 <p class="text-1.5xl text-sky-600 mt-3">Bukan Pasien?</p>
                 <div class="flex flex-row mt-3 justify-between w-4/5">
                     {{-- Menuju halaman login dokter --}}
-                    <a href="" class=" w-2/5 max-w-md "><button class="btn btn-secondary w-full max-w-md text-base-100">Saya Dokter</button></a>
+                    <a href="{{route('login.indexdokter')}}" class=" w-2/5 max-w-md "><button class="btn btn-secondary w-full max-w-md text-base-100">Saya Dokter</button></a>
                     {{-- Menuju halaman login perawat --}}
-                    <a href="" class=" w-2/5 max-w-md "><button class="btn bg-white btn-outline btn-secondary w-full max-w-md text-base-100">Saya Perawat</button></a>
+                    <a href="{{route('login.indexperawat')}}" class=" w-2/5 max-w-md "><button class="btn bg-white btn-outline btn-secondary w-full max-w-md text-base-100">Saya Perawat</button></a>
                 </div>
             </div>
 
