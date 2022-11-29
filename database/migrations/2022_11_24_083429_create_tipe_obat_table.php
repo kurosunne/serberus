@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rumah_sakit', function (Blueprint $table) {
-            $table->id("rs_id");
-            $table->string("rs_nama",100);
-            $table->string("rs_telp",15);
-            $table->string("rs_alamat",100);
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::create('tipe_obat', function (Blueprint $table) {
+            $table->id("to_id");
+            $table->string("to_nama",20);
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rumah_sakit');
+        Schema::dropIfExists('tipe_obat');
     }
 };

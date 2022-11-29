@@ -16,7 +16,7 @@ class RumahSakitSeeder extends Seeder
      */
     public function run()
     {
-        DB::table("dokter")->truncate();
+        DB::table("rumah_sakit")->truncate();
         RumahSakit::factory()->count(5)->create();
     }
 }

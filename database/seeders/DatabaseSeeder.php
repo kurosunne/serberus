@@ -22,12 +22,13 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        $this->call(TipeObatSeeder::class);
+        $this->call(ObatSeeder::class);
         $this->call(SpesialisSeeder::class);
         $this->call(RumahSakitSeeder::class);
         $this->call(PasienSeeder::class);
         $this->call(DokterSeeder::class);
         $this->call(PerawatSeeder::class);
-        //$this->call(ObatSeeder::class);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

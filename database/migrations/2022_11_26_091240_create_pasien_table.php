@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("ps_nama",100);
             $table->string("ps_email",40);
             $table->string("ps_telp",15);
+            $table->string("ps_alamat",100);
             $table->string("ps_password",255);
             $table->timestamps();
             $table->softDeletes();

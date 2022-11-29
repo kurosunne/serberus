@@ -18,6 +18,7 @@ class RumahSakitFactory extends Factory
     {
         return [
             "rs_nama" => "Rumah Sakit " . $this->faker->city(),
+            "rs_telp" => $this->faker->numerify("08##########"),
             "rs_alamat" =>$this->faker->address(),
         ];
     }

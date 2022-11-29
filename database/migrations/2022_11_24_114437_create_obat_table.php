@@ -17,10 +17,14 @@ return new class extends Migration
             Schema::create('obat', function (Blueprint $table) {
                 $table->id("ob_id");
                 $table->string("ob_nama",100);
-                $table->integer("ob_beratVal");
-                $table->string("ob_beratSatuan",20);
+                $table->double("ob_kandunganVal")->nullable();
+                $table->string("ob_kandunganSatuan",20)->nullable();
+                $table->double("ob_harga")->default(0);
+                $table->unsignedBigInteger("to_id");
                 $table->timestamps();
                 $table->softDeletes();
+
+                $table->foreign("to_id")->references("to_id")->on("tipe_obat")->onUpdate("cascade")->onDelete("cascade");
             });
         }
     }

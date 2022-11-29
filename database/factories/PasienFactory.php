@@ -24,6 +24,7 @@ class PasienFactory extends Factory
             "ps_nama" => "$firstname $lastname",
             "ps_email" => Str::lower($firstname).Str::lower($lastname)."@gmail.com",
             "ps_telp" => $this->faker->numerify("08##########"),
+            "ps_alamat" =>$this->faker->address(),
             "ps_password" => Hash::make("123")
         ];
     }
