@@ -1,35 +1,44 @@
-@extends('layout.setupadmin')
+@extends('layout.setup')
 
 @section('header')
-    @include('layout.navbar')
+@include('admin.components.navbar')
 @endsection
 
 @section('main')
-    <div class="p-[10px] w-full flex">
-        <div class="w-[49%] overflow-auto">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Nama Rumah Sakit</th>
-                        <th>Alamat Rumah Sakit</th>
-                        <th>No Telp</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($rumahsakit as $rs)
-                        <tr>
-                            <td>{{ $rs->rs_id }}</td>
-                            <td>{{ $rs->rs_nama }}</td>
-                            <td>{{ $rs->rs_alamat }}</td>
-                            <td>000000</td>
-                            <td>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+<div class="initable">
+    <div class="overflow-x-auto">
+        <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Nama Rumah Sakit</th>
+              <th>Tanggal Daftar</th>
+              <th>Telepon Rumah Sakit</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($rumahsakit as $key=>$rs)
+                <tr>
+                    <td>{{$key + 1}}</td>
+                    <td>{{$rs->rs_nama}}</td>
+                    <td>{{date('F j, Y', strtotime($rs->created_at))}}</td>
+                    <td>{{$rs->rs_telepon ?? 123}}</td>
+                    <td>
+                        <a href="" class="btn btn-accent">Detail</a>
+                    </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+</div>
+
+<div class="inidetailrumahsakit">
+    <form class="w-full max-w-lg" action="" method="POST">
+        @csrf
+        <div class="text">
+        Detail Rumah Sakit
         </div>
 
         <div class="w-[49%] ml-2 overflow-auto">
