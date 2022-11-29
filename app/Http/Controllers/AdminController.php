@@ -6,12 +6,18 @@ use App\Models\Dokter;
 use App\Models\Obat;
 use App\Models\Pasien;
 use App\Models\RumahSakit;
+use App\Models\Perawat;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     public function home(){
         return view('admin.homeadmin');
+    }
+    public function perawat()
+    {
+        $perawat = Perawat::all();
+        return view('admin.listperawat', compact('perawat'));
     }
     public function pasien(){
         $pasien = Pasien::all();
@@ -32,13 +38,5 @@ class AdminController extends Controller
         $obat = Obat::all();
 
         return view('admin.listobat', compact('obat'));
-    }
-
-    //SELECT DATABASE MODEL
-
-    public function listRumahSakit(Request $req)
-    {
-        $rumahsakit = RumahSakit::select(['rs_id', 'rs_nama', 'rs_alamat', 'created_at'])->get();
-        return view('admin.listrumahsakit', ['rumahsakit' => $rumahsakit]);
     }
 }

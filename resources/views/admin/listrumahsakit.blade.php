@@ -1,47 +1,39 @@
 @extends('layout.setup')
 
 @section('header')
-@include('admin.components.navbar')
+    @include('admin.components.navbar')
 @endsection
 
 @section('main')
-<div class="initable">
-    <div class="overflow-x-auto">
-        <table class="table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Nama Rumah Sakit</th>
-              <th>Tanggal Daftar</th>
-              <th>Telepon Rumah Sakit</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($rumahsakit as $key=>$rs)
-                <tr>
-                    <td>{{$key + 1}}</td>
-                    <td>{{$rs->rs_nama}}</td>
-                    <td>{{date('F j, Y', strtotime($rs->created_at))}}</td>
-                    <td>{{$rs->rs_telepon ?? 123}}</td>
-                    <td>
-                        <a href="" class="btn btn-accent">Detail</a>
-                    </td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </div>
-</div>
-
-<div class="inidetailrumahsakit">
-    <form class="w-full max-w-lg" action="" method="POST">
-        @csrf
-        <div class="text">
-        Detail Rumah Sakit
+    <div class="p-[10px] w-full flex">
+        <div class="w-[49%] overflow-auto h-96">
+            <table class="table w-full">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Nama Rumah Sakit</th>
+                        <th>Tanggal Daftar</th>
+                        <th>Telepon Rumah Sakit</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($rumahsakit as $key => $rs)
+                        <tr>
+                            <td>{{ $key + 1 }}</td>
+                            <td>{{ $rs->rs_nama }}</td>
+                            <td>{{ date('F j, Y', strtotime($rs->created_at)) }}</td>
+                            <td>{{ $rs->rs_telepon ?? 123 }}</td>
+                            <td>
+                                <a href="" class="btn btn-accent">Detail</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
 
-        <div class="w-[49%] ml-2 overflow-auto">
+        <div class="w-[49%] ml-2 overflow-auto shadow-lg">
             <form class="w-full" action="" method="POST">
                 @csrf
                 <div class="text">
@@ -105,7 +97,9 @@
                 </div>
             </form>
 
-            <form class="w-full max-w-lg" action="" method="POST">
+            <div class="divider mt-4"></div>
+
+            <form class="w-full mt-4" action="" method="POST">
                 @csrf
                 <div class="text">
                     Tambah Rumah Sakit
@@ -140,35 +134,20 @@
                 <div class="md:flex md:items-center">
                     <div class="md:w-1/4"></div>
                     <div class="w-full md:w-2/4 px-4 mb-6 md:mb-0">
-                        <button class="btn btn-outline btn-wide">Add Account</button>
+                        <button class="btn btn-outline btn-wide">Add Rumah Sakit</button>
                     </div>
                 </div>
             </form>
         </div>
-
     </div>
-
+    <div class="ml-2 overflow-auto shadow-lg relative">
+    </div>
     </div>
 @endsection
 
 <style>
     .initable {
         top: 100px;
-    }
-
-    .inidetailrumahsakit {
-        border-radius: 25px;
-        border: 1px solid #e0cdcd;
-        padding: 10px;
-    }
-
-    .inicreaterumahsakit {
-        border-radius: 25px;
-        position: absolute;
-        right: 100px;
-        border: 1px solid #e0cdcd;
-        padding: 10px;
-        top: 450px;
     }
 
     .text {
