@@ -14,7 +14,9 @@
                 <p class="text-2xl text-sky-600 mt-2">Mau Konsultasi Apa Hari Ini?</p>
                 <p class="text-1.5xl text-sky-600 mt-3">Bukan Pasien?</p>
                 <div class="flex flex-row mt-3 justify-between w-4/5">
+                    {{-- Menuju halaman login dokter --}}
                     <button class="btn btn-secondary w-2/5 max-w-md text-base-100">Saya Dokter</button>
+                    {{-- Menuju halaman login perawat --}}
                     <button class="btn bg-white btn-outline btn-secondary w-2/5 max-w-md text-base-100">Saya Perawat</button>
                 </div>
             </div>
