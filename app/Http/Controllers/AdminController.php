@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Dokter;
+use App\Models\Obat;
+use App\Models\Pasien;
 use App\Models\RumahSakit;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -11,16 +14,24 @@ class AdminController extends Controller
         return view('admin.homeadmin');
     }
     public function pasien(){
-        return view('admin.listpasien');
+        $pasien = Pasien::all();
+
+        return view('admin.listpasien', compact('pasien'));
     }
     public function rumahsakit(){
-        return view('admin.listrumahsakit');
+        $rumahsakit = RumahSakit::all();
+
+        return view('admin.listrumahsakit', compact('rumahsakit'));
     }
     public function dokter(){
-        return view('admin.listdokter');
+        $dokter = Dokter::all();
+
+        return view('admin.listdokter', compact('dokter'));
     }
     public function obat(){
-        return view('admin.listobat');
+        $obat = Obat::all();
+
+        return view('admin.listobat', compact('obat'));
     }
 
     //SELECT DATABASE MODEL
