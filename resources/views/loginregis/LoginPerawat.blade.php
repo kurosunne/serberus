@@ -39,7 +39,7 @@
                 @enderror
                 <button class="btn btn-secondary bg-base-100 btn-outline w-full max-w-md mt-8 text-base-100">Login</button>
                 <div class=" w-full max-w-md text-xl text-base-100 mt-6">Belum Membuat Akun ?</div>
-                <a href="{{route('register.indexpasien')}}" class="w-full max-w-md mt-2"><div class="btn btn-base-100 btn-outline w-full text-base-100">Register</div></a>
+                <a href="{{route('register.perawat')}}" class="w-full max-w-md mt-2"><div class="btn btn-base-100 btn-outline w-full text-base-100">Register</div></a>
             </form>
 
         </div>
