@@ -63,6 +63,7 @@ Route::prefix('admin')->controller(AdminController::class)->group(function(){
     Route::get('/dokter', 'dokter')->name('admin.dokter');
     Route::get('/obat', 'obat')->name('admin.obat');
     Route::get('/perawat','perawat')->name('admin.perawat');
+    Route::post('/addpasien','addpasien')->name('admin.addpasien');
 });
 
 

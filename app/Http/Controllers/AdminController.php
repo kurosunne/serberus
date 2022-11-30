@@ -42,4 +42,18 @@ class AdminController extends Controller
 
     //SEARCH FUNCTION
 
+
+    //ADD FUNCTION
+    public function addpasien(Request $req)
+    {
+        $pasien = new Pasien;
+        $pasien->ps_nama = $req->createnamapasien;
+        $pasien->ps_alamat = $req->createalamatpasien;
+        $pasien->ps_telp = $req->createteleponpasien;
+        $pasien->ps_email=$req->createemailpasien;
+        $pasien->ps_password='123';
+        $pasien->save();
+
+        return redirect()->route('admin.pasien');
+    }
 }

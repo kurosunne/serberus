@@ -35,6 +35,7 @@
                             <td>{{ $rs->rs_telepon ?? 123 }}</td>
                             <td>
                                 <a href="" class="btn btn-info">Detail</a>
+                                <a href="" class="btn btn-error">Ban</a>
                             </td>
                         </tr>
                     @endforeach
