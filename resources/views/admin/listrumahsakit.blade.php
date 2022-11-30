@@ -5,9 +5,18 @@
 @endsection
 
 @section('main')
+
+    <div class="p-[10px] w-full flex">
+        <input type="text" placeholder="Cari Nama Rumah Sakit" class="input input-bordered w-full max-w-xs"
+            name="searchrumahsakit" />
+        <div class="p-[2px]">
+            <a href="" class="btn btn-secondary">Search</a>
+        </div>
+    </div>
+
     <div class="p-[10px] w-full flex">
         <div class="w-[49%] overflow-auto h-96">
-            <table class="table w-full">
+            <table class="table w-full border-solid">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -25,7 +34,7 @@
                             <td>{{ date('F j, Y', strtotime($rs->created_at)) }}</td>
                             <td>{{ $rs->rs_telepon ?? 123 }}</td>
                             <td>
-                                <a href="" class="btn btn-accent">Detail</a>
+                                <a href="" class="btn btn-info">Detail</a>
                             </td>
                         </tr>
                     @endforeach
@@ -36,7 +45,7 @@
         <div class="w-[49%] ml-2 overflow-auto shadow-lg">
             <form class="w-full" action="" method="POST">
                 @csrf
-                <div class="text">
+                <div class="text-center font-bold">
                     Detail Rumah Sakit
                 </div>
                 <br>
@@ -101,7 +110,7 @@
 
             <form class="w-full mt-4" action="" method="POST">
                 @csrf
-                <div class="text">
+                <div class="text-center font-bold">
                     Tambah Rumah Sakit
                 </div>
                 <br>
@@ -144,14 +153,3 @@
     </div>
     </div>
 @endsection
-
-<style>
-    .initable {
-        top: 100px;
-    }
-
-    .text {
-        text-align: center;
-        font-weight: bold;
-    }
-</style>

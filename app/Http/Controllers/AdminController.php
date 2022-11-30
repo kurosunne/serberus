@@ -39,4 +39,7 @@ class AdminController extends Controller
 
         return view('admin.listobat', compact('obat'));
     }
+
+    //SEARCH FUNCTION
+
 }
