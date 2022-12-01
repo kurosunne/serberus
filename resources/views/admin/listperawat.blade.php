@@ -6,7 +6,8 @@
 
 @section('main')
     <div class="p-[10px] w-full flex">
-        <input type="text" placeholder="Cari Nama Perawat" class="input input-bordered w-full max-w-xs" name="searchperawat" />
+        <input type="text" placeholder="Cari Nama Perawat" class="input input-bordered w-full max-w-xs"
+            name="searchperawat" />
         <div class="p-[2px]">
             <a href="" class="btn btn-secondary">Search</a>
         </div>
@@ -30,6 +31,11 @@
                             <td>{{ $pr->pr_telp }}</td>
                             <td>
                                 <a href="" class="btn btn-info">Detail</a>
+                                @if ($pr->trashed())
+                                    <a href="{{ url("admin/deleteperawat/$pr->pr_id") }}" class="btn btn-success">Unban</a>
+                                @else
+                                    <a href="{{ url("admin/deleteperawat/$pr->pr_id") }}" class="btn btn-error">Ban</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

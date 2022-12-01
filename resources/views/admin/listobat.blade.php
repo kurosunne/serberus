@@ -28,7 +28,14 @@
                             <td>{{ $ob->ob_id }}</td>
                             <td>{{ $ob->ob_nama }}</td>
                             <td>{{ $ob->ob_jumlah }}</td>
-                            <td><a href="" class="btn btn-info">Detail</a></td>
+                            <td>
+                                <a href="" class="btn btn-info">Detail</a>
+                                @if ($ob->trashed())
+                                    <a href="{{ url("admin/deleteobat/$ob->ob_id") }}" class="btn btn-success">Unban</a>
+                                @else
+                                    <a href="{{ url("admin/deleteobat/$ob->ob_id") }}" class="btn btn-error">Ban</a>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -90,9 +97,6 @@
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-3">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <button class="btn btn-error btn-wide">Delete obat</button>
-                    </div>
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <button class="btn btn-outline btn-wide">Edit obat</button>
                     </div>
                 </div>
@@ -133,27 +137,12 @@
                             id="grid-email" type="text" name="createteleponobat">
                     </div>
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-status">
-                            Tipe
-                        </label>
-                        <div class="flex">
-                            <div class="flex items-center mr-4">
-                                <input type="radio" name="tipeobat" class="radio" />
-                                <label for="inline-radio"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">obat</label>
-                            </div>
-                            <div class="flex items-center mr-4">
-                                <input type="radio" name="tipeobat" class="radio" />
-                                <label for="inline-radio"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">obat</label>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="md:flex md:items-center">
                     <div class="md:w-1/4"></div>
                     <div class="w-full md:w-2/4 px-4 mb-6 md:mb-0">
-                        <button class="btn btn-outline btn-wide">Add Account</button>
+                        <button class="btn btn-outline btn-wide">Add Obat</button>
                     </div>
                 </div>
             </form>

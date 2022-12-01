@@ -34,6 +34,11 @@
                             <td>{{ $ps->ps_telp }}</td>
                             <td>
                                 <a href="" class="btn btn-info">Detail</a>
+                                @if ($ps->trashed())
+                                    <a href="{{ url("admin/deletepasien/$ps->ps_id") }}" class="btn btn-success">Unban</a>
+                                @else
+                                    <a href="{{ url("admin/deletepasien/$ps->ps_id") }}" class="btn btn-error">Ban</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -95,9 +100,6 @@
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-3">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <button class="btn btn-error btn-wide">Delete Pasien</button>
-                    </div>
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <button class="btn btn-outline btn-wide">Edit Pasien</button>
                     </div>
                 </div>
@@ -106,7 +108,7 @@
 
             <div class="divider mt-4"></div>
 
-            <form class="w-full" action="{{url('admin/addpasien')}}" method="POST">
+            <form class="w-full" action="{{ url('admin/addpasien') }}" method="POST">
                 @csrf
                 <div class="text-center font-bold">
                     Tambah pasien

@@ -32,6 +32,11 @@
                             <td>{{ $dk->dk_telp }}</td>
                             <td>
                                 <a href="" class="btn btn-info">Detail</a>
+                                @if ($dk->trashed())
+                                    <a href="{{ url("admin/deletedokter/$dk->dk_id") }}" class="btn btn-success">Unban</a>
+                                @else
+                                    <a href="{{ url("admin/deletedokter/$dk->dk_id") }}" class="btn btn-error">Ban</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

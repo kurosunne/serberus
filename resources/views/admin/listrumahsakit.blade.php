@@ -5,7 +5,6 @@
 @endsection
 
 @section('main')
-
     <div class="p-[10px] w-full flex">
         <input type="text" placeholder="Cari Nama Rumah Sakit" class="input input-bordered w-full max-w-xs"
             name="searchrumahsakit" />
@@ -35,7 +34,11 @@
                             <td>{{ $rs->rs_telepon ?? 123 }}</td>
                             <td>
                                 <a href="" class="btn btn-info">Detail</a>
-                                <a href="" class="btn btn-error">Ban</a>
+                                @if ($rs->trashed())
+                                    <a href="{{ url("admin/deleterumahsakit/$rs->rs_id") }}" class="btn btn-success">Unban</a>
+                                @else
+                                    <a href="{{ url("admin/deleterumahsakit/$rs->rs_id") }}" class="btn btn-error">Ban</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -99,9 +102,6 @@
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-3">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <button class="btn btn-error btn-wide">Delete Rumah Sakit</button>
-                    </div>
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <button class="btn btn-outline btn-wide">Edit Rumah Sakit</button>
                     </div>
                 </div>
@@ -142,8 +142,7 @@
                     </div>
                 </div>
                 <div class="md:flex md:items-center">
-                    <div class="md:w-1/4"></div>
-                    <div class="w-full md:w-2/4 px-4 mb-6 md:mb-0">
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <button class="btn btn-outline btn-wide">Add Rumah Sakit</button>
                     </div>
                 </div>

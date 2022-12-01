@@ -63,7 +63,16 @@ Route::prefix('admin')->controller(AdminController::class)->group(function(){
     Route::get('/dokter', 'dokter')->name('admin.dokter');
     Route::get('/obat', 'obat')->name('admin.obat');
     Route::get('/perawat','perawat')->name('admin.perawat');
+
+    //ROUTE CREATE
     Route::post('/addpasien','addpasien')->name('admin.addpasien');
+
+    //ROUTE DELETE
+    Route::get('/deletepasien/{ps_id}','deletepasien')->name('admin.deletepasien');
+    Route::get('/deleterumahsakit/{rs_id}','deleterumahsakit')->name('admin.deleterumahsakit');
+    Route::get('/deletedokter/{dk_id}','deletedokter')->name('admin.deletedokter');
+    Route::get('/deleteperawat/{pr_id}','deleteperawat')->name('admin.deleteperawat');
+    Route::get('/deleteobat/{ob_id}','deleteobat')->name('admin.deleteobat');
 });
 
 

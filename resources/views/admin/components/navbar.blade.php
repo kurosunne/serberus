@@ -10,7 +10,6 @@
       </div>
       <div class=" flex flex-wrap w-1/4  items-center justify-center">
         <img src='{{url('image/serberus.png')}}' alt="ini image serberus" srcset="" width="60" height="60">
-      <div class=" text-base text-center text-secondary text-[13px]"> Serberus <br>Sehat Bersama Terus</div>
       </div>
     </div>
     <div class="navbar-center hidden lg:flex">
