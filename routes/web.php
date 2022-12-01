@@ -48,11 +48,12 @@ Route::prefix('register')->controller(AuthController::class)->group(function ()
 //pasien
 Route::prefix('pasien')->controller(PasienController::class)->group(function(){
     Route::get('/', 'indexHome')->name('pasien.home');
-    Route::get('/janji', 'indexHome')->name('pasien.janji');
-    Route::get('/histori', 'indexHome')->name('pasien.rumahsakit');
-    Route::get('/konsultasi', 'indexHome')->name('pasien.dokter');
-    Route::get('/obat', 'indexHome')->name('pasien.obat');
-    Route::get('/perawat','indexHome')->name('pasien.perawat');
+    Route::get('/janji', 'indexJanji')->name('pasien.janji');
+    Route::get('/historitemu', 'indexHistoritemu')->name('pasien.historitemu');
+    Route::get('/historiobat', 'indexHistoriobat')->name('pasien.historiobat');
+    Route::get('/konsultasi', 'indexKonsultasi')->name('pasien.dokter');
+    Route::get('/obat', 'indexObat')->name('pasien.obat');
+    Route::get('/perawat','index')->name('pasien.perawat');
 });
 
 //admin

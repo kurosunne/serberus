@@ -12,10 +12,15 @@ class PasienController extends Controller
         # code...
         return view('pasien.home');
     }
-    public function indexRiwayat(Request $req)
+    public function indexRiwayattemu(Request $req)
     {
         # code...
-        return view('pasien.histori');
+        return view('pasien.historitemu');
+    }
+    public function indexRiwayatobat(Request $req)
+    {
+        # code...
+        return view('pasien.historiobat');
     }
     public function indexJanji(Request $req)
     {
