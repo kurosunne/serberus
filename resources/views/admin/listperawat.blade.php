@@ -19,6 +19,7 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama Perawat</th>
+                        <th>Tanggal Daftar</th>
                         <th>No. Telp</th>
                         <th>Action</th>
                     </tr>
@@ -28,6 +29,7 @@
                         <tr>
                             <td>{{ $pr->pr_id }}</td>
                             <td>{{ $pr->pr_nama }}</td>
+                            <td>{{ date('F j, Y', strtotime($pr->created_at)) }}</td>
                             <td>{{ $pr->pr_telp }}</td>
                             <td>
                                 <a href="" class="btn btn-info">Detail</a>
@@ -98,9 +100,6 @@
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-3">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <button class="btn btn-error btn-wide">Delete Perawat</button>
-                    </div>
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <button class="btn btn-outline btn-wide">Edit Perawat</button>
                     </div>
                 </div>
@@ -109,7 +108,7 @@
 
             <div class="divider mt-4"></div>
 
-            <form class="w-full" action="" method="POST">
+            <form class="w-full" action="{{route('admin.addperawat')}}" method="POST">
                 @csrf
                 <div class="text-center font-bold">
                     Tambah Perawat
@@ -130,7 +129,7 @@
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-email" type="text" name="createalamatperawat">
+                            id="grid-email" type="text" name="createemailperawat">
                     </div>
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
@@ -141,26 +140,24 @@
                             id="grid-email" type="text" name="createteleponperawat">
                     </div>
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-status">
-                            Tipe
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
+                            Rumah Sakit
                         </label>
-                        <div class="flex">
-                            <div class="flex items-center mr-4">
-                                <input type="radio" name="tipeperawat" class="radio" />
-                                <label for="inline-radio"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">perawat</label>
-                            </div>
-                            <div class="flex items-center mr-4">
-                                <input type="radio" name="tipeperawat" class="radio" />
-                                <label for="inline-radio"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Perawat</label>
-                            </div>
-                        </div>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="grid-email" type="text" name="createrumahsakitperawat">
+                    </div>
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
+                            Password
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="grid-email" type="password" name="createpasswordperawat">
                     </div>
                 </div>
-                <div class="md:flex md:items-center">
-                    <div class="md:w-1/4"></div>
-                    <div class="w-full md:w-2/4 px-4 mb-6 md:mb-0">
+                <div class="flex flex-wrap -mx-3 mb-3">
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <button class="btn btn-outline btn-wide">Add Account</button>
                     </div>
                 </div>

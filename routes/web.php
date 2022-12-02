@@ -67,6 +67,9 @@ Route::prefix('admin')->controller(AdminController::class)->group(function(){
 
     //ROUTE CREATE
     Route::post('/addpasien','addpasien')->name('admin.addpasien');
+    Route::post('/addperawat','addperawat')->name('admin.addperawat');
+    Route::post('/addrumahsakit','addrumahsakit')->name('admin.addrumahsakit');
+    Route::post('/adddokter', 'adddokter')->name('admin.adddokter');
 
     //ROUTE DELETE
     Route::get('/deletepasien/{ps_id}','deletepasien')->name('admin.deletepasien');

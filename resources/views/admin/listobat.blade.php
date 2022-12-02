@@ -18,6 +18,7 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama Obat</th>
+                        <td>Ditambahkan Pada</td>
                         <th>Jumlah</th>
                         <th>Action</th>
                     </tr>
@@ -27,6 +28,7 @@
                         <tr>
                             <td>{{ $ob->ob_id }}</td>
                             <td>{{ $ob->ob_nama }}</td>
+                            <td>{{ date('F j, Y', strtotime($ob->created_at)) }}</td>
                             <td>{{ $ob->ob_jumlah }}</td>
                             <td>
                                 <a href="" class="btn btn-info">Detail</a>
@@ -114,7 +116,7 @@
                 <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-nama">
-                            Nama
+                            Nama Obat
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -122,7 +124,7 @@
                     </div>
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
-                            Email
+                            Harga
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -130,7 +132,7 @@
                     </div>
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
-                            Telepon
+                            Jumlah
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -139,9 +141,8 @@
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                     </div>
                 </div>
-                <div class="md:flex md:items-center">
-                    <div class="md:w-1/4"></div>
-                    <div class="w-full md:w-2/4 px-4 mb-6 md:mb-0">
+                <div class="flex flex-wrap -mx-3 mb-3">
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <button class="btn btn-outline btn-wide">Add Obat</button>
                     </div>
                 </div>

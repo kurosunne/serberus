@@ -59,10 +59,49 @@ class AdminController extends Controller
         $pasien->ps_alamat = $req->createalamatpasien;
         $pasien->ps_telp = $req->createteleponpasien;
         $pasien->ps_email=$req->createemailpasien;
-        $pasien->ps_password=Hash::make('123');
+        $pasien->ps_password=Hash::make($req->createpasswordpasien);
         $pasien->save();
 
         return redirect()->route('admin.pasien');
+    }
+
+    public function addrumahsakit(Request $req)
+    {
+        $rs = new RumahSakit;
+        $rs->rs_nama = $req->createnamarumahsakit;
+        $rs->rs_telp = $req->createteleponrumahsakit;
+        $rs->rs_alamat = $req->createalamatrumahsakit;
+        $rs->save();
+
+        return redirect()->route('admin.rumahsakit');
+    }
+
+    public function adddokter(Request $req)
+    {
+        $dk = new Dokter;
+        $dk->dk_nama = $req->createnamadokter;
+        $dk->dk_telp = $req->createtelepondokter;
+        $dk->dk_email = $req->createemaildokter;
+        $dk->dk_password=Hash::make($req->createpassworddokter);
+        //TAK KASIK 1 DULU BUAT TESTING DULU
+        $dk->rs_id='1';
+        $dk->sp_id= $req->createspesialisdokter;
+        $dk->save();
+
+        return redirect()->route('admin.dokter');
+    }
+
+    public function addperawat(Request $req)
+    {
+        $pr = new Perawat;
+        $pr->pr_nama = $req->createnamaperawat;
+        $pr->pr_telp = $req->createteleponperawat;
+        $pr->pr_email = $req->createemailperawat;
+        $pr->pr_password= Hash::make($req->createpasswordperawat);
+        $pr->rs_id='1';
+        $pr->save();
+
+        return redirect()->route('admin.perawat');
     }
 
     //SOFTDELETE FUNCTION

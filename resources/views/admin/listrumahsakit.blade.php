@@ -20,6 +20,7 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama Rumah Sakit</th>
+                        <th>Alamat Rumah Sakit</th>
                         <th>Tanggal Daftar</th>
                         <th>Telepon Rumah Sakit</th>
                         <th>Action</th>
@@ -30,8 +31,9 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $rs->rs_nama }}</td>
+                            <td>{{ $rs->rs_alamat }}</td>
                             <td>{{ date('F j, Y', strtotime($rs->created_at)) }}</td>
-                            <td>{{ $rs->rs_telepon ?? 123 }}</td>
+                            <td>{{ $rs->rs_telp }}</td>
                             <td>
                                 <a href="" class="btn btn-info">Detail</a>
                                 @if ($rs->trashed())
@@ -102,14 +104,14 @@
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-3">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <button class="btn btn-outline btn-wide">Edit Rumah Sakit</button>
+                        <button class="btn btn-outline btn-wide btn-secondary">Edit Rumah Sakit</button>
                     </div>
                 </div>
             </form>
 
             <div class="divider mt-4"></div>
 
-            <form class="w-full mt-4" action="" method="POST">
+            <form class="w-full mt-4" action="{{route('admin.addrumahsakit')}}" method="POST">
                 @csrf
                 <div class="text-center font-bold">
                     Tambah Rumah Sakit
@@ -141,9 +143,9 @@
                             id="grid-email" type="text" name="createteleponrumahsakit">
                     </div>
                 </div>
-                <div class="md:flex md:items-center">
+                <div class="flex flex-wrap -mx-3 mb-3">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <button class="btn btn-outline btn-wide">Add Rumah Sakit</button>
+                        <button class="btn btn-outline btn-wide btn-secondary">Add Rumah Sakit</button>
                     </div>
                 </div>
             </form>

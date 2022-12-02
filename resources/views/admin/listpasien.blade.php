@@ -18,6 +18,7 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama Pasien</th>
+                        <th>Tanggal Daftar</th>
                         <th>Email Pasien</th>
                         <th>Alamat</th>
                         <th>No Telp</th>
@@ -29,6 +30,7 @@
                         <tr>
                             <td>{{ $ps->ps_id }}</td>
                             <td>{{ $ps->ps_nama }}</td>
+                            <td>{{ date('F j, Y', strtotime($ps->created_at)) }}</td>
                             <td>{{ $ps->ps_email }}</td>
                             <td>{{ $ps->ps_alamat }}</td>
                             <td>{{ $ps->ps_telp }}</td>
@@ -108,7 +110,7 @@
 
             <div class="divider mt-4"></div>
 
-            <form class="w-full" action="{{ url('admin/addpasien') }}" method="POST">
+            <form class="w-full" action="{{route('admin.addpasien')}}" method="POST">
                 @csrf
                 <div class="text-center font-bold">
                     Tambah pasien
@@ -137,7 +139,7 @@
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-email" type="text" name="createteleponpasien">
+                            id="grid-email" name="createteleponpasien" type="tel">
                     </div>
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-status">
@@ -147,10 +149,17 @@
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-email" type="text" name="createalamatpasien">
                     </div>
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
+                            Password
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="grid-email" type="password" name="createpasswordpasien">
+                    </div>
                 </div>
-                <div class="md:flex md:items-center">
-                    <div class="md:w-1/4"></div>
-                    <div class="w-full md:w-2/4 px-4 mb-6 md:mb-0">
+                <div class="flex flex-wrap -mx-3 mb-3">
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <button class="btn btn-outline btn-wide">Add Account</button>
                     </div>
                 </div>
