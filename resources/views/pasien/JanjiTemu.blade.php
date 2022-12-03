@@ -9,8 +9,8 @@
                 <div class="w-full h-full flex items-center">
                     <div class=" w-1/4 max-w-md text-xl text-primary">Filter Dengan</div>
                     <select name="rs" id="rs" class="input input-bordered input-primary w-1/4 h-5/6 max-w-md mt-2">
-                        <option value="dumi">dumi</option>
-                        <option value="dumi">dumi</option>
+                        <option value="dumi">Dokter</option>
+                        <option value="dumi">Perawat</option>
                     </select>
                     @error('rs')
                         <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
@@ -20,8 +20,9 @@
             <div class="h-full w-1/2 flex flex-row items-center justify-end">
                 <div class="max-w-md text-xl text-primary w-1/4">Sortir Dengan</div>
                 <select name="rs" id="rs" class="input input-bordered input-primary h-5/6 max-w-md mt-2 w-1/4">
-                    <option value="dumi">dumi</option>
-                    <option value="dumi">dumi</option>
+                    <option value="dumi">Alfabetikal A-Z</option>
+                    <option value="dumi">Alfabetikal Z-A</option>
+                    <option value="dumi">Tanggal</option>
                 </select>
                 @error('rs')
                     <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
