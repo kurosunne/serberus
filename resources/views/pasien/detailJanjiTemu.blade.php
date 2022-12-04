@@ -72,6 +72,7 @@
                             </p>
                         </div>
                         <div class="">
+                            {{-- bisa dibuat bentuk lain formatnya --}}
                             <div class="text-start text-lg font-sans flex flex-row">
                                 <div class="w-3/6 h-5/6">
                                         Hari <br>
@@ -92,19 +93,23 @@
                         <form method="POST" class="h-full w-[49%]  rounded-[15px] ml-6 border-black p-3" style="border: 4px solid #FFB034">
                             @csrf
                             <p class="text-lg font-bold text-center">Buat Janji Temu</p>
-                            <div class=" w-full text-sm mt-3">Username</div>
-                            <input type="text" name="username" value="{{ old('username') }}" placeholder="Username"
+                            <div class=" w-full text-sm mt-3">Pilih Tanggal</div>
+                            <input type="date" name="tanggal" value="{{ old('tanggal') }}" placeholder="pilih tanggal"
                                 class="input input-bordered input-primary w-full max-w-md mt-2" />
                             @error('username')
                                 <div class=" w-full text-xl text-error mt-2">{{ $message }}</div>
                             @enderror
-                            <div class=" w-full max-w-md text-sm mt-3">Password</div>
-                            <input type="password" name="password" placeholder="Password"
-                                class="input input-bordered input-primary w-full max-w-md mt-2" />
+                            <div class=" w-full max-w-md text-sm mt-3">Pilih Jam</div>
+                            {{-- sesuai dengan dokter ngesetting apa saja yang aktif --}}
+                            <select name="jam" id="jam"
+                                class="input input-bordered input-primary w-full max-w-md mt-2">
+                                <option value="10:00">10:00-12:00</option>
+                                <option value="12:00">12:00-14:00</option>
+                            </select>
                             @error('password')
                                 <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
                             @enderror
-                            <button class="btn btn-primary bg-base-100 btn-outline w-full max-w-md mt-3 text-base-100">Login</button>
+                            <button class="btn btn-primary w-full max-w-md mt-8 text-base-100">Buat Janji</button>
                         </form>
                 </div>
                 <div class="h-[50%] w-full  mt-6 rounded-[15px] border-black" style="border: 4px solid #FFB034">
