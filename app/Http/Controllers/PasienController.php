@@ -27,6 +27,11 @@ class PasienController extends Controller
         # code...
         return view('pasien.JanjiTemu');
     }
+    public function indexDetailJanji(Request $req)
+    {
+        # code...
+        return view('pasien.detailJanjiTemu');
+    }
     public function indexObat(Request $req)
     {
         # code...

@@ -49,6 +49,7 @@ Route::prefix('register')->controller(AuthController::class)->group(function ()
 Route::prefix('pasien')->controller(PasienController::class)->group(function(){
     Route::get('/', 'indexHome')->name('pasien.home');
     Route::get('/janji', 'indexJanji')->name('pasien.janji');
+    Route::get('/detailjanji', 'indexDetailJanji')->name('pasien.detailjanji');
     Route::get('/historitemu', 'indexRiwayattemu')->name('pasien.historitemu');
     Route::get('/historiobat', 'indexRiwayatobat')->name('pasien.historiobat');
     Route::get('/konsultasi', 'indexKonsultasi')->name('pasien.dokter');
