@@ -474,11 +474,105 @@
                 </div>
             </div>
             <div class="h-full w-2/6 ml-3">
-                <div class="w-full h-3/6 rounded-[15px]" style="border: 4px solid #FFB034">
-
+                <div class="w-full h-3/6 rounded-[15px] flex flex-col items-center p-3" style="border: 4px solid #FFB034">
+                    <div class="w-full h-[15%] flex">
+                        <div class="h-full w-1/2 flex items-center justify-start">
+                            <p class="font-bold font-lg">Riwayat Konsultasi</p>
+                        </div>
+                        <div class="h-full w-1/2 flex items-center justify-end">
+                            {{-- route menuju riwayat --}}
+                            <p class="font-bold font-lg text-secondary">See More...</p>
+                        </div>
+                    </div>
+                    {{-- card --}}
+                    <div class="w-full h-[25%] bg-secondary mt-3 flex p-2">
+                        <div class="h-full w-[20%]">
+                            <img src="{{url("image/avatar.jpg")}}" alt="" class="rounded-full">
+                        </div>
+                        <div class="h-full w-[50%] flex-col items-start justify-start mx-3">
+                            <p class="text-lg font-bold mt-3">Dr. Mister Doktor</p>
+                            <p class="text-sm mb-3">Tanggal Konsultasi 12/20/2022</p>
+                        </div>
+                        <div class="h-full w-[20%] flex flex-col item-center justify-center">
+                            <div class="btn btn-success">Detail</div>
+                        </div>
+                    </div>
+                    {{-- card --}}
+                    <div class="w-full h-[25%] bg-secondary mt-3 flex p-2">
+                        <div class="h-full w-[20%]">
+                            <img src="{{url("image/avatar.jpg")}}" alt="" class="rounded-full">
+                        </div>
+                        <div class="h-full w-[50%] flex-col items-start justify-start mx-3">
+                            <p class="text-lg font-bold mt-3">Dr. Mister Doktor</p>
+                            <p class="text-sm mb-3">Tanggal Konsultasi 12/20/2022</p>
+                        </div>
+                        <div class="h-full w-[20%] flex flex-col item-center justify-center">
+                            <div class="btn btn-success">Detail</div>
+                        </div>
+                    </div>
+                    {{-- card --}}
+                    <div class="w-full h-[25%] bg-secondary mt-3 flex p-2">
+                        <div class="h-full w-[20%]">
+                            <img src="{{url("image/avatar.jpg")}}" alt="" class="rounded-full">
+                        </div>
+                        <div class="h-full w-[50%] flex-col items-start justify-start mx-3">
+                            <p class="text-lg font-bold mt-3">Dr. Mister Doktor</p>
+                            <p class="text-sm mb-3">Tanggal Konsultasi 12/20/2022</p>
+                        </div>
+                        <div class="h-full w-[20%] flex flex-col item-center justify-center">
+                            <div class="btn btn-success">Detail</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="w-full h-3/6 rounded-[15px] mt-6" style="border: 4px solid #FFB034">
-
+                <div class="w-full h-3/6 rounded-[15px] flex flex-col items-center p-3 mt-6" style="border: 4px solid #FFB034">
+                    <div class="w-full h-[15%] flex">
+                        <div class="h-full w-1/2 flex items-center justify-start">
+                            <p class="font-bold font-lg">Riwayat Transaksi Obat</p>
+                        </div>
+                        <div class="h-full w-1/2 flex items-center justify-end">
+                            {{-- route menuju riwayat --}}
+                            <p class="font-bold font-lg text-secondary">See More...</p>
+                        </div>
+                    </div>
+                    {{-- card --}}
+                    <div class="w-full h-[25%] bg-secondary mt-3 flex p-2">
+                        <div class="h-full w-[20%]">
+                            <img src="{{url("image/obat.png")}}" alt="obat" class="rounded-full object-contain object-center w-5/6 h-full">
+                        </div>
+                        <div class="h-full w-[50%] flex-col items-start justify-start mx-3">
+                            <p class="text-lg font-bold mt-3">Panadol RGB</p>
+                            <p class="text-sm mb-3">Tanggal Beli 12/20/2022</p>
+                        </div>
+                        <div class="h-full w-[20%] flex flex-col item-center justify-center">
+                            <div class="btn btn-success">Detail</div>
+                        </div>
+                    </div>
+                                        {{-- card --}}
+                                        <div class="w-full h-[25%] bg-secondary mt-3 flex p-2">
+                                            <div class="h-full w-[20%]">
+                                                <img src="{{url("image/obat.png")}}" alt="obat" class="rounded-full object-contain object-center w-5/6 h-full">
+                                            </div>
+                                            <div class="h-full w-[50%] flex-col items-start justify-start mx-3">
+                                                <p class="text-lg font-bold mt-3">Panadol RGB</p>
+                                                <p class="text-sm mb-3">Tanggal Beli 12/20/2022</p>
+                                            </div>
+                                            <div class="h-full w-[20%] flex flex-col item-center justify-center">
+                                                <div class="btn btn-success">Detail</div>
+                                            </div>
+                                        </div>
+                                                            {{-- card --}}
+                    <div class="w-full h-[25%] bg-secondary mt-3 flex p-2">
+                        <div class="h-full w-[20%]">
+                            <img src="{{url("image/obat.png")}}" alt="obat" class="rounded-full object-contain object-center w-5/6 h-full">
+                        </div>
+                        <div class="h-full w-[50%] flex-col items-start justify-start mx-3">
+                            <p class="text-lg font-bold mt-3">Panadol RGB</p>
+                            <p class="text-sm mb-3">Tanggal Beli 12/20/2022</p>
+                        </div>
+                        <div class="h-full w-[20%] flex flex-col item-center justify-center">
+                            <div class="btn btn-success">Detail</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
