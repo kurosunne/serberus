@@ -17,7 +17,7 @@
                     {{-- Menuju halaman login pasien --}}
                     <a href="{{route('login.indexpasien')}}" class=" w-2/5 max-w-md "><button class="btn btn-secondary w-full max-w-md text-base-100">Saya Pasien</button></a>
                     {{-- Menuju halaman login perawat --}}
-                    <a href="{{route('login.perawat')}}" class=" w-2/5 max-w-md "><button class="btn bg-white btn-outline btn-secondary w-full max-w-md text-base-100">Saya Perawat</button></a>
+                    <a href="{{route('login.indexperawat')}}" class=" w-2/5 max-w-md "><button class="btn bg-white btn-outline btn-secondary w-full max-w-md text-base-100">Saya Perawat</button></a>
                 </div>
             </div>
 
@@ -25,10 +25,10 @@
             <form method="POST" class="h-full w-1/2 bg-secondary rounded-tr-lg rounded-br-lg flex flex-col items-center">
                 @csrf
                 <p class="text-3xl font-bold text-base-100 mt-10">Login Account</p>
-                <div class=" w-full max-w-md text-xl text-base-100 mt-6">Username</div>
-                <input type="text" name="username" value="{{ old('username') }}" placeholder="Username"
+                <div class=" w-full max-w-md text-xl text-base-100 mt-6">Email</div>
+                <input type="email" name="email" value="{{ old('email') }}" placeholder="Dokter@gmail.com"
                     class="input input-bordered input-base-100 w-full max-w-md mt-2" />
-                @error('username')
+                @error('email')
                     <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
                 @enderror
                 <div class=" w-full max-w-md text-xl text-base-100 mt-6">Password</div>

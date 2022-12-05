@@ -33,7 +33,7 @@ class AuthController extends Controller
                     'email' => $user->email,
                     'role' => 'pasien'
                 ]);
-                return redirect()->route('');
+                return redirect()->route('pasien.home');
             }
             else{
                 return back()->with('err', 'Password tidak sesuai');
