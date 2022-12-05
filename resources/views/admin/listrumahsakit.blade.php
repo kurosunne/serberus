@@ -18,12 +18,12 @@
             <table class="table w-full border-solid">
                 <thead>
                     <tr>
-                        <th>No.</th>
-                        <th>Nama Rumah Sakit</th>
-                        <th>Alamat Rumah Sakit</th>
-                        <th>Tanggal Daftar</th>
-                        <th>Telepon Rumah Sakit</th>
-                        <th>Action</th>
+                        <th class="bg-accent">No.</th>
+                        <th class="bg-accent">Nama Rumah Sakit</th>
+                        <th class="bg-accent">Alamat Rumah Sakit</th>
+                        <th class="bg-accent">Tanggal Daftar</th>
+                        <th class="bg-accent">Telepon Rumah Sakit</th>
+                        <th class="bg-accent">Action</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -16,12 +16,12 @@
             <table class="table w-full">
                 <thead>
                     <tr>
-                        <th>No.</th>
-                        <th>Nama Dokter</th>
-                        <th>Tanggal Daftar</th>
-                        <th>Email Dokter</th>
-                        <th>No. Telpon</th>
-                        <th>Action</th>
+                        <th class="bg-accent">No.</th>
+                        <th class="bg-accent">Nama Dokter</th>
+                        <th class="bg-accent">Tanggal Daftar</th>
+                        <th class="bg-accent">Email Dokter</th>
+                        <th class="bg-accent">No. Telpon</th>
+                        <th class="bg-accent">Action</th>
                     </tr>
                 </thead>
                 <tbody>

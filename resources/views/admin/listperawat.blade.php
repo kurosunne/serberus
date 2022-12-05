@@ -17,11 +17,11 @@
             <table class="table w-full">
                 <thead>
                     <tr>
-                        <th>No.</th>
-                        <th>Nama Perawat</th>
-                        <th>Tanggal Daftar</th>
-                        <th>No. Telp</th>
-                        <th>Action</th>
+                        <th class="bg-accent">No.</th>
+                        <th class="bg-accent">Nama Perawat</th>
+                        <th class="bg-accent">Tanggal Daftar</th>
+                        <th class="bg-accent">No. Telp</th>
+                        <th class="bg-accent">Action</th>
                     </tr>
                 </thead>
                 <tbody>

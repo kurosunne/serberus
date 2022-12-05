@@ -16,11 +16,11 @@
             <table class="table w-full">
                 <thead>
                     <tr>
-                        <th>No.</th>
-                        <th>Nama Obat</th>
-                        <td>Ditambahkan Pada</td>
-                        <th>Jumlah</th>
-                        <th>Action</th>
+                        <th class="bg-accent">No.</th>
+                        <th class="bg-accent">Nama Obat</th>
+                        <th class="bg-accent">Ditambahkan Pada</th>
+                        <th class="bg-accent">Jumlah</th>
+                        <th class="bg-accent">Action</th>
                     </tr>
                 </thead>
                 <tbody>
