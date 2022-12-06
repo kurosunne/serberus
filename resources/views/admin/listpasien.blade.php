@@ -6,14 +6,14 @@
 
 @section('main')
     <div class="p-[10px] w-full flex">
-        <input type="text" placeholder="Cari Nama Pasien" class="input input-bordered w-full max-w-xs" name="searchpasien" />
+        <input type="text" placeholder="Cari Nama Pasien" class="input input-bordered w-full max-w-lg" name="searchpasien" />
         <div class="p-[2px]">
-            <a href="" class="btn btn-secondary">Search</a>
+            <a href="" class="btn btn-secondary ml-2">Search</a>
         </div>
     </div>
     <div class="p-[10px] w-full flex">
-        <div class="w-[49%] overflow-auto h-96">
-            <table class="table w-full">
+        <div class="w-[60%] overflow-auto h-full">
+            <table class="table w-full border-solid">
                 <thead>
                     <tr>
                         <th class="bg-accent">No.</th>
@@ -35,7 +35,11 @@
                             <td>{{ $ps->ps_alamat }}</td>
                             <td>{{ $ps->ps_telp }}</td>
                             <td>
+                                @if($ps->trashed())
                                 <a href="" class="btn btn-info">Detail</a>
+                                @else
+                                <a href="" class="btn btn-info"> Detail</a>
+                                @endif
                                 @if ($ps->trashed())
                                     <a href="{{ url("admin/deletepasien/$ps->ps_id") }}" class="btn btn-success">Unban</a>
                                 @else

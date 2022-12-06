@@ -68,7 +68,7 @@ class AuthController extends Controller
                 'email' => $req->email,
                 'role' => 'perawat'
             ]);
-            return redirect()->route('');
+            return redirect()->route('perawat.home');
         } else {
             return back()->with('msg', 'Password tidak sesuai');
         }
@@ -83,7 +83,7 @@ class AuthController extends Controller
     public function loginDokter(Request $req)
     {
         $req->validate([
-            'email' => 'required|exists:dokter,dr_email',
+            'email' => 'required|exists:dokter,dk_email',
             'password' => 'required',
         ]);
 
@@ -98,7 +98,7 @@ class AuthController extends Controller
                 'email' => $req->email,
                 'role' => 'dokter'
             ]);
-            return redirect()->route('');
+            return redirect()->route('dokter.home');
         } else {
             return back()->with('msg', 'Password tidak sesuai');
         }

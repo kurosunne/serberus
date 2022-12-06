@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasienController;
+use App\Http\Controllers\PerawatController;
+use App\Http\Controllers\DokterController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -33,8 +35,8 @@ Route::prefix('login')->controller(AuthController::class)->group(function ()
     Route::get('/dokter', 'indexDokter')->name('login.indexdokter')->middleware('cek.login:auth');
     Route::post('/dokter', 'loginDokter')->name('login.dokter')->middleware('cek.login:auth');
 
-    Route::get('/admin', 'indexAdmin')->name('login.indexdokter')->middleware('cek.login:auth');
-    Route::post('/admin', 'loginAdmin')->name('login.dokter')->middleware('cek.login:auth');
+    Route::get('/admin', 'indexAdmin')->name('login.indexadmin')->middleware('cek.login:auth');
+    Route::post('/admin', 'loginAdmin')->name('login.admin')->middleware('cek.login:auth');
 });
 
 Route::prefix('register')->controller(AuthController::class)->group(function ()
@@ -70,6 +72,28 @@ Route::prefix('pasien')->controller(PasienController::class)->group(function(){
     Route::get('/obat/{page}', 'indexObat')->name('pasien.obat')->middleware('cek.login:pasien');
 
     Route::get('/perawat','index')->name('pasien.perawat')->middleware('cek.login:pasien');
+});
+
+//perawat
+Route::prefix('perawat')->controller(PerawatController::class)->group(function(){
+    Route::get('/', 'indexHome')->name('perawat.home')->middleware('cek.login:perawat');
+
+    Route::get('/janji', 'indexJanji')->name('perawat.janji')->middleware('cek.login:perawat');
+
+    Route::get('/konsultasi', 'indexKonsultasi')->name('perawat.konsultasi')->middleware('cek.login:perawat');
+
+    Route::get('/riwayat', 'indexRiwayat')->name('perawat.riwayat')->middleware('cek.login:perawat');
+});
+
+//dokter
+Route::prefix('dokter')->controller(DokterController::class)->group(function(){
+    Route::get('/', 'indexHome')->name('dokter.home');
+
+    Route::get('/janji', 'indexJanji')->name('dokter.janji');
+
+    Route::get('/konsultasi', 'indexKonsultasi')->name('dokter.konsultasi');
+
+    Route::get('/riwayat', 'indexRiwayat')->name('dokter.riwayat');
 });
 
 //admin

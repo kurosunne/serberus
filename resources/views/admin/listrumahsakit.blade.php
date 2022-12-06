@@ -108,7 +108,6 @@
                 </div>
             </form>
 
-            <div class="divider mt-12"></div>
 
             <form class="w-full mt-12" action="{{ route('admin.addrumahsakit') }}" method="POST">
                 @csrf
