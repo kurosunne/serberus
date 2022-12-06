@@ -22,6 +22,6 @@
                 <img src='{{ url('image/avatar.jpg') }}' alt="ini image avatar" srcset="" class="h-24 w-24">
             </div>
         </div>
-        <a class="btn btn-outline bg-accent w-20 h-5 p-0">Logout</a>
+        <a class="btn btn-outline bg-error w-20 h-5 p-0" href="{{route('logout')}}">Logout</a>
     </div>
 </div>

@@ -29,7 +29,7 @@
                 @csrf
                 <p class="text-3xl font-bold text-base-100 mt-10">Login Account</p>
                 <div class=" w-full max-w-md text-xl text-base-100 mt-6">Email</div>
-                <input type="email" name="email" value="{{ old('email') }}" placeholder="Perawat@gmail.com"
+                <input type="email" name="email" value="{{ old('email') }}" placeholder="Email"
                     class="input input-bordered input-base-100 w-full max-w-md mt-2" />
                 @error('email')
                     <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>

@@ -40,6 +40,22 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'pasien' => [
+            'driver' => 'session',
+            'provider' => 'pasien',
+        ],
+        'dokter' => [
+            'driver' => 'session',
+            'provider' => 'dokter',
+        ],
+        'perawat' => [
+            'driver' => 'session',
+            'provider' => 'perawat',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
     ],
 
     /*
@@ -63,6 +79,22 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'pasien' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Pasien::class,
+        ],
+        'dokter' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Dokter::class,
+        ],
+        'perawat' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Perawat::class,
+        ],
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [

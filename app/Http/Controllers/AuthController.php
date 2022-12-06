@@ -6,6 +6,7 @@ use App\Models\Dokter;
 use App\Models\Pasien;
 use App\Models\Perawat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -20,27 +21,26 @@ class AuthController extends Controller
     public function loginPasien(Request $req)
     {
         $req->validate([
-            'email' => 'required',
+            'email' => 'required|exists:pasien,ps_email',
             'password' => 'required',
         ]);
 
-        $user = Pasien::where('ps_email', $req->email)->first();
+        // $user = Pasien::where('ps_email', $req->email)->first();
 
-        if($user != null){
-            if(Hash::check($req->password, $user->ps_password)){
-                //TODO:Pasien Home
-                Session::put('active', [
-                    'email' => $user->email,
-                    'role' => 'pasien'
-                ]);
-                return redirect()->route('pasien.home');
-            }
-            else{
-                return back()->with('err', 'Password tidak sesuai');
-            }
-        }
-        else{
-            return back()->with('err', 'User tidak ditemukan');
+        $credential = [
+            "ps_email" => $req->email,
+            "password" => $req->password,
+        ];
+
+        if (Auth::guard("pasien")->attempt($credential)) {
+            //TODO:Pasien Home
+            Session::put('active', [
+                'email' => $req->email,
+                'role' => 'perawat'
+            ]);
+            return redirect()->route('pasien.home');
+        } else {
+            return back()->with('msg', 'Password tidak sesuai');
         }
     }
 
@@ -53,27 +53,24 @@ class AuthController extends Controller
     public function loginPerawat(Request $req)
     {
         $req->validate([
-            'email' => 'required',
+            'email' => 'required|exists:perawat,pr_email',
             'password' => 'required',
         ]);
 
-        $user = Perawat::where('pr_email', $req->email)->first();
+        $credential = [
+            "pr_email" => $req->email,
+            "password" => $req->password,
+        ];
 
-        if($user != null){
-            if(Hash::check($req->password, $user->pr_password)){
-                //TODO:Perawat Home
-                Session::put('active', [
-                    'email' => $user->email,
-                    'role' => 'perawat'
-                ]);
-                return redirect()->route('');
-            }
-            else{
-                return back()->with('err', 'Password tidak sesuai');
-            }
-        }
-        else{
-            return back()->with('err', 'User tidak ditemukan');
+        if (Auth::guard("perawat")->attempt($credential)) {
+            //TODO:Perawat Home
+            Session::put('active', [
+                'email' => $req->email,
+                'role' => 'perawat'
+            ]);
+            return redirect()->route('');
+        } else {
+            return back()->with('msg', 'Password tidak sesuai');
         }
     }
 
@@ -86,27 +83,54 @@ class AuthController extends Controller
     public function loginDokter(Request $req)
     {
         $req->validate([
-            'email' => 'required',
+            'email' => 'required|exists:dokter,dr_email',
             'password' => 'required',
         ]);
 
-        $user = Dokter::where('dk_email', $req->email)->first();
+        $credential = [
+            "dk_email" => $req->email,
+            "password" => $req->password,
+        ];
 
-        if($user != null){
-            if(Hash::check($req->password, $user->dk_password)){
-                //TODO:Dokter Home
-                Session::put('active', [
-                    'email' => $user->email,
-                    'role' => 'dokter'
-                ]);
-                return redirect()->route('');
-            }
-            else{
-                return back()->with('err', 'Password tidak sesuai');
-            }
+        if (Auth::guard("dokter")->attempt($credential)) {
+            //TODO:Dokter Home
+            Session::put('active', [
+                'email' => $req->email,
+                'role' => 'dokter'
+            ]);
+            return redirect()->route('');
+        } else {
+            return back()->with('msg', 'Password tidak sesuai');
         }
-        else{
-            return back()->with('err', 'User tidak ditemukan');
+    }
+
+    public function indexAdmin(Request $req)
+    {
+        # code...
+        return view('loginregis/LoginAdmin');
+    }
+
+    public function loginAdmin(Request $req)
+    {
+        $req->validate([
+            'email' => 'required|exists:admin,ad_email',
+            'password' => 'required',
+        ]);
+
+        $credential = [
+            "ad_email" => $req->email,
+            "password" => $req->password,
+        ];
+
+        if (Auth::guard("admin")->attempt($credential)) {
+            //TODO:Admin Home
+            Session::put('active', [
+                'email' => $req->email,
+                'role' => 'admin'
+            ]);
+            return redirect()->route('admin.home');
+        } else {
+            return back()->with('msg', 'Password tidak sesuai');
         }
     }
 
@@ -118,17 +142,19 @@ class AuthController extends Controller
 
     public function registerPasien(Request $req)
     {
-        $req->validate([
-            'nama' => 'required',
-            'email' => 'required|email|unique:pasien,ps_email|unique:dokter,dk_email|unique:perawat,pr_email',
-            'telepon' => 'required|numeric|gte:10|lte:13',
-            'password' => 'required|confirmed|gte:8',
-        ],
-        [
-            'telepon.gte' => 'Telepon harus 10-13 digit',
-            'telepon.lte' => 'Telepon harus 10-13 digit',
-            'password.gte' => 'Password minimal 8 digit',
-        ]);
+        $req->validate(
+            [
+                'nama' => 'required',
+                'email' => 'required|email|unique:pasien,ps_email|unique:dokter,dk_email|unique:perawat,pr_email',
+                'telepon' => 'required|numeric|gte:10|lte:13',
+                'password' => 'required|confirmed|gte:8',
+            ],
+            [
+                'telepon.gte' => 'Telepon harus 10-13 digit',
+                'telepon.lte' => 'Telepon harus 10-13 digit',
+                'password.gte' => 'Password minimal 8 digit',
+            ]
+        );
 
         Pasien::insert([
             'ps_nama' => $req->nama,
@@ -137,7 +163,7 @@ class AuthController extends Controller
             'ps_password' => $req->password,
         ]);
 
-        return back()->with('succ','Berhasil mendaftar');
+        return back()->with('succ', 'Berhasil mendaftar');
     }
 
     public function formPerawat(Request $req)
@@ -148,18 +174,20 @@ class AuthController extends Controller
 
     public function registerPerawat(Request $req)
     {
-        $req->validate([
-            'nama' => 'required',
-            'email' => 'required|email|unique:pasien,ps_email|unique:dokter,dk_email|unique:perawat,pr_email',
-            'telepon' => 'required|numeric|gte:10|lte:13',
-            'password' => 'required|confirmed|gte:8',
-            'rs' => 'required',
-        ],
-        [
-            'telepon.gte' => 'Telepon harus 10-13 digit',
-            'telepon.lte' => 'Telepon harus 10-13 digit',
-            'password.gte' => 'Password minimal 8 digit',
-        ]);
+        $req->validate(
+            [
+                'nama' => 'required',
+                'email' => 'required|email|unique:pasien,ps_email|unique:dokter,dk_email|unique:perawat,pr_email',
+                'telepon' => 'required|numeric|gte:10|lte:13',
+                'password' => 'required|confirmed|gte:8',
+                'rs' => 'required',
+            ],
+            [
+                'telepon.gte' => 'Telepon harus 10-13 digit',
+                'telepon.lte' => 'Telepon harus 10-13 digit',
+                'password.gte' => 'Password minimal 8 digit',
+            ]
+        );
 
         Perawat::insert([
             'pr_nama' => $req->nama,
@@ -169,7 +197,7 @@ class AuthController extends Controller
             'rs_id' => $req->rs
         ]);
 
-        return back()->with('succ','Berhasil mendaftar');
+        return back()->with('succ', 'Berhasil mendaftar');
     }
 
     public function formDokter(Request $req)
@@ -180,19 +208,21 @@ class AuthController extends Controller
 
     public function registerDokter(Request $req)
     {
-        $req->validate([
-            'nama' => 'required',
-            'email' => 'required|email|unique:pasien,ps_email|unique:dokter,dk_email|unique:perawat,pr_email',
-            'telepon' => 'required|numeric|gte:10|lte:13',
-            'password' => 'required|confirmed|gte:8',
-            'rs' => 'required',
-            'sp' => 'required',
-        ],
-        [
-            'telepon.gte' => 'Telepon harus 10-13 digit',
-            'telepon.lte' => 'Telepon harus 10-13 digit',
-            'password.gte' => 'Password minimal 8 digit',
-        ]);
+        $req->validate(
+            [
+                'nama' => 'required',
+                'email' => 'required|email|unique:pasien,ps_email|unique:dokter,dk_email|unique:perawat,pr_email',
+                'telepon' => 'required|numeric|gte:10|lte:13',
+                'password' => 'required|confirmed|gte:8',
+                'rs' => 'required',
+                'sp' => 'required',
+            ],
+            [
+                'telepon.gte' => 'Telepon harus 10-13 digit',
+                'telepon.lte' => 'Telepon harus 10-13 digit',
+                'password.gte' => 'Password minimal 8 digit',
+            ]
+        );
 
         Pasien::insert([
             'dk_nama' => $req->nama,
@@ -203,6 +233,6 @@ class AuthController extends Controller
             'sp_id' => $req->sp,
         ]);
 
-        return back()->with('succ','Berhasil mendaftar');
+        return back()->with('succ', 'Berhasil mendaftar');
     }
 }

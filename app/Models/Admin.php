@@ -7,27 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Perawat extends Authenticatable
+class Admin extends Authenticatable
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = "perawat";
-    protected $primaryKey = "pr_id";
+    protected $table = "admin";
+    protected $primaryKey = "ad_id";
     public $incrementing = true;
     public $timestamps = true;
 
-    public function DjualObat()
-    {
-        return $this->hasMany(DjualObat::class,"pr_id","pr_id");
-    }
-
-    public function RumahSakit()
-    {
-        return $this->hasMany(RumahSakit::class,"rs_id","pr_id");
-    }
-
     public function getAuthPassword()
     {
-        return $this->pr_password;
+        return $this->ad_password;
     }
 }

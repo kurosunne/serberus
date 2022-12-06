@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Pasien extends Model
+class Pasien extends Authenticatable
 {
     use HasFactory;
     use SoftDeletes;
@@ -28,5 +29,10 @@ class Pasien extends Model
     public function Konsultasi()
     {
         return $this->hasMany(Konsultasi::class,"ps_id","ps_id");
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->ps_password;
     }
 }
