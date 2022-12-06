@@ -57,6 +57,10 @@ Route::prefix('pasien')->controller(PasienController::class)->group(function(){
 
     Route::get('/detailjanji', 'indexDetailJanji')->name('pasien.detailjanji')->middleware('cek.login:pasien');
 
+    Route::get('/detailobat', 'indexDetailObat')->name('pasien.detailobat')->middleware('cek.login:pasien');
+
+    Route::get('/keranjang', 'indexKeranjang')->name('pasien.keranjang')->middleware('cek.login:pasien');
+
     Route::get('/historitemu', 'indexRiwayattemu')->name('pasien.historitemu')->middleware('cek.login:pasien');
 
     Route::get('/historiobat', 'indexRiwayatobat')->name('pasien.historiobat')->middleware('cek.login:pasien');

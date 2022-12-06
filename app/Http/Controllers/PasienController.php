@@ -36,6 +36,16 @@ class PasienController extends Controller
         # code...
         return view('pasien.detailJanjiTemu');
     }
+    public function indexDetailObat(Request $req)
+    {
+        # code...
+        return view('pasien.detailObat');
+    }
+    public function indexKeranjang(Request $req)
+    {
+        # code...
+        return view('pasien.keranjang');
+    }
     public function indexObat(Request $req)
     {
         $obat = Obat::limit(8)->offset(8*($req->page-1))->get();
