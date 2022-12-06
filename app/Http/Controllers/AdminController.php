@@ -18,31 +18,31 @@ class AdminController extends Controller
     }
     public function perawat()
     {
-        $perawat = Perawat::all();
         $perawat = Perawat::withTrashed()->get();
 
         return view('admin.listperawat', compact('perawat'));
     }
     public function pasien(){
-        $pasien = Pasien::all();
         $pasien = Pasien::withTrashed()->get();
 
         return view('admin.listpasien', compact('pasien'));
     }
-    public function rumahsakit(){
-        $rumahsakit = RumahSakit::all();
+    public function rumahsakit(Request $req){
         $rumahsakit = RumahSakit::withTrashed()->get();
+        if ($req->editId==null){
+            $editId = -1;
+        }else{
+            $editId = $req->editId;
+        }
 
-        return view('admin.listrumahsakit', compact('rumahsakit'));
+        return view('admin.listrumahsakit', compact('rumahsakit','editId'));
     }
     public function dokter(){
-        $dokter = Dokter::all();
         $dokter = Dokter::withTrashed()->get();
 
         return view('admin.listdokter', compact('dokter'));
     }
     public function obat(){
-        $obat = Obat::all();
         $obat = Obat::withTrashed()->get();
 
         return view('admin.listobat', compact('obat'));
@@ -54,6 +54,13 @@ class AdminController extends Controller
     //ADD FUNCTION
     public function addpasien(Request $req)
     {
+        $req->validate([
+            'createnamapasien' => ['required'],
+            'createalamatpasien' => ['required'],
+            'createteleponpasien' => ['required','min:10','max:15'],
+            'createteleponpasien' => ['required'],
+        ]);
+
         $pasien = new Pasien;
         $pasien->ps_nama = $req->createnamapasien;
         $pasien->ps_alamat = $req->createalamatpasien;
@@ -67,6 +74,18 @@ class AdminController extends Controller
 
     public function addrumahsakit(Request $req)
     {
+        $req->validate([
+            'createnamarumahsakit' => ['required'],
+            'createteleponrumahsakit' => ['required','min:10','max:15'],
+            'createalamatrumahsakit' => ['required'],
+        ],[
+
+        ],[
+            'createnamarumahsakit' => "Nama",
+            'createteleponrumahsakit' => "Telepon",
+            'createalamatrumahsakit' => "Alamat",
+        ]);
+
         $rs = new RumahSakit;
         $rs->rs_nama = $req->createnamarumahsakit;
         $rs->rs_telp = $req->createteleponrumahsakit;

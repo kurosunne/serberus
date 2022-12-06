@@ -63,7 +63,7 @@ Route::prefix('pasien')->controller(PasienController::class)->group(function(){
 
     Route::get('/konsultasi', 'indexKonsultasi')->name('pasien.dokter')->middleware('cek.login:pasien');
 
-    Route::get('/obat', 'indexObat')->name('pasien.obat')->middleware('cek.login:pasien');
+    Route::get('/obat/{page}', 'indexObat')->name('pasien.obat')->middleware('cek.login:pasien');
 
     Route::get('/perawat','index')->name('pasien.perawat')->middleware('cek.login:pasien');
 });

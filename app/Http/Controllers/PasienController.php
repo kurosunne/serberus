@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dokter;
+use App\Models\Obat;
 use Illuminate\Http\Request;
 
 class PasienController extends Controller
@@ -10,7 +12,9 @@ class PasienController extends Controller
     public function indexHome(Request $req)
     {
         # code...
-        return view('pasien.home');
+        $dokter = Dokter::inRandomOrder()->limit(9)->get();
+        $obat = Obat::inRandomOrder()->limit(9)->get();
+        return view('pasien.home',compact('dokter','obat'));
     }
     public function indexRiwayattemu(Request $req)
     {
@@ -34,8 +38,8 @@ class PasienController extends Controller
     }
     public function indexObat(Request $req)
     {
-        # code...
-        return view('pasien.obat');
+        $obat = Obat::limit(8)->offset(8*($req->page-1))->get();
+        return view('pasien.obat',compact('obat'));
     }
     public function indexKonsultasi(Request $req)
     {
