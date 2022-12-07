@@ -19,8 +19,8 @@
             </div>
             <div class="h-full w-6/12 flex flex-col justify-center">
                 <div class="w-full h-full flex items-center justify-center">
-                    <div class="btn btn-primary ml-10 mr-3">Riwayat Temu</div>
-                    <div class=" text-black btn btn-secondary ml-3"> <p class="text-white">Riawayat Obat </p></div>
+                    <div class="btn btn-primary ml-10 mr-3"><a href="{{route('pasien.historitemu')}}">Riwayat Temu</a></div>
+                    <div class=" text-black btn btn-secondary ml-3"> <p class="text-white"> <a href="{{route('pasien.historiobat')}}">Riwayat Obat </a> </p></div>
                 </div>
             </div>
             <div class="h-full w-5/12 flex flex-row items-center justify-end">
