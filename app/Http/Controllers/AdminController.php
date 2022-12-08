@@ -22,7 +22,7 @@ class AdminController extends Controller
 
         return view('admin.listperawat', compact('perawat'));
     }
-    public function pasien(){
+    public function pasien(Request $req){
         $pasien = Pasien::withTrashed()->get();
         $pasienEdit = null;
 
