@@ -24,18 +24,37 @@ class AdminController extends Controller
     }
     public function pasien(){
         $pasien = Pasien::withTrashed()->get();
+        $pasienEdit = null;
 
-        return view('admin.listpasien', compact('pasien'));
-    }
-    public function rumahsakit(Request $req){
-        $rumahsakit = RumahSakit::withTrashed()->get();
+        if ($req->searchpasien!=null){
+            $pasien = Pasien::withTrashed()->where("ps_nama","like","%".$req->searchpasien."%")->get();
+        }
+
         if ($req->editId==null){
             $editId = -1;
         }else{
             $editId = $req->editId;
+            $pasienEdit = Pasien::withTrashed()->find($editId);
         }
 
-        return view('admin.listrumahsakit', compact('rumahsakit','editId'));
+        return view('admin.listpasien', compact('pasien','editId','pasienEdit'));
+    }
+    public function rumahsakit(Request $req){
+        $rumahsakit = RumahSakit::withTrashed()->get();
+        $rumahSakitEdit = null;
+
+        if ($req->searchrumahsakit!=null){
+            $rumahsakit = RumahSakit::withTrashed()->where("rs_nama","like","%".$req->searchrumahsakit."%")->get();
+        }
+
+        if ($req->editId==null){
+            $editId = -1;
+        }else{
+            $editId = $req->editId;
+            $rumahSakitEdit = RumahSakit::withTrashed()->find($editId);
+        }
+
+        return view('admin.listrumahsakit', compact('rumahsakit','editId','rumahSakitEdit'));
     }
     public function dokter(){
         $dokter = Dokter::withTrashed()->get();
@@ -56,9 +75,18 @@ class AdminController extends Controller
     {
         $req->validate([
             'createnamapasien' => ['required'],
+            'createemailpasien' => ['required','email'],
             'createalamatpasien' => ['required'],
-            'createteleponpasien' => ['required','min:10','max:15'],
-            'createteleponpasien' => ['required'],
+            'createteleponpasien' => ['required','digits_between :10,15','numeric','unique:pasien,ps_telp'],
+            'createpasswordpasien' => ['required'],
+        ],[
+
+        ],[
+            'createnamapasien' => "Nama",
+            'createteleponpasien' => "Telepon",
+            'createalamatpasien' => "Alamat",
+            'createpasswordpasien' => "Password",
+            'createemailpasien' => 'Email'
         ]);
 
         $pasien = new Pasien;
@@ -76,7 +104,7 @@ class AdminController extends Controller
     {
         $req->validate([
             'createnamarumahsakit' => ['required'],
-            'createteleponrumahsakit' => ['required','min:10','max:15'],
+            'createteleponrumahsakit' => ['required','digits_between :10,15','numeric','unique:rumah_sakit,rs_telp'],
             'createalamatrumahsakit' => ['required'],
         ],[
 

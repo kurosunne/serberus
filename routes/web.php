@@ -117,6 +117,10 @@ Route::prefix('admin')->controller(AdminController::class)->group(function(){
     Route::get('/deletedokter/{dk_id}','deletedokter')->name('admin.deletedokter')->middleware('cek.login:admin');
     Route::get('/deleteperawat/{pr_id}','deleteperawat')->name('admin.deleteperawat')->middleware('cek.login:admin');
     Route::get('/deleteobat/{ob_id}','deleteobat')->name('admin.deleteobat')->middleware('cek.login:admin');
+
+    //ROUTE EDIT
+    Route::post('/editrumahsakit', 'editrumahsakit')->name('admin.editrumahsakit')->middleware('cek.login:admin');
+    Route::post('/editpasien', 'editpasien')->name('admin.editpasien')->middleware('cek.login:admin');
 });
 
 
