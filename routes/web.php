@@ -99,8 +99,8 @@ Route::prefix('dokter')->controller(DokterController::class)->group(function(){
 //admin
 Route::prefix('admin')->controller(AdminController::class)->group(function(){
     Route::get('/', 'home')->name('admin.home')->middleware('cek.login:admin');
-    Route::get('/pasien', 'pasien')->name('admin.pasien')->middleware('cek.login:admin');
-    Route::get('/rumahsakit', 'rumahsakit')->name('admin.rumahsakit')->middleware('cek.login:admin');
+    Route::get('/pasien/{editId?}', 'pasien')->name('admin.pasien')->middleware('cek.login:admin');
+    Route::get('/rumahsakit/{editId?}', 'rumahsakit')->name('admin.rumahsakit')->middleware('cek.login:admin');
     Route::get('/dokter', 'dokter')->name('admin.dokter')->middleware('cek.login:admin');
     Route::get('/obat', 'obat')->name('admin.obat')->middleware('cek.login:admin');
     Route::get('/perawat','perawat')->name('admin.perawat')->middleware('cek.login:admin');

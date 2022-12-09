@@ -5,14 +5,13 @@
         <div class="bg-base-100 h-[35rem] w-[65rem] rounded-lg flex border-black" style="border: 4px solid #EA697C">
             {{-- kiri --}}
             <div class="h-full w-1/2 p-5 items-center flex flex-col">
-                <p class="text-3xl text-sky-600 mt-5">Selamat Datang Pada</p>
+                <p class="text-3xl text-accent mt-5">Selamat Datang Pada</p>
                 <div class="h-1/3 w-1/3 mt-5">
                     <img src='{{url('image/serberus.png')}}' alt="ini image serberus" srcset="">
                 </div>
-                <p class="text-4xl font-bold text-sky-600 mt-1">Serberus</p>
-                <p class="text-2xl text-sky-600 mt-1">Sehat Bersama Terus</p>
-                <p class="text-2xl text-sky-600 mt-2">Mau Konsultasi Apa Hari Ini?</p>
-                <p class="text-1.5xl text-sky-600 mt-3">Bukan Dokter?</p>
+                <p class="text-4xl font-bold text-accent mt-1">Serberus</p>
+                <p class="text-2xl text-accent mt-1">Sehat Bersama Terus</p>
+                <p class="text-2xl text-accent mt-2">Mau Konsultasi Apa Hari Ini?</p>
             </div>
 
             {{-- kanan --}}

@@ -245,7 +245,57 @@ class AdminController extends Controller
         else{
             return redirect()->route('admin.obat')->with('pesanGagal', 'Data gagal dihapus!');
         }
+    }
 
+    //EDIT FUNCTION
+    public function editrumahsakit(Request $req)
+    {
+        $req->validate([
+            'createnamarumahsakit' => ['required'],
+            'createteleponrumahsakit' => ['required','digits_between :10,15','numeric','unique:rumah_sakit,rs_telp,'.$req->editId.',rs_id'],
+            'createalamatrumahsakit' => ['required'],
+        ],[
+
+        ],[
+            'createnamarumahsakit' => "Nama",
+            'createteleponrumahsakit' => "Telepon",
+            'createalamatrumahsakit' => "Alamat",
+        ]);
+
+        $rs = RumahSakit::find($req->editId);
+        $rs->rs_nama = $req->createnamarumahsakit;
+        $rs->rs_telp = $req->createteleponrumahsakit;
+        $rs->rs_alamat = $req->createalamatrumahsakit;
+        $rs->save();
+
+        return redirect()->route('admin.rumahsakit');
+    }
+
+    public function editpasien(Request $req)
+    {
+        $req->validate([
+            'createnamapasien' => ['required'],
+            'createemailpasien' => ['required','email'],
+            'createalamatpasien' => ['required'],
+            'createteleponpasien' => ['required','digits_between :10,15','numeric','unique:pasien,ps_telp,'.$req->editId.',ps_id'],
+        ],[
+
+        ],[
+            'createnamapasien' => "Nama",
+            'createteleponpasien' => "Telepon",
+            'createalamatpasien' => "Alamat",
+            'createpasswordpasien' => "Password",
+            'createemailpasien' => 'Email'
+        ]);
+
+        $pasien = Pasien::find($req->editId);
+        $pasien->ps_nama = $req->createnamapasien;
+        $pasien->ps_alamat = $req->createalamatpasien;
+        $pasien->ps_telp = $req->createteleponpasien;
+        $pasien->ps_email=$req->createemailpasien;
+        $pasien->save();
+
+        return redirect()->route('admin.pasien');
     }
 
 }
