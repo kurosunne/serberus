@@ -7,21 +7,36 @@ use App\Models\Obat;
 use App\Models\Pasien;
 use App\Models\RumahSakit;
 use App\Models\Perawat;
+use App\Models\Spesialis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
     public function home(){
         return view('admin.homeadmin');
     }
-    public function perawat()
+    public function perawat(Request $req)
     {
         $perawat = Perawat::withTrashed()->get();
+        $perawatEdit = null;
+        $rumahSakit = RumahSakit::all();
 
-        return view('admin.listperawat', compact('perawat'));
+        if ($req->searchperawat!=null){
+            $perawat = Perawat::withTrashed()->where("pr_nama","like","%".$req->searchperawat."%")->get();
+        }
+
+        if ($req->editId==null){
+            $editId = -1;
+        }else{
+            $editId = $req->editId;
+            $perawatEdit = Perawat::withTrashed()->find($editId);
+        }
+
+        return view('admin.listperawat', compact('perawat','editId','perawatEdit','rumahSakit'));
     }
+
     public function pasien(Request $req){
         $pasien = Pasien::withTrashed()->get();
         $pasienEdit = null;
@@ -56,10 +71,24 @@ class AdminController extends Controller
 
         return view('admin.listrumahsakit', compact('rumahsakit','editId','rumahSakitEdit'));
     }
-    public function dokter(){
+    public function dokter(Request $req){
         $dokter = Dokter::withTrashed()->get();
+        $dokterEdit = null;
+        $rumahSakit = RumahSakit::all();
+        $spesialis = Spesialis::all();
 
-        return view('admin.listdokter', compact('dokter'));
+        if ($req->searchdokter!=null){
+            $dokter = Dokter::withTrashed()->where("dk_nama","like","%".$req->searchdokter."%")->get();
+        }
+
+        if ($req->editId==null){
+            $editId = -1;
+        }else{
+            $editId = $req->editId;
+            $dokterEdit = Dokter::withTrashed()->find($editId);
+        }
+
+        return view('admin.listdokter', compact('dokter','editId','dokterEdit','rumahSakit','spesialis'));
     }
     public function obat(){
         $obat = Obat::withTrashed()->get();
@@ -75,7 +104,7 @@ class AdminController extends Controller
     {
         $req->validate([
             'createnamapasien' => ['required'],
-            'createemailpasien' => ['required','email'],
+            'createemailpasien' => ['required','email','unique:pasien,ps_email'],
             'createalamatpasien' => ['required'],
             'createteleponpasien' => ['required','digits_between :10,15','numeric','unique:pasien,ps_telp'],
             'createpasswordpasien' => ['required'],
@@ -125,27 +154,63 @@ class AdminController extends Controller
 
     public function adddokter(Request $req)
     {
+        $req->validate([
+            'createnamadokter' => ['required'],
+            'createemaildokter' => ['required','email','unique:dokter,dk_email'],
+            'createtelepondokter' => ['required','digits_between :10,15','numeric','unique:dokter,dk_telp'],
+            'createpasswordokter' => ['required'],
+            'createsipdokter' => ['required','mimes:png,jpg,jpeg','max:2048']
+        ],[
+
+        ],[
+            'createnamadokter' => "Nama",
+            'createtelepondokter' => "Telepon",
+            'createpassworddokter' => "Password",
+            'createemaildokter' => 'Email',
+            'createsipdokter' => 'Surat Ijin Praktek'
+        ]);
+
+
         $dk = new Dokter;
         $dk->dk_nama = $req->createnamadokter;
         $dk->dk_telp = $req->createtelepondokter;
         $dk->dk_email = $req->createemaildokter;
-        $dk->dk_password=Hash::make($req->createpassworddokter);
-        //TAK KASIK 1 DULU BUAT TESTING DULU
-        $dk->rs_id='1';
+        $dk->dk_password=Hash::make($req->createpasswordokter);
+        $dk->rs_id=$req->createrumahsakitdokter;
         $dk->sp_id= $req->createspesialisdokter;
+        $dk->dk_status = 1;
         $dk->save();
+
+        $dkId = Dokter::where("dk_email",$req->createemaildokter)->first()->dk_id;
+
+        $req->file("createsipdokter")->storeAs("sip",$dkId.".png",'local');
 
         return redirect()->route('admin.dokter');
     }
 
     public function addperawat(Request $req)
     {
+
+        $req->validate([
+            'createnamaperawat' => ['required'],
+            'createemailperawat' => ['required','email','unique:perawat,pr_email'],
+            'createteleponperawat' => ['required','digits_between :10,15','numeric','unique:perawat,pr_telp'],
+            'createpasswordperawat' => ['required'],
+        ],[
+
+        ],[
+            'createnamaperawat' => "Nama",
+            'createteleponperawat' => "Telepon",
+            'createpasswordperawat' => "Password",
+            'createemailperawat' => 'Email'
+        ]);
+
         $pr = new Perawat;
         $pr->pr_nama = $req->createnamaperawat;
         $pr->pr_telp = $req->createteleponperawat;
         $pr->pr_email = $req->createemailperawat;
         $pr->pr_password= Hash::make($req->createpasswordperawat);
-        $pr->rs_id='1';
+        $pr->rs_id= $req->createrumahsakitperawat;
         $pr->save();
 
         return redirect()->route('admin.perawat');
@@ -298,4 +363,59 @@ class AdminController extends Controller
         return redirect()->route('admin.pasien');
     }
 
+    public function editperawat(Request $req)
+    {
+        $req->validate([
+            'createnamaperawat' => ['required'],
+            'createemailperawat' => ['required','email','unique:perawat,pr_email,'.$req->editId.',pr_id'],
+            'createteleponperawat' => ['required','digits_between :10,15','numeric','unique:perawat,pr_telp,'.$req->editId.',pr_id'],
+        ],[
+
+        ],[
+            'createnamaperawat' => "Nama",
+            'createteleponperawat' => "Telepon",
+            'createemailperawat' => 'Email'
+        ]);
+
+        $pr = Perawat::find($req->editId);
+        $pr->pr_nama = $req->createnamaperawat;
+        $pr->pr_telp = $req->createteleponperawat;
+        $pr->pr_email = $req->createemailperawat;
+        $pr->rs_id= $req->createrumahsakitperawat;
+        $pr->save();
+
+        return redirect()->route('admin.perawat');
+    }
+
+    public function editdokter(Request $req)
+    {
+        $req->validate([
+            'createnamadokter' => ['required'],
+            'createemaildokter' => ['required','email','unique:dokter,dk_email,'.$req->editId.',dk_id'],
+            'createtelepondokter' => ['required','digits_between :10,15','numeric','unique:dokter,dk_telp,'.$req->editId.',dk_id'],
+        ],[
+
+        ],[
+            'createnamadokter' => "Nama",
+            'createtelepondokter' => "Telepon",
+            'createemaildokter' => 'Email',
+        ]);
+
+
+        $dk = Dokter::find($req->editId);
+        $dk->dk_nama = $req->createnamadokter;
+        $dk->dk_telp = $req->createtelepondokter;
+        $dk->dk_email = $req->createemaildokter;
+        $dk->rs_id=$req->createrumahsakitdokter;
+        $dk->sp_id= $req->createspesialisdokter;
+        $dk->dk_status = $req->createstatusdokter;
+        $dk->save();
+
+        return redirect()->route('admin.dokter');
+    }
+
+    public function getsip(Request $req)
+    {
+        return Storage::disk("local")->download("sip/".$req->id.".png");
+    }
 }

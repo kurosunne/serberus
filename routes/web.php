@@ -101,9 +101,9 @@ Route::prefix('admin')->controller(AdminController::class)->group(function(){
     Route::get('/', 'home')->name('admin.home')->middleware('cek.login:admin');
     Route::get('/pasien/{editId?}', 'pasien')->name('admin.pasien')->middleware('cek.login:admin');
     Route::get('/rumahsakit/{editId?}', 'rumahsakit')->name('admin.rumahsakit')->middleware('cek.login:admin');
-    Route::get('/dokter', 'dokter')->name('admin.dokter')->middleware('cek.login:admin');
+    Route::get('/dokter/{editId?}', 'dokter')->name('admin.dokter')->middleware('cek.login:admin');
     Route::get('/obat', 'obat')->name('admin.obat')->middleware('cek.login:admin');
-    Route::get('/perawat','perawat')->name('admin.perawat')->middleware('cek.login:admin');
+    Route::get('/perawat/{editId?}','perawat')->name('admin.perawat')->middleware('cek.login:admin');
 
     //ROUTE CREATE
     Route::post('/addpasien','addpasien')->name('admin.addpasien')->middleware('cek.login:admin');
@@ -121,6 +121,9 @@ Route::prefix('admin')->controller(AdminController::class)->group(function(){
     //ROUTE EDIT
     Route::post('/editrumahsakit', 'editrumahsakit')->name('admin.editrumahsakit')->middleware('cek.login:admin');
     Route::post('/editpasien', 'editpasien')->name('admin.editpasien')->middleware('cek.login:admin');
+    Route::post('/editperawat', 'editperawat')->name('admin.editperawat')->middleware('cek.login:admin');
+    Route::post('/editdokter', 'editdokter')->name('admin.editdokter')->middleware('cek.login:admin');
+    Route::get('/getsip/{id}', 'getsip')->name('admin.getsip')->middleware('cek.login:admin');
 });
 
 

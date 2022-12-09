@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('djual_obat', function (Blueprint $table) {
             $table->id("do_id");
             $table->unsignedBigInteger("ps_id");
+            $table->integer("do_stok");
             $table->date("do_tanggal");
             $table->double("do_total");
             $table->timestamps();

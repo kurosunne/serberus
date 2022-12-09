@@ -20,6 +20,8 @@ return new class extends Migration
                 $table->double("ob_kandunganVal")->nullable();
                 $table->string("ob_kandunganSatuan",20)->nullable();
                 $table->double("ob_harga")->default(0);
+                $table->integer("ob_stok");
+                $table->text("ob_deskripsi");
                 $table->unsignedBigInteger("to_id");
                 $table->timestamps();
                 $table->softDeletes();

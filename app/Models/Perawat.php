@@ -23,7 +23,7 @@ class Perawat extends Authenticatable
 
     public function RumahSakit()
     {
-        return $this->hasMany(RumahSakit::class,"rs_id","pr_id");
+        return $this->belongsTo(RumahSakit::class,"rs_id","rs_id");
     }
 
     public function getAuthPassword()

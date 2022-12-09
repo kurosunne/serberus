@@ -31,6 +31,11 @@ class Dokter extends Authenticatable
         return $this->hasMany(Konsultasi::class,"dk_id","dk_id");
     }
 
+    public function RumahSakit()
+    {
+        return $this->belongsTo(RumahSakit::class,"rs_id","rs_id");
+    }
+
     public function getAuthPassword()
     {
         return $this->dk_password;
