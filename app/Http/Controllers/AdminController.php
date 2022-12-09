@@ -8,6 +8,7 @@ use App\Models\Pasien;
 use App\Models\RumahSakit;
 use App\Models\Perawat;
 use App\Models\Spesialis;
+use App\Models\TipeObat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -90,13 +91,25 @@ class AdminController extends Controller
 
         return view('admin.listdokter', compact('dokter','editId','dokterEdit','rumahSakit','spesialis'));
     }
-    public function obat(){
+    public function obat(Request $req){
         $obat = Obat::withTrashed()->get();
+        $obatEdit = null;
+        $tipeObat = TipeObat::all();
 
-        return view('admin.listobat', compact('obat'));
+        if($req->searchobat!=null){
+            $obat = Obat::withTrashed()->where("ob_nama","like","%".$req->searchobat."%")->get();
+        }
+
+        if($req->editId==null){
+            $editId = -1;
+        }
+        else{
+            $editId = $req->editId;
+            $obatEdit = Obat::withTrashed()->find($editId);
+        }
+
+        return view('admin.listobat', compact('obat', 'editId', 'obatEdit', 'tipeObat'));
     }
-
-    //SEARCH FUNCTION
 
 
     //ADD FUNCTION
@@ -214,6 +227,45 @@ class AdminController extends Controller
         $pr->save();
 
         return redirect()->route('admin.perawat');
+    }
+
+    public function addobat(Request $req)
+    {
+        $req->validate([
+            'createnamaobat' => ['required'],
+            'createhargaobat' => ['required','numeric'],
+            'createstokobat' => ['required','numeric'],
+            'createjumlahobat' => ['required','numeric'],
+            'creategambarobat' => ['required','mimes:png,jpg,jpeg','max:2048'],
+            'createdeskripsiobat' => ['required'],
+            'createsatuanobat' =>['required']
+        ],[
+
+        ],[
+            'createnamaobat' => "Nama",
+            'createhargaobat' => "Harga",
+            'createjumlahobat' => "Jumlah",
+            'createstokobat' => "Stok",
+            'creategambarobat' => "Gambar",
+            'createdeskripsiobat' => "Deskripsi",
+            'createsatuanobat' => "Satuan"
+        ]);
+
+        $obat = new Obat;
+        $obat->ob_nama = $req->createnamaobat;
+        $obat->ob_harga = $req->createhargaobat;
+        $obat->ob_kandunganVal = $req->createjumlahobat;
+        $obat->ob_stok = $req->createstokobat;
+        $obat->ob_deskripsi = $req->createdeskripsiobat;
+        $obat->ob_kandunganSatuan = $req->createsatuanobat;
+        $obat->to_id = $req->createtipeobat;
+        $obat->save();
+
+        $obatId = Obat::where("ob_nama",$req->createnamaobat)->first()->ob_id;
+
+        $req->file("creategambarobat")->storeAs("obat",$obatId.".png",'local');
+
+        return redirect()->route('admin.obat');
     }
 
     //SOFTDELETE FUNCTION
@@ -412,6 +464,39 @@ class AdminController extends Controller
         $dk->save();
 
         return redirect()->route('admin.dokter');
+    }
+
+    public function editobat(Request $req)
+    {
+        $req->validate([
+            'createnamaobat' => ['required','unique:obat,ob_nama,'.$req->editId.',ob_id'],
+            'createhargaobat' => ['required','numeric'],
+            'createstokobat' => ['required','numeric'],
+            'createjumlahobat' => ['required','numeric'],
+            'createdeskripsiobat' => ['required'],
+            'createsatuanobat' =>['required']
+        ],[
+
+        ],[
+            'createnamaobat' => "Nama",
+            'createhargaobat' => "Harga",
+            'createjumlahobat' => "Jumlah",
+            'createstokobat' => "Stok",
+            'createdeskripsiobat' => "Deskripsi",
+            'createsatuanobat' => "Satuan"
+        ]);
+
+        $obat = Obat::find($req->editId);
+        $obat->ob_nama = $req->createnamaobat;
+        $obat->ob_harga = $req->createhargaobat;
+        $obat->ob_jumlah = $req->createjumlahobat;
+        $obat->ob_stok = $req->createstokobat;
+        $obat->ob_deskripsi = $req->createdeskripsiobat;
+        $obat->ob_satuan = $req->createsatuanobat;
+        $obat->to_id = $req->createtipeobat;
+        $obat->save();
+
+        return redirect()->route('admin.obat');
     }
 
     public function getsip(Request $req)

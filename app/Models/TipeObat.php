@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TipeObat extends Model
 {
     use HasFactory;
-    protected $table = "toko_obat";
+    protected $table = "tipe_obat";
     protected $primaryKey = "to_id";
     public $incrementing = true;
     public $timestamps = false;

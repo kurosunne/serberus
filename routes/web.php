@@ -102,7 +102,7 @@ Route::prefix('admin')->controller(AdminController::class)->group(function(){
     Route::get('/pasien/{editId?}', 'pasien')->name('admin.pasien')->middleware('cek.login:admin');
     Route::get('/rumahsakit/{editId?}', 'rumahsakit')->name('admin.rumahsakit')->middleware('cek.login:admin');
     Route::get('/dokter/{editId?}', 'dokter')->name('admin.dokter')->middleware('cek.login:admin');
-    Route::get('/obat', 'obat')->name('admin.obat')->middleware('cek.login:admin');
+    Route::get('/obat/{editId?}', 'obat')->name('admin.obat')->middleware('cek.login:admin');
     Route::get('/perawat/{editId?}','perawat')->name('admin.perawat')->middleware('cek.login:admin');
 
     //ROUTE CREATE
@@ -110,6 +110,7 @@ Route::prefix('admin')->controller(AdminController::class)->group(function(){
     Route::post('/addperawat','addperawat')->name('admin.addperawat')->middleware('cek.login:admin');
     Route::post('/addrumahsakit','addrumahsakit')->name('admin.addrumahsakit')->middleware('cek.login:admin');
     Route::post('/adddokter', 'adddokter')->name('admin.adddokter')->middleware('cek.login:admin');
+    Route::post('/addobat', 'addobat')->name('admin.addobat')->middleware('cek.login:admin');
 
     //ROUTE DELETE
     Route::get('/deletepasien/{ps_id}','deletepasien')->name('admin.deletepasien')->middleware('cek.login:admin');
@@ -123,6 +124,7 @@ Route::prefix('admin')->controller(AdminController::class)->group(function(){
     Route::post('/editpasien', 'editpasien')->name('admin.editpasien')->middleware('cek.login:admin');
     Route::post('/editperawat', 'editperawat')->name('admin.editperawat')->middleware('cek.login:admin');
     Route::post('/editdokter', 'editdokter')->name('admin.editdokter')->middleware('cek.login:admin');
+    Route::post('/editobat', 'editobat')->name('admin.editobat')->middleware('cek.login:admin');
     Route::get('/getsip/{id}', 'getsip')->name('admin.getsip')->middleware('cek.login:admin');
 });
 
