@@ -2,6 +2,9 @@
 /public/build
 /public/hot
 /public/storage
+/public/foto
+/public/sip
+/public/obat
 /storage/*.key
 /vendor
 .env
