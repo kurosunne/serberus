@@ -17,6 +17,6 @@ class KonsultasiSeeder extends Seeder
     public function run()
     {
         DB::table("konsultasi")->truncate();
-        Konsultasi::factory()->count(10)->create();
+        Konsultasi::factory()->count(25)->create();
     }
 }

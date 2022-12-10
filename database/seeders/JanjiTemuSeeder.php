@@ -17,6 +17,6 @@ class JanjiTemuSeeder extends Seeder
     public function run()
     {
         DB::table("janji_temu")->truncate();
-        JanjiTemu::factory()->count(10)->create();
+        JanjiTemu::factory()->count(25)->create();
     }
 }
