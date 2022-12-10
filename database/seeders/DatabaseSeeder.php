@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DokterSeeder::class);
         $this->call(PerawatSeeder::class);
         $this->call(AdminSeeder::class);
+        $this->call(JanjiTemuSeeder::class);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
