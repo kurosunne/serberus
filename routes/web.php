@@ -26,64 +26,56 @@ Route::get('/', function () {
 
 Route::prefix('login')->controller(AuthController::class)->group(function ()
 {
-    Route::get('/pasien', 'indexPasien')->name('login.indexpasien')->middleware('cek.login:auth');
-    Route::post('/pasien', 'loginPasien')->name('login.pasien')->middleware('cek.login:auth');
-
-    Route::get('/perawat', 'indexPerawat')->name('login.indexperawat')->middleware('cek.login:auth');
-    Route::post('/perawat', 'loginPerawat')->name('login.perawat')->middleware('cek.login:auth');
-
-    Route::get('/dokter', 'indexDokter')->name('login.indexdokter')->middleware('cek.login:auth');
-    Route::post('/dokter', 'loginDokter')->name('login.dokter')->middleware('cek.login:auth');
-
-    Route::get('/admin', 'indexAdmin')->name('login.indexadmin')->middleware('cek.login:auth');
-    Route::post('/admin', 'loginAdmin')->name('login.admin')->middleware('cek.login:auth');
-});
+    Route::get('/pasien', 'indexPasien')->name('login.indexpasien');
+    Route::post('/pasien', 'loginPasien')->name('login.pasien');
+    Route::get('/perawat', 'indexPerawat')->name('login.indexperawat');
+    Route::post('/perawat', 'loginPerawat')->name('login.perawat');
+    Route::get('/dokter', 'indexDokter')->name('login.indexdokter');
+    Route::post('/dokter', 'loginDokter')->name('login.dokter');
+    Route::get('/admin', 'indexAdmin')->name('login.indexadmin');
+    Route::post('/admin', 'loginAdmin')->name('login.admin');
+})->middleware('cek.login:auth');;
 
 Route::prefix('register')->controller(AuthController::class)->group(function ()
 {
-    Route::get('/pasien', 'formPasien')->name('register.indexpasien')->middleware('cek.login:auth');
-    Route::post('/pasien', 'registerPasien')->name('register.pasien')->middleware('cek.login:auth');
-
-    Route::get('/perawat', 'formPerawat')->name('register.indexperawat')->middleware('cek.login:auth');
-    Route::post('/perawat', 'registerPerawat')->name('register.perawat')->middleware('cek.login:auth');
-
-    Route::get('/dokter', 'formDokter')->name('register.indexdokter')->middleware('cek.login:auth');
-    Route::post('/dokter', 'registerDokter')->name('register.dokter')->middleware('cek.login:auth');
-});
+    Route::get('/pasien', 'formPasien')->name('register.indexpasien');
+    Route::post('/pasien', 'registerPasien')->name('register.pasien');
+    Route::get('/perawat', 'formPerawat')->name('register.indexperawat');
+    Route::post('/perawat', 'registerPerawat')->name('register.perawat');
+    Route::get('/dokter', 'formDokter')->name('register.indexdokter');
+    Route::post('/dokter', 'registerDokter')->name('register.dokter');
+})->middleware('cek.login:auth');;
 
 //pasien
 Route::prefix('pasien')->controller(PasienController::class)->group(function(){
-    Route::get('/', 'indexHome')->name('pasien.home')->middleware('cek.login:pasien');
+    Route::get('/', 'indexHome')->name('pasien.home');
 
-    Route::get('/janji', 'indexJanji')->name('pasien.janji')->middleware('cek.login:pasien');
+    Route::get('/janjitemu', 'indexJanji')->name('pasien.janji');
+    Route::get('/janjitemu/detail', 'indexDetailJanji')->name('pasien.detailjanji');
 
-    Route::get('/detailjanji', 'indexDetailJanji')->name('pasien.detailjanji')->middleware('cek.login:pasien');
+    Route::get('/obat/detail', 'indexDetailObat')->name('pasien.detailobat');
+    Route::get('/obat/{page}', 'indexObat')->name('pasien.obat');
 
-    Route::get('/detailobat', 'indexDetailObat')->name('pasien.detailobat')->middleware('cek.login:pasien');
+    Route::get('/keranjang', 'indexKeranjang')->name('pasien.keranjang');
 
-    Route::get('/keranjang', 'indexKeranjang')->name('pasien.keranjang')->middleware('cek.login:pasien');
+    Route::get('/history/janjitemu', 'indexRiwayattemu')->name('pasien.historitemu');
+    Route::get('/histori/obat', 'indexRiwayatobat')->name('pasien.historiobat');
 
-    Route::get('/historitemu', 'indexRiwayattemu')->name('pasien.historitemu')->middleware('cek.login:pasien');
+    Route::get('/konsultasi', 'indexKonsultasi')->name('pasien.dokter');
 
-    Route::get('/historiobat', 'indexRiwayatobat')->name('pasien.historiobat')->middleware('cek.login:pasien');
-
-    Route::get('/konsultasi', 'indexKonsultasi')->name('pasien.dokter')->middleware('cek.login:pasien');
-
-    Route::get('/obat/{page}', 'indexObat')->name('pasien.obat')->middleware('cek.login:pasien');
-
-    Route::get('/perawat','index')->name('pasien.perawat')->middleware('cek.login:pasien');
-});
+    Route::get('/perawat','index')->name('pasien.perawat'); //??
+})->middleware('cek.login:pasien');;
 
 //perawat
 Route::prefix('perawat')->controller(PerawatController::class)->group(function(){
-    Route::get('/', 'indexHome')->name('perawat.home')->middleware('cek.login:perawat');
+    Route::get('/', 'indexHome')->name('perawat.home');
 
-    Route::get('/janji', 'indexJanji')->name('perawat.janji')->middleware('cek.login:perawat');
+    Route::get('/janji', 'indexJanji')->name('perawat.janji');
 
-    Route::get('/konsultasi', 'indexKonsultasi')->name('perawat.konsultasi')->middleware('cek.login:perawat');
+    Route::get('/konsultasi', 'indexKonsultasi')->name('perawat.konsultasi');
 
-    Route::get('/riwayat', 'indexRiwayat')->name('perawat.riwayat')->middleware('cek.login:perawat');
-});
+    Route::get('/riwayat', 'indexRiwayat')->name('perawat.riwayat');
+})->middleware('cek.login:perawat');;
 
 //dokter
 Route::prefix('dokter')->controller(DokterController::class)->group(function(){
@@ -94,39 +86,40 @@ Route::prefix('dokter')->controller(DokterController::class)->group(function(){
     Route::get('/konsultasi', 'indexKonsultasi')->name('dokter.konsultasi');
 
     Route::get('/riwayat', 'indexRiwayat')->name('dokter.riwayat');
-});
+})->middleware('cek.login:dokter');;
 
 //admin
 Route::prefix('admin')->controller(AdminController::class)->group(function(){
-    Route::get('/', 'home')->name('admin.home')->middleware('cek.login:admin');
-    Route::get('/pasien/{editId?}', 'pasien')->name('admin.pasien')->middleware('cek.login:admin');
-    Route::get('/rumahsakit/{editId?}', 'rumahsakit')->name('admin.rumahsakit')->middleware('cek.login:admin');
-    Route::get('/dokter/{editId?}', 'dokter')->name('admin.dokter')->middleware('cek.login:admin');
-    Route::get('/obat/{editId?}', 'obat')->name('admin.obat')->middleware('cek.login:admin');
-    Route::get('/perawat/{editId?}','perawat')->name('admin.perawat')->middleware('cek.login:admin');
+    Route::get('/', 'home')->name('admin.home');
+    Route::get('/pasien/{editId?}', 'pasien')->name('admin.pasien');
+    Route::get('/rumahsakit/{editId?}', 'rumahsakit')->name('admin.rumahsakit');
+    Route::get('/dokter/{editId?}', 'dokter')->name('admin.dokter');
+    Route::get('/obat/{editId?}', 'obat')->name('admin.obat');
+    Route::get('/perawat/{editId?}','perawat')->name('admin.perawat');
 
     //ROUTE CREATE
-    Route::post('/addpasien','addpasien')->name('admin.addpasien')->middleware('cek.login:admin');
-    Route::post('/addperawat','addperawat')->name('admin.addperawat')->middleware('cek.login:admin');
-    Route::post('/addrumahsakit','addrumahsakit')->name('admin.addrumahsakit')->middleware('cek.login:admin');
-    Route::post('/adddokter', 'adddokter')->name('admin.adddokter')->middleware('cek.login:admin');
-    Route::post('/addobat', 'addobat')->name('admin.addobat')->middleware('cek.login:admin');
+    Route::post('/pasien','addpasien')->name('admin.addpasien');
+    Route::post('/perawat','addperawat')->name('admin.addperawat');
+    Route::post('/rumahsakit','addrumahsakit')->name('admin.addrumahsakit');
+    Route::post('/dokter', 'adddokter')->name('admin.adddokter');
+    Route::post('/obat', 'addobat')->name('admin.addobat');
 
     //ROUTE DELETE
-    Route::get('/deletepasien/{ps_id}','deletepasien')->name('admin.deletepasien')->middleware('cek.login:admin');
-    Route::get('/deleterumahsakit/{rs_id}','deleterumahsakit')->name('admin.deleterumahsakit')->middleware('cek.login:admin');
-    Route::get('/deletedokter/{dk_id}','deletedokter')->name('admin.deletedokter')->middleware('cek.login:admin');
-    Route::get('/deleteperawat/{pr_id}','deleteperawat')->name('admin.deleteperawat')->middleware('cek.login:admin');
-    Route::get('/deleteobat/{ob_id}','deleteobat')->name('admin.deleteobat')->middleware('cek.login:admin');
+    Route::get('/pasien/{ps_id}/delete','deletepasien')->name('admin.deletepasien');
+    Route::get('/rumahsakit/{rs_id}/delete','deleterumahsakit')->name('admin.deleterumahsakit');
+    Route::get('/dokter/{dk_id}/delete','deletedokter')->name('admin.deletedokter');
+    Route::get('/perawat/{pr_id}/delete','deleteperawat')->name('admin.deleteperawat');
+    Route::get('/obat/{ob_id}/delete','deleteobat')->name('admin.deleteobat');
 
     //ROUTE EDIT
-    Route::post('/editrumahsakit', 'editrumahsakit')->name('admin.editrumahsakit')->middleware('cek.login:admin');
-    Route::post('/editpasien', 'editpasien')->name('admin.editpasien')->middleware('cek.login:admin');
-    Route::post('/editperawat', 'editperawat')->name('admin.editperawat')->middleware('cek.login:admin');
-    Route::post('/editdokter', 'editdokter')->name('admin.editdokter')->middleware('cek.login:admin');
-    Route::post('/editobat', 'editobat')->name('admin.editobat')->middleware('cek.login:admin');
-    Route::get('/getsip/{id}', 'getsip')->name('admin.getsip')->middleware('cek.login:admin');
-});
+    Route::post('/rumahsakit/edit', 'editrumahsakit')->name('admin.editrumahsakit');
+    Route::post('/pasien/edit', 'editpasien')->name('admin.editpasien');
+    Route::post('/perawat/edit', 'editperawat')->name('admin.editperawat');
+    Route::post('/dokter/edit', 'editdokter')->name('admin.editdokter');
+    Route::post('/obat/edit', 'editobat')->name('admin.editobat');
+    
+    Route::get('/getsip/{id}', 'getsip')->name('admin.getsip');
+})->middleware('cek.login:admin');;
 
 
 Route::get('logout', function () {
