@@ -6,7 +6,7 @@
 
 @section('main')
 Janji Temu:
-@foreach ($janji_temu as $a)
+
     <table class="table">
         <tr>
             <th>je_id</th>
@@ -16,6 +16,7 @@ Janji Temu:
             <th>created_at</th>
             <th>updated_at</th>
         </tr>
+        @foreach ($janji_temu as $a)
         <tr>
             <td>{{ $a->je_id }}</td>
             <td>{{ $a->ps_id }}</td>
@@ -24,18 +25,18 @@ Janji Temu:
             <td>{{ $a->created_at }}</td>
             <td>{{ $a->updated_at }}</td>
         </tr>
+        @endforeach
     </table>
-@endforeach
 Konsultasi:
-@foreach ($konsultasi as $a)
     <table class="table">
         <tr>
-            <td>ks_id</td>
-            <td>dk_id</td>
-            <td>ps_id</td>
-            <td>created_at</td>
-            <td>updated_at</td>
+            <th>ks_id</th>
+            <th>dk_id</th>
+            <th>ps_id</th>
+            <th>created_at</th>
+            <th>updated_at</th>
         </tr>
+        @foreach ($konsultasi as $a)
         <tr>
             <td> {{ $a->ks_id}} </td>
             <td> {{ $a->dk_id}} </td>
@@ -43,6 +44,6 @@ Konsultasi:
             <td> {{ $a->created_at}} </td>
             <td> {{ $a->updated_at}} </td>
         </tr>
+        @endforeach
     </table>
-@endforeach
 @endsection
