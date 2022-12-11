@@ -2,11 +2,9 @@
 
 @section('main')
     <div class="h-full flex justify-center items-center">
-        <form method="POST" class="">
+        <form method="POST" class="" action="{{ route('register.dokter') }}">
             @csrf
             <div class="bg-base h-[35rem] w-[65rem] rounded-lg flex flex-col border-black" style="border: 4px solid #2596be">
-
-
                 <div class="bg-base h-[5rem] w-[65rem] flex items-center align-center">
                     <p class="text-3xl font-bold text-secondary w-full text-center">Register Account</p>
                 </div>
@@ -16,22 +14,22 @@
                         <div class=" w-full max-w-md text-xl text-secondary mt-6">Nama</div>
                         <input type="text" name="nama" value="{{ old('nama') }}" placeholder="Nama"
                             class="input input-bordered input-secondary w-full max-w-md mt-2" />
-                        @error('username')
+                        @error('nama')
                             <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
                         @enderror
                         <div class=" w-full max-w-md text-xl text-secondary mt-6">Email</div>
-                        <input type="text" name="email" placeholder="Email"
+                        <input type="text" name="email" value="{{ old('email')}}" placeholder="Email"
                             class="input input-bordered input-secondary w-full max-w-md mt-2" />
                         @error('email')
                             <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
                         @enderror
                         <div class=" w-full max-w-md text-xl text-secondary mt-6">Telepon</div>
-                        <input type="text" name="telepon" placeholder="Telepon"
+                        <input type="text" name="telepon" value="{{ old('telepon')}}" placeholder="Telepon"
                             class="input input-bordered input-secondary w-full max-w-md mt-2" />
                         @error('telepon')
                             <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
                         @enderror
-                        <a href="{{route('login.indexdokter')}}" class="w-full max-w-md mt-10">
+                        <a href="{{ route('login.indexdokter') }}" class="w-full max-w-md mt-10">
                             <div class="btn btn-secondary btn-outline w-full text-base-100 mt-6">Batal</div>
                         </a>
                     </div>
@@ -42,9 +40,12 @@
                             <div class="w-1/2">
                                 <div class=" w-full max-w-md text-xl text-secondary">Rumah Sakit</div>
                                 {{-- select box, menunggu for loop --}}
-                                <select name="rs" id="rs" class="input input-bordered input-secondary w-4/5 max-w-md mt-2">
-                                    <option value="dumi">dumi</option>
-                                    <option value="dumi">dumi</option>
+                                <select name="rs" id="rs"
+                                    class="input input-bordered input-secondary w-4/5 max-w-md mt-2">
+                                    @foreach ($rumahSakit as $item)
+                                        <option value="{{ $item->rs_id }}">
+                                            {{ $item->rs_nama }}</option>
+                                    @endforeach
                                 </select>
                                 @error('rs')
                                     <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
@@ -53,9 +54,12 @@
                             <div class="w-1/2">
                                 <div class=" w-full max-w-md text-xl text-secondary">Spesialis</div>
                                 {{-- select box, menunggu for loop --}}
-                                <select name="spesialis" id="spesialis" class="input input-bordered input-secondary w-4/5 max-w-md mt-2">
-                                    <option value="dumi">dumi</option>
-                                    <option value="dumi">dumi</option>
+                                <select name="spesialis" id="sp"
+                                    class="input input-bordered input-secondary w-4/5 max-w-md mt-2">
+                                    @foreach ($spesialis as $item)
+                                        <option value="{{ $item->sp_id }}">
+                                            {{ $item->sp_nama }}</option>
+                                    @endforeach
                                 </select>
                                 @error('spesialis')
                                     <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
@@ -74,9 +78,9 @@
                         @error('confirm')
                             <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
                         @enderror
-                        <a href="" class="w-full max-w-md mt-10">
-                            <div class="btn btn-secondary w-full max-w-md mt-6 text-base-100">Register</div>
-                        </a>
+                        <div class="w-full max-w-md mt-10">
+                            <button class="btn btn-secondary w-full max-w-md mt-6 text-base-100">Register</button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Dokter;
 use App\Models\Pasien;
 use App\Models\Perawat;
+use App\Models\RumahSakit;
+use App\Models\Spesialis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -76,7 +78,7 @@ class AuthController extends Controller
 
     public function indexDokter(Request $req)
     {
-        # code...
+
         return view('loginregis/LoginDokter');
     }
 
@@ -145,14 +147,37 @@ class AuthController extends Controller
         $req->validate(
             [
                 'nama' => 'required',
-                'email' => 'required|email|unique:pasien,ps_email|unique:dokter,dk_email|unique:perawat,pr_email',
-                'telepon' => 'required|numeric|gte:10|lte:13',
-                'password' => 'required|confirmed|gte:8',
+                'email' => 'required|email|unique:pasien,ps_email|unique:dokter,dk_email|unique:pasien,ps_email|unique:perawat,pr_email',
+                'telepon' => 'required|numeric|digits_between:10,15|unique:dokter,dk_telp|unique:pasien,ps_telp|unique:perawat,pr_telp',
+                'password' => 'required|min:8',
+                'confirm' => 'required|same:password',
+                'alamat' => 'required',
             ],
             [
-                'telepon.gte' => 'Telepon harus 10-13 digit',
-                'telepon.lte' => 'Telepon harus 10-13 digit',
-                'password.gte' => 'Password minimal 8 digit',
+                //VALIDATION NAMA
+                'nama.required' => 'Nama tidak boleh kosong',
+
+                //VALIDATION EMAIL
+                'email.required' => 'Email tidak boleh kosong',
+                'email.email' => 'Email tidak valid',
+                'email.unique' => 'Email sudah terdaftar',
+
+                //VALIDATION TELEPON
+                'telepon.required' => 'Telepon tidak boleh kosong',
+                'telepon.numeric' => 'Telepon harus berupa angka',
+                'telepon.digits_between' => 'Telepon harus berupa angka',
+                'telepon.unique' => 'Telepon sudah terdaftar',
+
+                //VALIDATION PASSWORD
+                'password.required' => 'Password tidak boleh kosong',
+                'password.min' => 'Password minimal 8 karakter',
+
+                //VALIDATION CONFIRM
+                'confirm.required' => 'Konfirmasi password tidak boleh kosong',
+                'confirm.same' => 'Konfirmasi password tidak sama',
+
+                //VALIDATION ALAMAT
+                'alamat.required' => 'Alamat tidak boleh kosong'
             ]
         );
 
@@ -160,6 +185,7 @@ class AuthController extends Controller
             'ps_nama' => $req->nama,
             'ps_email' => $req->email,
             'ps_telp' => $req->telepon,
+            'ps_alamat' => $req->alamat,
             'ps_password' => $req->password,
         ]);
 
@@ -168,8 +194,9 @@ class AuthController extends Controller
 
     public function formPerawat(Request $req)
     {
-        # code...
-        return view('loginregis/RegisterPerawat');
+        $rumahSakit = RumahSakit::all();
+
+        return view('loginregis/RegisterPerawat', compact('rumahSakit'));
     }
 
     public function registerPerawat(Request $req)
@@ -177,15 +204,33 @@ class AuthController extends Controller
         $req->validate(
             [
                 'nama' => 'required',
-                'email' => 'required|email|unique:pasien,ps_email|unique:dokter,dk_email|unique:perawat,pr_email',
-                'telepon' => 'required|numeric|gte:10|lte:13',
-                'password' => 'required|confirmed|gte:8',
-                'rs' => 'required',
+                'email' => 'required|email|unique:pasien,ps_email|unique:dokter,dk_email|unique:perawat,pr_email|uniqure:pasien,ps_email',
+                'telepon' => 'required|numeric|digits_between:10,15|unique:perawat,pr_telp|unique:dokter,dk_telp|unique:pasien,ps_telp',
+                'password' => 'required|min:8',
+                'confirm' => 'required|same:password',
             ],
             [
-                'telepon.gte' => 'Telepon harus 10-13 digit',
-                'telepon.lte' => 'Telepon harus 10-13 digit',
-                'password.gte' => 'Password minimal 8 digit',
+                //VALIDATION NAMA
+                'nama.required' => 'Nama tidak boleh kosong',
+
+                //VALIDATION EMAIL
+                'email.required' => 'Email tidak boleh kosong',
+                'email.email' => 'Email tidak valid',
+                'email.unique' => 'Email sudah terdaftar',
+
+                //VALIDATION TELEPON
+                'telepon.required' => 'Telepon tidak boleh kosong',
+                'telepon.numeric' => 'Telepon harus berupa angka',
+                'telepon.digits_between' => 'Telepon harus 10-15 digit',
+                'telepon.unique' => 'Telepon sudah terdaftar',
+
+                //VALIDATION PASSWORD
+                'password.required' => 'Password tidak boleh kosong',
+                'password.min' => 'Password minimal 8 digit',
+
+                //VALIDATION CONFIRM
+                'confirm.required' => 'Konfirmasi password tidak boleh kosong',
+                'confirm.same' => 'Konfirmasi password tidak sesuai',
             ]
         );
 
@@ -194,7 +239,7 @@ class AuthController extends Controller
             'pr_email' => $req->email,
             'pr_telp' => $req->telepon,
             'pr_password' => $req->password,
-            'rs_id' => $req->rs
+            'rs_id' => $req->rs,
         ]);
 
         return back()->with('succ', 'Berhasil mendaftar');
@@ -202,35 +247,56 @@ class AuthController extends Controller
 
     public function formDokter(Request $req)
     {
-        # code...
-        return view('loginregis/RegisterDokter');
+        $rumahSakit = RumahSakit::all();
+        $spesialis = Spesialis::all();
+
+        return view('loginregis/RegisterDokter', compact('rumahSakit', 'spesialis'));
     }
 
     public function registerDokter(Request $req)
     {
+        $sp=$req->spesialis;
         $req->validate(
             [
-                'nama' => 'required',
-                'email' => 'required|email|unique:pasien,ps_email|unique:dokter,dk_email|unique:perawat,pr_email',
-                'telepon' => 'required|numeric|gte:10|lte:13',
-                'password' => 'required|confirmed|gte:8',
-                'rs' => 'required',
-                'sp' => 'required',
+                'nama' =>  ['required'],
+                'email' =>  ['required','email','unique:dokter,dk_email','unique:perawat,pr_email,','unique:pasien,ps_email'],
+                'telepon' => ['required','digits_between :10,15','numeric','unique:dokter,dk_telp','unique:perawat,pr_telp','unique:pasien,ps_telp'],
+                'password' => ['required','min:8'],
+                'confirm' =>['required','same:password'],
             ],
             [
-                'telepon.gte' => 'Telepon harus 10-13 digit',
-                'telepon.lte' => 'Telepon harus 10-13 digit',
-                'password.gte' => 'Password minimal 8 digit',
+                //VALIDATION NAMA
+                'nama.required' => 'Nama tidak boleh kosong',
+
+                //VALIDATION EMAIL
+                'email.required' => 'Email tidak boleh kosong',
+                'email.email' => 'Email tidak valid',
+                'email.unique' => 'Email sudah terdaftar',
+
+                //VALIDATION TELEPON
+                'telepon.required' => 'Telepon tidak boleh kosong',
+                'telepon.digits_between' => 'Telepon harus 10-15 digit',
+                'telepon.numeric' => 'Telepon harus berupa angka',
+                'telepon.unique' => 'Telepon sudah terdaftar',
+
+                //VALIDATION PASSWORD
+                'password.required' => 'Password tidak boleh kosong',
+                'password.min' => 'Password minimal 8 digit',
+
+                //VALIDATION CONFIRM
+                'confirm.required' => 'Konfirmasi password tidak boleh kosong',
+                'confirm.same' => 'Konfirmasi password tidak sesuai',
             ]
         );
 
-        Pasien::insert([
+        Dokter::insert([
             'dk_nama' => $req->nama,
             'dk_email' => $req->email,
             'dk_telp' => $req->telepon,
-            'dk_password' => $req->password,
+            'dk_password' => Hash::make($req->password),
             'rs_id' => $req->rs,
-            'sp_id' => $req->sp,
+            'sp_id' => $req->spesialis,
+            'dk_status' => 1
         ]);
 
         return back()->with('succ', 'Berhasil mendaftar');

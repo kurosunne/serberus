@@ -2,7 +2,7 @@
 
 @section('main')
     <div class="h-full flex justify-center items-center">
-        <form method="POST" class="">
+        <form method="POST" class="" action="{{ route('register.perawat') }}">
             @csrf
             <div class="bg-base h-[35rem] w-[65rem] rounded-lg flex flex-col border-black" style="border: 4px solid #2596be">
 
@@ -16,7 +16,7 @@
                         <div class=" w-full max-w-md text-xl text-secondary mt-6">Nama</div>
                         <input type="text" name="nama" value="{{ old('nama') }}" placeholder="Nama"
                             class="input input-bordered input-secondary w-full max-w-md mt-2" />
-                        @error('username')
+                        @error('nama')
                             <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
                         @enderror
                         <div class=" w-full max-w-md text-xl text-secondary mt-6">Email</div>
@@ -43,8 +43,10 @@
                                 <div class=" w-full max-w-md text-xl text-secondary">Rumah Sakit</div>
                                 {{-- select box, menunggu for loop --}}
                                 <select name="rs" id="rs" class="input input-bordered input-secondary w-full max-w-md mt-2">
-                                    <option value="dumi">dumi</option>
-                                    <option value="dumi">dumi</option>
+                                    @foreach ($rumahSakit as $item)
+                                    <option value="{{ $item->rs_id }}">
+                                        {{ $item->rs_nama }}</option>
+                                @endforeach
                                 </select>
                                 @error('rs')
                                     <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
@@ -63,9 +65,9 @@
                         @error('confirm')
                             <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
                         @enderror
-                        <a href="" class="w-full max-w-md mt-10">
-                            <div class="btn btn-secondary w-full max-w-md mt-6 text-base-100">Register</div>
-                        </a>
+                        <div class="w-full max-w-md mt-10">
+                            <button class="btn btn-secondary w-full max-w-md mt-6 text-base-100">Register</button>
+                        </div>
                     </div>
                 </div>
             </div>

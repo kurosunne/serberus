@@ -2,7 +2,7 @@
 
 @section('main')
     <div class="h-full flex justify-center items-center">
-        <form method="POST" class="">
+        <form method="POST" class="" action="{{ route('register.pasien') }}">
             @csrf
             <div class="bg-base h-[35rem] w-[65rem] rounded-lg flex flex-col border-black" style="border: 4px solid #FFB034">
 
@@ -16,7 +16,7 @@
                         <div class=" w-full max-w-md text-xl text-primary mt-6">Nama</div>
                         <input type="text" name="nama" value="{{ old('nama') }}" placeholder="Nama"
                             class="input input-bordered input-primary w-full max-w-md mt-2" />
-                        @error('username')
+                        @error('nama')
                             <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
                         @enderror
                         <div class=" w-full max-w-md text-xl text-primary mt-6">Email</div>
@@ -38,6 +38,12 @@
 
                     {{-- kanan --}}
                     <div class="h-full w-1/2 bg-base-100 rounded-tr-lg rounded-br-lg flex flex-col items-center">
+                        <div class=" w-full max-w-md text-xl text-primary mt-6">Alamat</div>
+                        <input type="text" name="alamat" value="{{ old('alamat') }}" placeholder="Alamat"
+                            class="input input-bordered input-primary w-full max-w-md mt-2" />
+                        @error('alamat')
+                            <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
+                        @enderror
                         <div class=" w-full max-w-md text-xl text-primary mt-6">Password</div>
                         <input type="password" name="password" value="{{ old('password') }}" placeholder="Password"
                             class="input input-bordered input-primary w-full max-w-md mt-2" />
@@ -50,12 +56,9 @@
                         @error('confirm')
                             <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
                         @enderror
-                        <div class="h-[6rem]">
-
+                        <div class="w-full max-w-md mt-10">
+                            <button class="btn btn-primary w-full max-w-md mt-6 text-base-100">Register</button>
                         </div>
-                        <a href="" class="w-full max-w-md mt-10">
-                            <div class="btn btn-primary w-full max-w-md mt-9 text-base-100">Register</div>
-                        </a>
                     </div>
                 </div>
             </div>
