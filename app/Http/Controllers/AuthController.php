@@ -259,10 +259,11 @@ class AuthController extends Controller
         $req->validate(
             [
                 'nama' =>  ['required'],
-                'email' =>  ['required','email','unique:dokter,dk_email','unique:perawat,pr_email,','unique:pasien,ps_email'],
+                'email' =>  ['required','email','unique:dokter,dk_email','unique:perawat,pr_email','unique:pasien,ps_email'],
                 'telepon' => ['required','digits_between :10,15','numeric','unique:dokter,dk_telp','unique:perawat,pr_telp','unique:pasien,ps_telp'],
                 'password' => ['required','min:8'],
                 'confirm' =>['required','same:password'],
+                'sip' => ['required'],
             ],
             [
                 //VALIDATION NAMA
@@ -286,6 +287,9 @@ class AuthController extends Controller
                 //VALIDATION CONFIRM
                 'confirm.required' => 'Konfirmasi password tidak boleh kosong',
                 'confirm.same' => 'Konfirmasi password tidak sesuai',
+
+                //VALIDATION SIP
+                'sip.required' => "Surat Ijin Praktek tidak boleh kosong"
             ]
         );
 
@@ -298,6 +302,9 @@ class AuthController extends Controller
             'sp_id' => $req->spesialis,
             'dk_status' => 1
         ]);
+
+        $dkId = Dokter::limit(1)->latest('dk_id')->first()->dk_id;
+        $req->file('sip')->storeAs('sip',$dkId.'.png','local');
 
         return back()->with('succ', 'Berhasil mendaftar');
     }
