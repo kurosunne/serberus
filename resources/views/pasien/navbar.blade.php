@@ -27,7 +27,7 @@
                     Obat</a></li>
             <li class="{{ $cr == '' ? 'text-white' : '' }}"><a href=""
                     class="btn btn-ghost normal-case text-xl">Konsultasi</a></li>
-            <li class="{{ $cr == '' ? 'text-white' : '' }}"><a href="{{ route('pasien.historitemu') }}"
+            <li class="{{ $cr == 'pasien.historitemu' || $cr == 'pasien.historiobat'  ? 'text-white' : '' }}"><a href="{{ route('pasien.historitemu') }}"
                     class="btn btn-ghost normal-case text-xl">Riwayat</a></li>
         </ul>
     </div>

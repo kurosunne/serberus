@@ -15,11 +15,13 @@ class DjualObat extends Model
 
     public function HjualObat()
     {
-        return $this->hasMany(HjualObat::class,"do_id","do_id");
+        return $this->belongsTo(HjualObat::class,"ho_id","ho_id");
     }
 
-    public function Pasien()
+    public function Obat()
     {
-        return $this->belongsTo(Pasien::class,"ps_id","ps_id");
+        return $this->belongsTo(Obat::class,"ob_id","ob_id");
     }
+
+
 }

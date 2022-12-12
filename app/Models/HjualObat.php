@@ -15,13 +15,13 @@ class HjualObat extends Model
     public $incrementing = true;
     public $timestamps = true;
 
-    public function Obat()
+    public function Pasien()
     {
-        return $this->belongsTo(Obat::class,"ob_id","ob_id");
+        return $this->belongsTo(Pasien::class,"ps_id","ps_id");
     }
 
     public function DjualObat()
     {
-        return $this->belongsTo(DjualObat::class,"do_id","do_id");
+        return $this->hasMany(DjualObat::class,"ho_id","ho_id");
     }
 }

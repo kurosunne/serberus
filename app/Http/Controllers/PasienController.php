@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dokter;
+use App\Models\HjualObat;
 use App\Models\JanjiTemu;
 use App\Models\Konsultasi;
 use App\Models\Obat;
@@ -23,6 +24,7 @@ class PasienController extends Controller
         $konsultasi = Konsultasi::where('ps_id',$pasien->ps_id)->get();
         return view('pasien.home',compact('dokter','obat','konsultasi'));
     }
+
     public function indexRiwayattemu(Request $req)
     {
         if($req->query("order") && !$req->query("sort")){
@@ -72,11 +74,16 @@ class PasienController extends Controller
         ];
         return view('pasien.historitemu',compact('janji_temu', 'sort_link', "sort_status"));
     }
+
     public function indexRiwayatobat(Request $req)
     {
-        # code...
-        return view('pasien.historiobat');
+        $user = Pasien::where("ps_email", Session::get("active")["email"])->first();
+
+        $hjual_obat = HjualObat::where("ps_id",$user->ps_id)->get();
+
+        return view('pasien.historiobat',compact('hjual_obat'));
     }
+
     public function indexJanji(Request $req)
     {
         if($req->query("order") && !$req->query("sort")){
@@ -127,6 +134,7 @@ class PasienController extends Controller
 
         return view('pasien.JanjiTemu',compact('janji_temu', 'sort_link', "sort_status"));
     }
+
     public function indexDetailJanji(Request $req)
     {
         # code...

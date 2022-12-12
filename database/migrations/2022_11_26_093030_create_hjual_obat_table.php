@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('hjual_obat', function (Blueprint $table) {
             $table->id("ho_id");
-            $table->unsignedBigInteger("ob_id");
-            $table->unsignedBigInteger("do_id");
+            $table->unsignedBigInteger("ps_id");
+            $table->date("ho_tanggal");
+            $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreign("ob_id")->references("ob_id")->on("obat")->onUpdate("cascade")->onDelete("cascade");
-            $table->foreign("do_id")->references("do_id")->on("djual_obat")->onUpdate("cascade")->onDelete("cascade");
+            $table->foreign("ps_id")->references("ps_id")->on("pasien")->onUpdate("cascade")->onDelete("cascade");
         });
     }
 
