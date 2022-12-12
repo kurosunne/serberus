@@ -21,7 +21,7 @@
                                 <div class="card w-[30%] bg-secondary shadow-xl mx-4 ml-8">
                                     {{-- foto card --}}
                                     <div class="h-2/6 mt-4 flex item-center justify-center pt-3">
-                                        <img src="{{ url('image/avatar.jpg') }}" alt="Dokter"
+                                        <img src="{{ url('foto/dk'.$dokter[$i]->dk_id.'.png') }}" alt="Dokter"
                                             class="rounded-full h-full" />
                                     </div>
                                     {{-- deskripsi card --}}
@@ -47,7 +47,7 @@
                                 <div class="card w-[30%] bg-secondary shadow-xl mx-4 ml-8">
                                     {{-- foto card --}}
                                     <div class="h-2/6 mt-4 flex item-center justify-center pt-3">
-                                        <img src="{{ url('image/avatar.jpg') }}" alt="Dokter"
+                                        <img src="{{ url('foto/dk'.$dokter[$i]->dk_id.'.png') }}" alt="Dokter"
                                             class="rounded-full h-full" />
                                     </div>
                                     {{-- deskripsi card --}}
@@ -73,7 +73,7 @@
                                 <div class="card w-[30%] bg-secondary shadow-xl mx-4 ml-8">
                                     {{-- foto card --}}
                                     <div class="h-2/6 mt-4 flex item-center justify-center pt-3">
-                                        <img src="{{ url('image/avatar.jpg') }}" alt="Dokter"
+                                        <img src="{{ url('foto/dk'.$dokter[$i]->dk_id.'.png') }}" alt="Dokter"
                                             class="rounded-full h-full" />
                                     </div>
                                     {{-- deskripsi card --}}
@@ -115,20 +115,23 @@
                                     <figure class="w-[40%] h-full flex flex-col item-center justify-center">
                                         <div class="h-1/2 w-full">
                                             {{-- image card --}}
-                                            <img src="{{ url('image/obat.png') }}" alt="obat"
+                                            <img src="{{ url('obat/'.$obat[$i]->ob_id.'.png') }}" alt="obat"
                                                 class="ml-2 object-contain object-center w-5/6 h-full">
                                         </div>
                                         <div class="h-2/6 w-full text-center">
                                             {{-- judul dan harga barang --}}
-                                            <h2 class="w-full text-center text-white font-bold text-lg">{{$obat[$i]->ob_nama}}</h2>
-                                            <p class="w-full text-white">Rp. {{number_format($obat[$i]->ob_harga,2,',','.')}}</p>
+                                            <h2 class="w-full text-center text-white font-bold text-lg">
+                                                {{ $obat[$i]->ob_nama }}</h2>
+                                            <p class="w-full text-white">Rp.
+                                                {{ number_format($obat[$i]->ob_harga, 2, ',', '.') }}</p>
                                         </div>
                                     </figure>
                                     <div class="card-body w-[60%] text-center p-4">
                                         <div class="w-full h-full bg-base-100 rounded-lg p-2 justify-center">
                                             {{-- deskripsi --}}
-                                            <p class="w-full h-[80%] text-justify text-sm align-middle">
-                                                Obat untuk meredakan batuk, pilek, hingga covid dalam satu kemasan
+                                            <p class="w-full h-[80%] text-left text-sm align-middle">
+                                                {{ substr($obat[$i]->ob_deskripsi, 0, 200) }}
+                                                {{ strlen($obat[$i]->ob_deskripsi >= 200) ? '...' : '' }}
                                             </p>
                                             {{-- href detail --}}
                                             <button class="btn btn-success mb-3 w-full">Beli</button>
@@ -149,20 +152,22 @@
                                     <figure class="w-[40%] h-full flex flex-col item-center justify-center">
                                         <div class="h-1/2 w-full">
                                             {{-- image card --}}
-                                            <img src="{{ url('image/obat.png') }}" alt="obat"
+                                            <img src="{{ url('obat/'.$obat[$i]->ob_id.'.png') }}" alt="obat"
                                                 class="ml-2 object-contain object-center w-5/6 h-full">
                                         </div>
                                         <div class="h-2/6 w-full text-center">
                                             {{-- judul dan harga barang --}}
-                                            <h2 class="w-full text-center text-white font-bold text-lg">{{$obat[$i]->ob_nama}}</h2>
-                                            <p class="w-full text-white">Rp. {{number_format($obat[$i]->ob_harga,2,',','.')}}</p>
+                                            <h2 class="w-full text-center text-white font-bold text-lg">
+                                                {{ $obat[$i]->ob_nama }}</h2>
+                                            <p class="w-full text-white">Rp.
+                                                {{ number_format($obat[$i]->ob_harga, 2, ',', '.') }}</p>
                                         </div>
                                     </figure>
                                     <div class="card-body w-[60%] text-center p-4">
                                         <div class="w-full h-full bg-base-100 rounded-lg p-2 justify-center">
                                             {{-- deskripsi --}}
-                                            <p class="w-full h-[80%] text-justify text-sm align-middle">
-                                                Obat untuk meredakan batuk, pilek, hingga covid dalam satu kemasan
+                                            <p class="w-full h-[80%] text-left text-sm align-middle">
+                                                {{ substr($obat[$i]->ob_deskripsi, 0, 200) }}
                                             </p>
                                             {{-- href detail --}}
                                             <button class="btn btn-success mb-3 w-full">Beli</button>
@@ -187,20 +192,22 @@
                                     <figure class="w-[40%] h-full flex flex-col item-center justify-center">
                                         <div class="h-1/2 w-full">
                                             {{-- image card --}}
-                                            <img src="{{ url('image/obat.png') }}" alt="obat"
+                                            <img src="{{ url('obat/'.$obat[$i]->ob_id.'.png') }}" alt="obat"
                                                 class="ml-2 object-contain object-center w-5/6 h-full">
                                         </div>
                                         <div class="h-2/6 w-full text-center">
                                             {{-- judul dan harga barang --}}
-                                            <h2 class="w-full text-center text-white font-bold text-lg">{{$obat[$i]->ob_nama}}</h2>
-                                            <p class="w-full text-white">Rp. {{number_format($obat[$i]->ob_harga,2,',','.')}}</p>
+                                            <h2 class="w-full text-center text-white font-bold text-lg">
+                                                {{ $obat[$i]->ob_nama }}</h2>
+                                            <p class="w-full text-white">Rp.
+                                                {{ number_format($obat[$i]->ob_harga, 2, ',', '.') }}</p>
                                         </div>
                                     </figure>
                                     <div class="card-body w-[60%] text-center p-4">
                                         <div class="w-full h-full bg-base-100 rounded-lg p-2 justify-center">
                                             {{-- deskripsi --}}
-                                            <p class="w-full h-[80%] text-justify text-sm align-middle">
-                                                Obat untuk meredakan batuk, pilek, hingga covid dalam satu kemasan
+                                            <p class="w-full h-[80%] text-left text-sm align-middle">
+                                                {{ substr($obat[$i]->ob_deskripsi, 0, 200) }}
                                             </p>
                                             {{-- href detail --}}
                                             <button class="btn btn-success mb-3 w-full">Beli</button>
@@ -232,20 +239,26 @@
                             <a class="font-bold font-lg text-secondary" href="">See More...</a>
                         </div>
                     </div>
-                    {{-- card --}}
-                    <div class="w-full h-[25%] bg-secondary mt-3 flex p-2">
-                        <div class="h-full w-[20%]">
-                            <img src="{{ url('image/avatar.jpg') }}" alt="" class="rounded-full h-full">
+                    @for ($i = 0; $i < 3; $i++)
+                        {{-- card --}}
+                        @if ($i >= count($konsultasi))
+                            @php
+                                break;
+                            @endphp
+                        @endif
+                        <div class="w-full h-[25%] bg-secondary mt-3 flex p-2">
+                            <div class="h-full w-[20%]">
+                                <img src="{{ url('foto/dk'.$konsultasi[$i]->dk_id.'.png') }}" alt="" class="rounded-full h-full">
+                            </div>
+                            <div class="h-full w-[50%] flex flex-col justify-center mx-3">
+                                <p class="text-lg font-bold text-white">{{$konsultasi[$i]->Dokter->dk_nama}}</p>
+                                <p class="text-sm text-white">Tanggal Konsultasi {{date_format($konsultasi[$i]->created_at,"m/d/Y")}}</p>
+                            </div>
+                            <div class="h-full w-[20%] flex flex-col item-center justify-center">
+                                <div class="btn btn-success">Detail</div>
+                            </div>
                         </div>
-                        <div class="h-full w-[50%] flex flex-col justify-center mx-3">
-                            <p class="text-lg font-bold text-white">Dr. Mister Doktor</p>
-                            <p class="text-sm text-white">Tanggal Konsultasi 12/20/2022</p>
-                        </div>
-                        <div class="h-full w-[20%] flex flex-col item-center justify-center">
-                            <div class="btn btn-success">Detail</div>
-                        </div>
-                    </div>
-
+                    @endfor
                 </div>
                 <div class="w-full h-3/6 rounded-[15px] flex flex-col items-center p-3 mt-6"
                     style="border: 4px solid #FFB034">
@@ -273,7 +286,7 @@
                         </div>
                     </div>
 
+                </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection

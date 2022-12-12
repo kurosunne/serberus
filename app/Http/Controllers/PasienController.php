@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dokter;
+use App\Models\Konsultasi;
 use App\Models\Obat;
+use App\Models\Pasien;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PasienController extends Controller
 {
@@ -14,7 +17,9 @@ class PasienController extends Controller
         # code...
         $dokter = Dokter::inRandomOrder()->limit(9)->get();
         $obat = Obat::inRandomOrder()->limit(9)->get();
-        return view('pasien.home',compact('dokter','obat'));
+        $pasien = Pasien::where('ps_email',Session::get('active')['email'])->first();
+        $konsultasi = Konsultasi::where('ps_id',$pasien->ps_id)->get();
+        return view('pasien.home',compact('dokter','obat','konsultasi'));
     }
     public function indexRiwayattemu(Request $req)
     {

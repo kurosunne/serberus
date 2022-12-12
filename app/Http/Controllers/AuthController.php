@@ -9,6 +9,7 @@ use App\Models\RumahSakit;
 use App\Models\Spesialis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -38,7 +39,7 @@ class AuthController extends Controller
             //TODO:Pasien Home
             Session::put('active', [
                 'email' => $req->email,
-                'role' => 'perawat'
+                'role' => 'pasien'
             ]);
             return redirect()->route('pasien.home');
         } else {
@@ -189,6 +190,9 @@ class AuthController extends Controller
             'ps_password' => $req->password,
         ]);
 
+        $psId = Pasien::limit(1)->latest('ps_id')->first()->ps_id;
+        File::copy('foto/psdef.png' , 'foto/ps'.$psId.'.png');
+
         return back()->with('succ', 'Berhasil mendaftar');
     }
 
@@ -241,6 +245,9 @@ class AuthController extends Controller
             'pr_password' => $req->password,
             'rs_id' => $req->rs,
         ]);
+
+        $prId = Perawat::limit(1)->latest('pr_id')->first()->pr_id;
+        File::copy('foto/prdef.png' , 'foto/pr'.$prId.'.png');
 
         return back()->with('succ', 'Berhasil mendaftar');
     }
@@ -300,11 +307,13 @@ class AuthController extends Controller
             'dk_password' => Hash::make($req->password),
             'rs_id' => $req->rs,
             'sp_id' => $req->spesialis,
-            'dk_status' => 1
+            'dk_status' => 0
         ]);
 
         $dkId = Dokter::limit(1)->latest('dk_id')->first()->dk_id;
         $req->file('sip')->storeAs('sip',$dkId.'.png','local');
+
+        File::copy('foto/dkdef.png' , 'foto/dk'.$dkId.'.png');
 
         return back()->with('succ', 'Berhasil mendaftar');
     }

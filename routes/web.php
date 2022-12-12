@@ -24,7 +24,7 @@ Route::get('/', function () {
     return redirect()->route('login.indexpasien');
 })->name('welcome');
 
-Route::prefix('login')->controller(AuthController::class)->group(function ()
+Route::prefix('login')->controller(AuthController::class)->middleware('cek.login:auth')->group(function ()
 {
     Route::get('/pasien', 'indexPasien')->name('login.indexpasien');
     Route::post('/pasien', 'loginPasien')->name('login.pasien');
@@ -34,9 +34,9 @@ Route::prefix('login')->controller(AuthController::class)->group(function ()
     Route::post('/dokter', 'loginDokter')->name('login.dokter');
     Route::get('/admin', 'indexAdmin')->name('login.indexadmin');
     Route::post('/admin', 'loginAdmin')->name('login.admin');
-})->middleware('cek.login:auth');;
+});
 
-Route::prefix('register')->controller(AuthController::class)->group(function ()
+Route::prefix('register')->controller(AuthController::class)->middleware('cek.login:auth')->group(function ()
 {
     Route::get('/pasien', 'formPasien')->name('register.indexpasien');
     Route::post('/pasien', 'registerPasien')->name('register.pasien');
@@ -44,10 +44,10 @@ Route::prefix('register')->controller(AuthController::class)->group(function ()
     Route::post('/perawat', 'registerPerawat')->name('register.perawat');
     Route::get('/dokter', 'formDokter')->name('register.indexdokter');
     Route::post('/dokter', 'registerDokter')->name('register.dokter');
-})->middleware('cek.login:auth');;
+});
 
 //pasien
-Route::prefix('pasien')->controller(PasienController::class)->group(function(){
+Route::prefix('pasien')->controller(PasienController::class)->middleware('cek.login:pasien')->group(function(){
     Route::get('/', 'indexHome')->name('pasien.home');
 
     Route::get('/janjitemu', 'indexJanji')->name('pasien.janji');
@@ -64,10 +64,10 @@ Route::prefix('pasien')->controller(PasienController::class)->group(function(){
     Route::get('/konsultasi', 'indexKonsultasi')->name('pasien.dokter');
 
     Route::get('/perawat','index')->name('pasien.perawat'); //??
-})->middleware('cek.login:pasien');;
+});
 
 //perawat
-Route::prefix('perawat')->controller(PerawatController::class)->group(function(){
+Route::prefix('perawat')->controller(PerawatController::class)->middleware('cek.login:perawat')->group(function(){
     Route::get('/', 'indexHome')->name('perawat.home');
 
     Route::get('/janji', 'indexJanji')->name('perawat.janji');
@@ -75,10 +75,10 @@ Route::prefix('perawat')->controller(PerawatController::class)->group(function()
     Route::get('/konsultasi', 'indexKonsultasi')->name('perawat.konsultasi');
 
     Route::get('/riwayat', 'indexRiwayat')->name('perawat.riwayat');
-})->middleware('cek.login:perawat');;
+});
 
 //dokter
-Route::prefix('dokter')->controller(DokterController::class)->group(function(){
+Route::prefix('dokter')->controller(DokterController::class)->middleware('cek.login:dokter')->group(function(){
     Route::get('/', 'indexHome')->name('dokter.home');
 
     Route::get('/janji', 'indexJanji')->name('dokter.janji');
@@ -86,10 +86,10 @@ Route::prefix('dokter')->controller(DokterController::class)->group(function(){
     Route::get('/konsultasi', 'indexKonsultasi')->name('dokter.konsultasi');
 
     Route::get('/riwayat', 'indexRiwayat')->name('dokter.riwayat');
-})->middleware('cek.login:dokter');;
+});
 
 //admin
-Route::prefix('admin')->controller(AdminController::class)->group(function(){
+Route::prefix('admin')->controller(AdminController::class)->middleware('cek.login:admin')->group(function(){
     Route::get('/', 'home')->name('admin.home');
     Route::get('/pasien/{editId?}', 'pasien')->name('admin.pasien');
     Route::get('/rumahsakit/{editId?}', 'rumahsakit')->name('admin.rumahsakit');
@@ -117,9 +117,9 @@ Route::prefix('admin')->controller(AdminController::class)->group(function(){
     Route::post('/perawat/edit', 'editperawat')->name('admin.editperawat');
     Route::post('/dokter/edit', 'editdokter')->name('admin.editdokter');
     Route::post('/obat/edit', 'editobat')->name('admin.editobat');
-    
+
     Route::get('/getsip/{id}', 'getsip')->name('admin.getsip');
-})->middleware('cek.login:admin');;
+});
 
 
 Route::get('logout', function () {
