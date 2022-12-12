@@ -32,11 +32,6 @@ class DokterController extends Controller
         ->join('pasien', 'janji_temu.ps_id','=', 'pasien.ps_id')
         ->select(['je_id', 'ps_nama', 'jt_tanggal', 'janji_temu.created_at', 'janji_temu.updated_at']);
 
-        //TODO: status
-        // if($req->query("status")){
-        //     $janji_temu = $janji_temu->where("")
-        // }
-
         $sort_key = [
             "id" => "je_id",
             "pasien" => "ps_nama",

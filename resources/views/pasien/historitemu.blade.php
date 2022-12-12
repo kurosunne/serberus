@@ -38,51 +38,63 @@
         <div class="h-64 w-full">
             <div class="overflow-x-auto mt-10">
                 <table class="table w-full text-center">
-                  <!-- head -->
-                  <thead class="text-base-100">
-                    <tr>
-                      <th class="bg-secondary">No</th>
-                      <th class="bg-secondary">Tanggal / Jam</th>
-                      <th class="bg-secondary">Nama Dokter</th>
-                      <th class="bg-secondary">No Telp Dokter</th>
-                      <th class="bg-secondary">Status</th>
-                      <th class="bg-secondary">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <!-- row 1 -->
-                    <tr>
-                      <th>1</th>
-                      <td>13 OKtober 2022 / 08:00 WIB</td>
-                      <td>Ivan Linhart Jayapranata</td>
-                      <td>083083083083</td>
-                      <td>Aktif</td>
-                      <td><div class="btn btn-success"> Detail</div>
-                        <div class="btn btn-accent ml-5"> Delete</div>
-                      </td>
-                    </tr>
-                    <!-- row 2 -->
-                    <tr class="bg-primary">
-                        <th class="bg-primary">2</th>
-                        <td class="bg-primary">13 OKtober 2022 / 08:00 WIB</td>
-                        <td class="bg-primary">Ivan Linhart Jayapranata</td>
-                        <td class="bg-primary">083083083083</td>
-                        <td class="bg-primary">Aktif</td>
-                        <td class="bg-primary"><div class="btn btn-success"> Detail</div>
-                            <div class="btn btn-accent ml-5"> Delete</div>
-                    </tr>
-                    <!-- row 3 -->
-                    <tr>
-                        <th>3</th>
-                        <td>13 OKtober 2022 / 08:00 WIB</td>
-                        <td>Ivan Linhart Jayapranata</td>
-                        <td>083083083083</td>
-                        <td>Aktif</td>
-                        <td><div class="btn btn-success"> Detail</div>
-                            <div class="btn btn-accent ml-5"> Delete</div>
-
-                    </tr>
-                  </tbody>
+                    <!-- head -->
+                    <thead class="text-base-100">
+                        <tr>
+                            <th class="bg-secondary"><a
+                                    href="{{ route('pasien.janji', $sort_link['id']) }}">No</a>
+                                @if ($sort_status['sort'] == 'id' && $sort_status['order'] == 'asc')
+                                    <i class="fa-solid fa-arrow-up"></i>
+                                @endif
+                                @if ($sort_status['sort'] == 'id' && $sort_status['order'] == 'desc')
+                                    <i class="fa-solid fa-arrow-down"></i>
+                                @endif
+                            </th>
+                            <th class="bg-secondary"> <a
+                                    href="{{ route('pasien.janji', $sort_link['tanggal']) }}">Tanggal Janji</a>
+                                @if ($sort_status['sort'] == 'tanggal' && $sort_status['order'] == 'asc')
+                                    <i class="fa-solid fa-arrow-up"></i>
+                                @endif
+                                @if ($sort_status['sort'] == 'tanggal' && $sort_status['order'] == 'desc')
+                                    <i class="fa-solid fa-arrow-down"></i>
+                                @endif
+                            </th>
+                            <th class="bg-secondary"> <a
+                                    href="{{ route('pasien.janji', $sort_link['dokter']) }}">Dokter</a>
+                                @if ($sort_status['sort'] == 'dokter' && $sort_status['order'] == 'asc')
+                                    <i class="fa-solid fa-arrow-up"></i>
+                                @endif
+                                @if ($sort_status['sort'] == 'dokter' && $sort_status['order'] == 'desc')
+                                    <i class="fa-solid fa-arrow-down"></i>
+                                @endif
+                            </th>
+                            <th class="bg-secondary">No Telp Dokter</th>
+                            <th class="bg-secondary"><a
+                                href="{{ route('pasien.janji', $sort_link['status']) }}">Status</a>
+                            @if ($sort_status['sort'] == 'status' && $sort_status['order'] == 'asc')
+                                <i class="fa-solid fa-arrow-up"></i>
+                            @endif
+                            @if ($sort_status['sort'] == 'status' && $sort_status['order'] == 'desc')
+                                <i class="fa-solid fa-arrow-down"></i>
+                            @endif</th>
+                            <th class="bg-secondary">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($janji_temu as $key => $a)
+                            <tr>
+                                <th>{{ $sort_status['sort'] == 'id' && $sort_status['order'] == 'desc' ? $janji_temu->count() - $key : $key + 1 }}
+                                </th>
+                                <td>{{ date('d F Y', strtotime($a->jt_tanggal)) }}</td>
+                                <td>{{ $a->dk_nama }}</td>
+                                <td>{{ $a->dk_telp }}</td>
+                                <td>{{ $a->trashed() ? 'Completed' : 'Active' }}</td>
+                                <td>
+                                    <div class="btn btn-success"> Detail</div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
                 </table>
               </div>
         </div>
