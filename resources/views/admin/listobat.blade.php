@@ -98,7 +98,7 @@
                             id="grid-email" type="text" name="createsatuanobat"
                             value="{{ $editId == -1 ? old('createsatuanobat') : $obatEdit->ob_kandunganSatuan }}">
                     </div>
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0 {{ $editId == -1 ? '' : 'hidden' }}">
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-status">
                             Gambar Obat
                             @error('creategambarobat')
@@ -107,15 +107,6 @@
                         </label>
                         <input class="file-input file-input-bordered file-input-accent w-full" id="grid-email"
                             type="file" name="creategambarobat">
-                    </div>
-
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0 {{ $editId == -1 ? 'hidden' : '' }}">
-                        <div class="flex items-center">
-                            <a href="{{ route('admin.getsip', ['id' => $editId]) }}"
-                                class="btn btn-outline btn-accent">Download
-                                Gambar Obat</a>
-                        </div>
-
                     </div>
                 </div>
                 <div class="flex flex-wrap mb-3">

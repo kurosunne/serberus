@@ -19,4 +19,9 @@ class Obat extends Model
     {
         return $this->hasMany(HjualObat::class,"ob_id","ob_id");
     }
+
+    public function TipeObat()
+    {
+        return $this->belongsTo(TipeObat::class,"to_id","to_id");
+    }
 }

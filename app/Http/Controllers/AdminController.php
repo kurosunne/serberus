@@ -235,10 +235,10 @@ class AdminController extends Controller
             'createnamaobat' => ['required'],
             'createhargaobat' => ['required','numeric'],
             'createstokobat' => ['required','numeric'],
-            'createjumlahobat' => ['required','numeric'],
+            'createjumlahobat' => ['numeric','nullable'],
             'creategambarobat' => ['required','mimes:png,jpg,jpeg','max:2048'],
             'createdeskripsiobat' => ['required'],
-            'createsatuanobat' =>['required']
+            'createsatuanobat' =>['nullable']
         ],[
 
         ],[
@@ -261,9 +261,8 @@ class AdminController extends Controller
         $obat->to_id = $req->createtipeobat;
         $obat->save();
 
-        $obatId = Obat::where("ob_nama",$req->createnamaobat)->first()->ob_id;
-
-        $req->file("creategambarobat")->storeAs("obat",$obatId.".png",'local');
+        $obatId = Obat::limit(1)->latest('ob_id')->first()->ob_id;
+        $req->file("creategambarobat")->storeAs("obat",$obatId.".png",'public');
 
         return redirect()->route('admin.obat');
     }
@@ -469,12 +468,12 @@ class AdminController extends Controller
     public function editobat(Request $req)
     {
         $req->validate([
-            'createnamaobat' => ['required','unique:obat,ob_nama,'.$req->editId.',ob_id'],
+            'createnamaobat' => ['required'],
             'createhargaobat' => ['required','numeric'],
             'createstokobat' => ['required','numeric'],
-            'createjumlahobat' => ['required','numeric'],
+            'createjumlahobat' => ['nullable','numeric'],
             'createdeskripsiobat' => ['required'],
-            'createsatuanobat' =>['required']
+            'createsatuanobat' =>['nullable']
         ],[
 
         ],[
@@ -489,12 +488,14 @@ class AdminController extends Controller
         $obat = Obat::find($req->editId);
         $obat->ob_nama = $req->createnamaobat;
         $obat->ob_harga = $req->createhargaobat;
-        $obat->ob_jumlah = $req->createjumlahobat;
+        $obat->ob_kandunganVal = $req->createjumlahobat;
         $obat->ob_stok = $req->createstokobat;
         $obat->ob_deskripsi = $req->createdeskripsiobat;
-        $obat->ob_satuan = $req->createsatuanobat;
+        $obat->ob_kandunganSatuan = $req->createsatuanobat;
         $obat->to_id = $req->createtipeobat;
         $obat->save();
+
+        $req->file("creategambarobat")->storeAs("obat",$req->editId.".png",'public');
 
         return redirect()->route('admin.obat');
     }
