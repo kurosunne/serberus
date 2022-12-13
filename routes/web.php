@@ -59,6 +59,7 @@ Route::prefix('pasien')->controller(PasienController::class)->middleware('cek.lo
     Route::get('/obat/{page}', 'indexObat')->name('pasien.obat');
 
     Route::get('/keranjang', 'indexKeranjang')->name('pasien.keranjang');
+    Route::get('/keranjang/delete/{key}', 'deleteKeranjang')->name('pasien.deleteKeranjang');
 
     Route::get('/history/janjitemu', 'indexRiwayattemu')->name('pasien.historitemu');
     Route::get('/histori/obat', 'indexRiwayatobat')->name('pasien.historiobat');

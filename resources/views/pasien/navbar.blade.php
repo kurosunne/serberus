@@ -15,4 +15,6 @@
     class="btn btn-ghost normal-case text-xl">Konsultasi</a></li>
 <li class="{{ $cr == 'pasien.historitemu' || $cr =='pasien.historiperawat' ||$cr == 'pasien.historiobat'  ? 'text-white' : '' }}"><a href="{{ route('pasien.historitemu') }}"
     class="btn btn-ghost normal-case text-xl">Riwayat</a></li>
+    <li class="{{ $cr == 'pasien.keranjang' ? 'text-white' : '' }}"><a href="{{ route('pasien.keranjang') }}"
+        class="btn btn-ghost normal-case text-xl">Keranjang</a></li>
 @endsection

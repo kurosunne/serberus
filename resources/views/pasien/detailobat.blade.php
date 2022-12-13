@@ -80,7 +80,7 @@
             var harga = parseInt("<?php echo $obat->ob_harga; ?>");
             var jum = document.getElementById("exampleNumber0").value;
             var tot = harga * jum;
-            document.getElementById("subtotal").innerHTML = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(tot);;
+            document.getElementById("subtotal").innerHTML = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(tot);
         }
     </script>
 @endsection
