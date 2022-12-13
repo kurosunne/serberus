@@ -15,13 +15,10 @@ return new class extends Migration
     {
         Schema::create('chat', function (Blueprint $table) {
             $table->id("ch_id");
-            $table->unsignedBigInteger("dk_id");
-            $table->unsignedBigInteger("ps_id");
+            $table->integer("ch_sender_is_dokter");
             $table->unsignedBigInteger("ks_id");
             $table->text("ch_teks");
 
-            $table->foreign("ps_id")->references("ps_id")->on("pasien")->onUpdate("cascade")->onDelete("cascade");
-            $table->foreign("dk_id")->references("dk_id")->on("dokter")->onUpdate("cascade")->onDelete("cascade");
             $table->foreign("ks_id")->references("ks_id")->on("konsultasi")->onUpdate("cascade")->onDelete("cascade");
         });
     }
