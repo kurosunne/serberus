@@ -52,6 +52,7 @@ Route::prefix('pasien')->controller(PasienController::class)->middleware('cek.lo
 
     Route::get('/janjitemu', 'indexJanji')->name('pasien.janji');
     Route::get('/janjitemu/detail', 'indexDetailJanji')->name('pasien.detailjanji');
+    Route::get('/janjitemuperawat','indexJanjiPerawat')->name('pasien.janjiperawat');
 
     Route::get('/obat/detail', 'indexDetailObat')->name('pasien.detailobat');
     Route::get('/obat/{page}', 'indexObat')->name('pasien.obat');

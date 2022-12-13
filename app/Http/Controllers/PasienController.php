@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dokter;
 use App\Models\HjualObat;
 use App\Models\JanjiTemu;
+use App\Models\JanjiRawat;
 use App\Models\Konsultasi;
 use App\Models\Obat;
 use App\Models\Pasien;
@@ -134,6 +135,57 @@ class PasienController extends Controller
         ];
 
         return view('pasien.JanjiTemu',compact('janji_temu', 'sort_link', "sort_status"));
+    }
+
+    public function indexJanjiPerawat(Request $req)
+    {
+        if($req->query("order") && !$req->query("sort")){
+            return redirect()->route('pasien.janjiperawat');
+        }
+
+        $user = Pasien::where("ps_email", Session::get("active")["email"])->first();
+
+        $sort_key = [
+            "id" => "jr_id",
+            "perawat" => "pr_nama",
+            "tanggal" => "jr_tanggal",
+            "status" => "janji_rawat.deleted_at",
+        ];
+
+        $sort_status = [
+            "sort" => $req->query("sort") ?? "id",
+            "order" => $req->query("order") ?? "asc"
+        ];
+        $sort = $sort_status["sort"];
+        $order = $sort_status["order"];
+
+        $janji_rawat = JanjiRawat::
+        where("ps_id", $user->ps_id)
+        ->join('perawat', 'janji_rawat.pr_id','=', 'perawat.pr_id')
+        ->select(['jr_id', 'pr_nama', 'pr_telp', 'jr_tanggal', 'janji_rawat.created_at', 'janji_rawat.updated_at', 'janji_rawat.deleted_at']);
+
+        $janji_rawat = $janji_rawat->orderBy($sort_key[$sort], $order)->get();
+
+        $sort_link = [
+            "id" => [
+                "sort" => "id",
+                "order" => ($sort == "id" && $order == "desc") ? "asc" : (($sort != "id" )? "asc" : "desc"),
+            ],
+            "perawat" => [
+                "sort" => "perawat",
+                "order" => ($sort == "perawat" && $order == "desc") ? "asc" : (($sort != "perawat" )? "asc" : "desc"),
+            ],
+            "tanggal" => [
+                "sort" => "tanggal",
+                "order" => ($sort == "tanggal" && $order == "desc") ? "asc" : (($sort != "tanggal" )? "asc" : "desc"),
+            ],
+            "status" => [
+                "sort" => "status",
+                "order" => ($sort == "status" && $order == "desc") ? "asc" : (($sort != "status" )? "asc" : "desc"),
+            ],
+        ];
+
+        return view('pasien.janjitemuperawat',compact('janji_rawat', 'sort_link', "sort_status"));
     }
 
     public function indexDetailJanji(Request $req)

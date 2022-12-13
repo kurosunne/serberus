@@ -29,7 +29,7 @@
                         <thead class="text-base-100">
                             <tr>
                                 <th class="bg-secondary"><a
-                                        href="{{ route('pasien.janji', $sort_link['id']) }}">No</a>
+                                        href="{{ route('pasien.janjiperawat', $sort_link['id']) }}">No</a>
                                     @if ($sort_status['sort'] == 'id' && $sort_status['order'] == 'asc')
                                         <i class="fa-solid fa-arrow-up"></i>
                                     @endif
@@ -38,7 +38,7 @@
                                     @endif
                                 </th>
                                 <th class="bg-secondary"> <a
-                                        href="{{ route('pasien.janji', $sort_link['tanggal']) }}">Tanggal Janji</a>
+                                        href="{{ route('pasien.janjiperawat', $sort_link['tanggal']) }}">Tanggal Janji</a>
                                     @if ($sort_status['sort'] == 'tanggal' && $sort_status['order'] == 'asc')
                                         <i class="fa-solid fa-arrow-up"></i>
                                     @endif
@@ -47,17 +47,17 @@
                                     @endif
                                 </th>
                                 <th class="bg-secondary"> <a
-                                        href="{{ route('pasien.janji', $sort_link['dokter']) }}">Dokter</a>
-                                    @if ($sort_status['sort'] == 'dokter' && $sort_status['order'] == 'asc')
+                                        href="{{ route('pasien.janjiperawat', $sort_link['perawat']) }}">Perawat</a>
+                                    @if ($sort_status['sort'] == 'perawat' && $sort_status['order'] == 'asc')
                                         <i class="fa-solid fa-arrow-up"></i>
                                     @endif
-                                    @if ($sort_status['sort'] == 'dokter' && $sort_status['order'] == 'desc')
+                                    @if ($sort_status['sort'] == 'perawat' && $sort_status['order'] == 'desc')
                                         <i class="fa-solid fa-arrow-down"></i>
                                     @endif
                                 </th>
-                                <th class="bg-secondary">No Telp Dokter</th>
+                                <th class="bg-secondary">No Telp Perawat</th>
                                 <th class="bg-secondary"><a
-                                    href="{{ route('pasien.janji', $sort_link['status']) }}">Status</a>
+                                    href="{{ route('pasien.janjiperawat', $sort_link['status']) }}">Status</a>
                                 @if ($sort_status['sort'] == 'status' && $sort_status['order'] == 'asc')
                                     <i class="fa-solid fa-arrow-up"></i>
                                 @endif
@@ -68,13 +68,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($janji_temu as $key => $a)
+                            @foreach ($janji_rawat as $key => $a)
                                 <tr>
-                                    <th>{{ $sort_status['sort'] == 'id' && $sort_status['order'] == 'desc' ? $janji_temu->count() - $key : $key + 1 }}
+                                    <th>{{ $sort_status['sort'] == 'id' && $sort_status['order'] == 'desc' ? $janji_rawat->count() - $key : $key + 1 }}
                                     </th>
-                                    <td>{{ date('d F Y', strtotime($a->jt_tanggal)) }}</td>
-                                    <td>{{ $a->dk_nama }}</td>
-                                    <td>{{ $a->dk_telp }}</td>
+                                    <td>{{ date('d F Y', strtotime($a->jr_tanggal)) }}</td>
+                                    <td>{{ $a->pr_nama }}</td>
+                                    <td>{{ $a->pr_telp }}</td>
                                     <td>{{ $a->trashed() ? 'Completed' : 'Active' }}</td>
                                     <td>
                                         <div class="btn btn-success"> Detail</div>
