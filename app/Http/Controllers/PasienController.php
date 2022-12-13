@@ -195,8 +195,8 @@ class PasienController extends Controller
     }
     public function indexDetailObat(Request $req)
     {
-        # code...
-        return view('pasien.detailObat');
+        $obat = Obat::find($req->id);
+        return view('pasien.detailObat',compact("obat"));
     }
     public function indexKeranjang(Request $req)
     {
@@ -205,15 +205,58 @@ class PasienController extends Controller
     }
     public function indexObat(Request $req)
     {
-        $obat = Obat::limit(8)->offset(8*($req->page-1))->get();
-        $total = DB::select("select count(*) as ctr from obat ")[0];
         $page = $req->page;
-        return view('pasien.obat',compact('obat','total','page'));
+        $filter = $req->filter;
+        $search = $req->search;
+        if ($req->filter==null){
+            $obat = Obat::limit(8)->offset(8*($req->page-1))->get();
+            $total = DB::select("select count(*) as ctr from obat ")[0];
+        }else{
+            if ($req->filter=="alfasc") {
+                $fil = "ob_nama";
+                $sort = "asc";
+            }else if ($req->filter=="alfdesc") {
+                $fil = "ob_nama";
+                $sort = "desc";
+            }else if ($req->filter=="harasc") {
+                $fil = "ob_harga";
+                $sort = "asc";
+            }else if ($req->filter=="hardesc") {
+                $fil = "ob_harga";
+                $sort = "desc";
+            }
+            $total = DB::select("select count(*) as ctr from obat where ob_nama like '%".$req->search."%'")[0];
+            if ($page>($total->ctr)/8) {
+                $page = 1;
+            }
+            $obat = Obat::where("ob_nama",'like','%'.$req->search.'%')->orderBy($fil,$sort)->limit(8)->offset(8*($req->page-1))->get();
+        }
+        return view('pasien.obat',compact('obat','total','page','search','filter'));
     }
+
     public function indexKonsultasi(Request $req)
     {
         # code...
         return view('pasien.konsultasi');
     }
 
+    public function indexBeliObat(Request $req){
+        $keranjang = array();
+        if (Session::has("keranjang")) {
+            $keranjang = Session::get("keranjang");
+        }
+        $ada = false;
+        foreach ($keranjang as $key => $value) {
+            if ($value["ob_id"]==$req->id) {
+                $ada = true;
+                $keranjang[$key]["ob_stok"] += $req->stok;
+            }
+        }
+        if (!$ada){
+            array_push($keranjang,["ob_id"=>$req->id, "ob_stok"=>$req->stok]);
+        }
+        Session::put("keranjang",$keranjang);
+        Session::put("msg","Berhasil Memasukan Ke Keranjang");
+        return back();
+    }
 }

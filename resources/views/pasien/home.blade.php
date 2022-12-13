@@ -134,7 +134,7 @@
                                                 {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
                                             </p>
                                             {{-- href detail --}}
-                                            <button class="btn btn-success mb-3 w-full">Beli</button>
+                                            <a href="{{route('pasien.detailobat',["id"=>$obat[$i]->ob_id])}}"><button class="btn btn-success mb-3 w-full">Beli</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -171,7 +171,7 @@
                                                 {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
                                             </p>
                                             {{-- href detail --}}
-                                            <button class="btn btn-success mb-3 w-full">Beli</button>
+                                            <a href="{{route('pasien.detailobat',["id"=>$obat[$i]->ob_id])}}"><button class="btn btn-success mb-3 w-full">Beli</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +212,7 @@
                                                 {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
                                             </p>
                                             {{-- href detail --}}
-                                            <button class="btn btn-success mb-3 w-full">Beli</button>
+                                            <a href="{{route('pasien.detailobat',["id"=>$obat[$i]->ob_id])}}"><button class="btn btn-success mb-3 w-full">Beli</button></a>
                                         </div>
                                     </div>
                                 </div>

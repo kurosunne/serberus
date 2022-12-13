@@ -3,96 +3,24 @@
 @section('main')
     <div class="h-full w-full flex justify-center items-start">
         @extends('pasien.navbar')
-        <div class="h-[35rem] w-11/12 px-10 flex flex-row items-start justify-start mt-10 p-0">
-            <div class="w-[30%] h-full flex flex-col items-center justify-center">
+        <div class="h-[75%] w-11/12 px-10 flex flex-row items-start justify-center mt-16 p-0">
+            <div class="w-[35%] h-full flex flex-col items-center justify-center">
                 <div class="h-[40%] w-full  rounded-[15px] border-black flex flex-row items-center justify-center">
                     <div class="h-5/6 flex items-center justify-center pt-5 w-5/6">
                         <img src="{{ url('image/obat.png') }}" alt="obat" class="rounded-full h-full" />
                     </div>
                 </div>
-                <div class="h-[60%] w-full mt-6 rounded-[15px] border-black flex flex-col p-5" style="border: 4px solid #FFB034">
-                    <p class="mb-7 text-2xl font-bold">
-                        Deskripsi Barang
-                    </p>
-                    <p class="text-lg text-justify">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore voluptatibus sint aliquam ratione repudiandae corporis laboriosam ea alias voluptas facilis natus explicabo id itaque, ad fuga. Neque, nam est. Nulla?
-                    </p>
-                </div>
-            </div>
-            <div class="w-[30%] h-full flex flex-col mx-8 border-black rounded-[15px] p-5" style="border: 4px solid #FFB034">
-                <p class="text-2xl mb-3 font-bold">
-                    Panadol Hijau
-                </p>
-                <p class="text-lg mb-6 font-bold">
-                    Harga : Rp. 16.000
-                </p>
-                <div class="text-md flex flex-row h-6">
-                    <div class="w-1/4 h-6">
-                        Golongan
-                    </div>
-                    <div class="w-1/2 h-6">
-                        : Obat Umum
-                    </div>
-                </div>
-                <div class="text-md flex flex-row h-6">
-                    <div class="w-1/4 h-6">
-                        Kategori
-                    </div>
-                    <div class="w-1/2 h-6">
-                        : Batuk Pilek
-                    </div>
-                </div>
-                <div class="text-md flex flex-row h-6 mb-6">
-                    <div class="w-1/4 h-6">
-                        Isi
-                    </div>
-                    <div class="w-1/2 h-6">
-                        : 60 tablet
-                    </div>
-                </div>
-                <p>
-                    Komposisi :
-                </p>
-                <p class="text-justify mb-6">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium omnis cum adipisci quia praesentium neque perspiciatis, assumenda hic consectetur modi ipsa dicta repellat!
-                </p>
-                <p>
-                    Efek Samping :
-                </p>
-                <p class="text-justify mb-6">
-                    lemas, lelah, letih
-                </p>
-                <p>
-                    Manfaat :
-                </p>
-                <p class="text-justify">
-                    Meredakan nyeri sendi, mual, dan sakit kepala
-                </p>
-            </div>
-            <div class="w-[30%] h-full flex flex-col">
-                <div class="h-[70%] w-full rounded-[15px] border-black flex flex-col p-5" style="border: 4px solid #FFB034">
-                    <div class="flex flex-row w-full h-30">
-                        <div class="h-5/6 flex item-center justify-center pt-5 w-2/6">
-                            <img src="{{ url('image/small-shop.png') }}" alt="toko" class="h-full" />
-                        </div>
-                        {{-- deskripsi card --}}
-                        <div class="text-start pt-5 pl-2">
-                            <h2 class="card-title text-xl font-bold">Toko Obat Murah</h2>
-                            <p class="text-lg">Lokasi : Jl.Semangka Rambutan</p>
-                        </div>
-                    </div>
-                    <p class="text-md">Stok Tersisa : 2</p>
-                        <p class="text-md">Description : Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, incidunt commodi, quaerat enim culpa facilis minus beatae eligendi facere numquam sunt, quisquam aliquid architecto</p>
-                </div>
-                <div class="h-[40%] w-full mt-6 rounded-[15px] border-black flex flex-col p-5" style="border: 4px solid #FFB034">
-                    <div class="flex justify-center">
-                        <div class="mb-3 w-[21.5rem]">
-                          <label for="exampleNumber0" class="form-label inline-block mb-2 text-gray-700 text-center w-full text-center "
-                            >Jumlah Barang</label
-                          >
-                          <input
-                            type="number"
-                            class="
+                <div class="h-[60%] w-full mt-6 rounded-[15px] border-black flex flex-col p-5"
+                    style="border: 4px solid #FFB034">
+                    <form method="POST" action="{{route('pasien.beliobat',["id" => $obat->ob_id,])}}">
+                        @csrf
+                        <div class="flex justify-center">
+                            <div class="mb-3 w-full max-w-md">
+                                <label for="exampleNumber0"
+                                    class="form-label inline-block mb-2 text-gray-700 text-center w-full text-xl font-bold text-center my-3">Jumlah
+                                    Barang</label>
+                                <input type="number"
+                                    class="
                               form-control
                               block
                               w-full
@@ -106,21 +34,53 @@
                               rounded
                               transition
                               ease-in-out
-                              m-0
+                              mt-3
                               focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                              input input-primary
                             "
-                            id="exampleNumber0"
-                            placeholder="Jumlah Barang"
-                          />
+                                    id="exampleNumber0" name="stok" placeholder="Jumlah Barang" max="{{$obat->ob_stok}}" min="1" value="1" onchange="changeValue()"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="w-full h-7 flex flex-row px-1">
-                          <div class="text-start h-7 w-1/2">Subtotal</div>
-                          <div class="text-end font-bold h-7 w-1/2">Rp. 12.000</div>
-                    </div>
-                    <div class="btn btn-success"> Masukkan Ke Keranjang</div>
-                    </div>
+                        <div class="w-full h-7 mt-3 flex flex-row px-1 justify-center">
+                            <div class="flex w-full max-w-md">
+                                <div class="text-start h-7 mr-10">Subtotal</div>
+                                <div id="subtotal" class="text-end font-bold h-7">Rp. {{ number_format($obat->ob_harga, 2, ',', '.') }}</div>
+                            </div>
+                        </div>
+                        <div class="mt-2 w-full flex justify-center"><button class="btn btn-success w-full max-w-md">Masukkan Ke Keranjang</button> </div>
+                    </form>
+                </div>
+            </div>
+            <div class="w-[35%] h-full flex flex-col ml-8 border-black rounded-[15px] p-5"
+                style="border: 4px solid #FFB034">
+                <p class="text-2xl mb-3 font-bold">
+                    {{ $obat->ob_nama }}
+                </p>
+                <p class="text-lg mb-3 font-bold">
+                    Harga : Rp. {{ number_format($obat->ob_harga, 2, ',', '.') }}
+                </p>
+                <p class="text-lg mb-3 font-bold">
+                    Stok Barang : {{ $obat->ob_stok }}
+                </p>
+                <p class="text-lg mb-3 font-bold">
+                    Tipe Obat : {{ $obat->TipeObat->to_nama }}
+                </p>
+                <p class="mb-5 text-2xl font-bold">
+                    Deskripsi Barang
+                </p>
+                <p class="text-lg text-justify">
+                    {{ $obat->ob_deskripsi }}
+                </p>
             </div>
         </div>
     </div>
+
+    <script>
+        function changeValue(){
+            var harga = parseInt("<?php echo $obat->ob_harga; ?>");
+            var jum = document.getElementById("exampleNumber0").value;
+            var tot = harga * jum;
+            document.getElementById("subtotal").innerHTML = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(tot);;
+        }
+    </script>
 @endsection
