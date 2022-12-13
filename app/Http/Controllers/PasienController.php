@@ -21,8 +21,9 @@ class PasienController extends Controller
         $dokter = Dokter::inRandomOrder()->limit(9)->get();
         $obat = Obat::inRandomOrder()->limit(9)->get();
         $pasien = Pasien::where('ps_email',Session::get('active')['email'])->first();
-        $konsultasi = Konsultasi::where('ps_id',$pasien->ps_id)->get();
-        return view('pasien.home',compact('dokter','obat','konsultasi'));
+        $konsultasi = Konsultasi::where('ps_id',$pasien->ps_id)->orderBy('ks_id','desc')->get();
+        $hjual_obat = HjualObat::where('ps_id',$pasien->ps_id)->orderBy("ho_id",'desc')->get();
+        return view('pasien.home',compact('dokter','obat','konsultasi','hjual_obat'));
     }
 
     public function indexRiwayattemu(Request $req)
@@ -153,7 +154,9 @@ class PasienController extends Controller
     public function indexObat(Request $req)
     {
         $obat = Obat::limit(8)->offset(8*($req->page-1))->get();
-        return view('pasien.obat',compact('obat'));
+        $total = DB::select("select count(*) as ctr from obat ")[0];
+        $page = $req->page;
+        return view('pasien.obat',compact('obat','total','page'));
     }
     public function indexKonsultasi(Request $req)
     {

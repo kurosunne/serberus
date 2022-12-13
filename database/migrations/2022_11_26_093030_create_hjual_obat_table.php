@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('hjual_obat', function (Blueprint $table) {
             $table->id("ho_id");
             $table->unsignedBigInteger("ps_id");
-            $table->date("ho_tanggal");
             $table->timestamps();
             $table->softDeletes();
 

@@ -30,7 +30,7 @@
                 </div>
                 <div class="h-full w-4/6 flex flex-row items-center justify-end">
                     <div class="w-full h-full flex items-center">
-                        <div class=" w-[40%] max-w-md text-lg text-bold">Menampilkan 10 dari {{ count($obat) }} barang
+                        <div class=" w-[40%] max-w-md text-lg text-bold">Menampilkan {{ count($obat) }} dari {{$total->ctr}}  barang
                         </div>
                         <div class=" w-2/6 max-w-md text-xl text-center">Filter Dengan</div>
                         <select name="rs" id="rs"
@@ -65,11 +65,11 @@
                             @endphp
                         @endif
                         {{-- card --}}
-                        <div class="card card-side bg-secondary w-[30%] shadow-xl mx-4 ml-8">
+                        <div class="card card-side bg-secondary w-[22%] shadow-xl mx-4 ml-8">
                             <figure class="w-[40%] h-full flex flex-col item-center justify-center">
                                 <div class="h-1/2 w-full">
                                     {{-- image card --}}
-                                    <img src="{{ url('image/obat.png') }}" alt="obat"
+                                    <img src="{{ url('obat/' . $obat[$i]->ob_id . '.png') }}" alt="obat"
                                         class="ml-2 object-contain object-center w-5/6 h-full">
                                 </div>
                                 <div class="h-2/6 w-full text-center">
@@ -84,7 +84,8 @@
                                 <div class="w-full h-full bg-base-100 rounded-lg p-2 justify-center">
                                     {{-- deskripsi --}}
                                     <p class="w-full h-[80%] text-justify text-sm align-middle">
-                                        Obat untuk meredakan batuk, pilek, hingga covid dalam satu kemasan
+                                        {{ substr($obat[$i]->ob_deskripsi, 0, 200) }}
+                                        {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
                                     </p>
                                     {{-- href detail --}}
                                     <button class="btn btn-success mb-3 w-full">Beli</button>
@@ -101,11 +102,11 @@
                             @endphp
                         @endif
                         {{-- card --}}
-                        <div class="card card-side bg-secondary w-[30%] shadow-xl mx-4 ml-8">
+                        <div class="card card-side bg-secondary w-[22%] shadow-xl mx-4 ml-8">
                             <figure class="w-[40%] h-full flex flex-col item-center justify-center">
                                 <div class="h-1/2 w-full">
                                     {{-- image card --}}
-                                    <img src="{{ url('image/obat.png') }}" alt="obat"
+                                    <img src="{{ url('obat/' . $obat[$i]->ob_id . '.png') }}" alt="obat"
                                         class="ml-2 object-contain object-center w-5/6 h-full">
                                 </div>
                                 <div class="h-2/6 w-full text-center">
@@ -120,7 +121,8 @@
                                 <div class="w-full h-full bg-base-100 rounded-lg p-2 justify-center">
                                     {{-- deskripsi --}}
                                     <p class="w-full h-[80%] text-justify text-sm align-middle">
-                                        Obat untuk meredakan batuk, pilek, hingga covid dalam satu kemasan
+                                        {{ substr($obat[$i]->ob_deskripsi, 0, 200) }}
+                                        {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
                                     </p>
                                     {{-- href detail --}}
                                     <button class="btn btn-success mb-3 w-full">Beli</button>
@@ -130,23 +132,31 @@
                     @endfor
                 </div>
             </div>
-            <div class="h-10 w-full flex flex-row items-center justify-center">
+            <div class="h-10 mt-2 w-full flex flex-row items-center justify-center font-bold">
                 <div
                     class="h-10 w-3/6 flex flex-row items-center justify-center place-content-stretch p-1 text-primary text-lg">
                     <div class="w-[15%] h-full ml-10">
-                        <document class="write">
-                            << First </document>
+                        <a href="{{route('pasien.obat',["page"=>1])}}" class="write text-secondary">
+                            << First </a>
                     </div>
                     <div class="w-[15%] h-full ml-2">
-                        <document class="write">
-                            < Prev</document>
+                        @if ($page!=1)
+                        <a href="{{route('pasien.obat',["page"=>$page-1])}}" class="write ">
+                            < Prev</a>
+                        @else
+                            <a class="write">< Prev </a>
+                        @endif
+
                     </div>
-                    <div class="w-[20%] h-full">1 2 3 4 5</div>
                     <div class="w-[15%] h-full">
-                        <document class="write">Next ></document>
+                        @if ($page!=intval($total->ctr/8+1))
+                            <a href="{{route('pasien.obat',["page"=>$page+1])}}" class="write">Next ></a>
+                        @else
+                            <a class="write">Next ></a>
+                        @endif
                     </div>
                     <div class="w-[15%] h-full">
-                        <document class="write">Last >></document>
+                        <a href="{{route('pasien.obat',["page"=>intval($total->ctr/8+1)])}}" class="write text-secondary">Last >></a>
                     </div>
                 </div>
             </div>

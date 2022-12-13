@@ -19,7 +19,6 @@ class HjualObatFactory extends Factory
     {
         return [
             "ps_id" => $this->faker->randomElement(Pasien::all()->pluck(['ps_id'])),
-            "ho_tanggal" => $this->faker->dateTimeBetween('-1 weeks', 'now'),
         ];
     }
 }

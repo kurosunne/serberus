@@ -21,7 +21,7 @@
                                 <div class="card w-[30%] bg-secondary shadow-xl mx-4 ml-8">
                                     {{-- foto card --}}
                                     <div class="h-2/6 mt-4 flex item-center justify-center pt-3">
-                                        <img src="{{ url('foto/dk'.$dokter[$i]->dk_id.'.png') }}" alt="Dokter"
+                                        <img src="{{ url('foto/dk' . $dokter[$i]->dk_id . '.png') }}" alt="Dokter"
                                             class="rounded-full h-full" />
                                     </div>
                                     {{-- deskripsi card --}}
@@ -47,7 +47,7 @@
                                 <div class="card w-[30%] bg-secondary shadow-xl mx-4 ml-8">
                                     {{-- foto card --}}
                                     <div class="h-2/6 mt-4 flex item-center justify-center pt-3">
-                                        <img src="{{ url('foto/dk'.$dokter[$i]->dk_id.'.png') }}" alt="Dokter"
+                                        <img src="{{ url('foto/dk' . $dokter[$i]->dk_id . '.png') }}" alt="Dokter"
                                             class="rounded-full h-full" />
                                     </div>
                                     {{-- deskripsi card --}}
@@ -73,7 +73,7 @@
                                 <div class="card w-[30%] bg-secondary shadow-xl mx-4 ml-8">
                                     {{-- foto card --}}
                                     <div class="h-2/6 mt-4 flex item-center justify-center pt-3">
-                                        <img src="{{ url('foto/dk'.$dokter[$i]->dk_id.'.png') }}" alt="Dokter"
+                                        <img src="{{ url('foto/dk' . $dokter[$i]->dk_id . '.png') }}" alt="Dokter"
                                             class="rounded-full h-full" />
                                     </div>
                                     {{-- deskripsi card --}}
@@ -115,7 +115,7 @@
                                     <figure class="w-[40%] h-full flex flex-col item-center justify-center">
                                         <div class="h-1/2 w-full">
                                             {{-- image card --}}
-                                            <img src="{{ url('obat/'.$obat[$i]->ob_id.'.png') }}" alt="obat"
+                                            <img src="{{ url('obat/' . $obat[$i]->ob_id . '.png') }}" alt="obat"
                                                 class="ml-2 object-contain object-center w-5/6 h-full">
                                         </div>
                                         <div class="h-2/6 w-full text-center">
@@ -131,7 +131,7 @@
                                             {{-- deskripsi --}}
                                             <p class="w-full h-[80%] text-left text-sm align-middle">
                                                 {{ substr($obat[$i]->ob_deskripsi, 0, 200) }}
-                                                {{ strlen($obat[$i]->ob_deskripsi >= 200) ? '...' : '' }}
+                                                {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
                                             </p>
                                             {{-- href detail --}}
                                             <button class="btn btn-success mb-3 w-full">Beli</button>
@@ -152,7 +152,7 @@
                                     <figure class="w-[40%] h-full flex flex-col item-center justify-center">
                                         <div class="h-1/2 w-full">
                                             {{-- image card --}}
-                                            <img src="{{ url('obat/'.$obat[$i]->ob_id.'.png') }}" alt="obat"
+                                            <img src="{{ url('obat/' . $obat[$i]->ob_id . '.png') }}" alt="obat"
                                                 class="ml-2 object-contain object-center w-5/6 h-full">
                                         </div>
                                         <div class="h-2/6 w-full text-center">
@@ -168,6 +168,7 @@
                                             {{-- deskripsi --}}
                                             <p class="w-full h-[80%] text-left text-sm align-middle">
                                                 {{ substr($obat[$i]->ob_deskripsi, 0, 200) }}
+                                                {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
                                             </p>
                                             {{-- href detail --}}
                                             <button class="btn btn-success mb-3 w-full">Beli</button>
@@ -192,7 +193,7 @@
                                     <figure class="w-[40%] h-full flex flex-col item-center justify-center">
                                         <div class="h-1/2 w-full">
                                             {{-- image card --}}
-                                            <img src="{{ url('obat/'.$obat[$i]->ob_id.'.png') }}" alt="obat"
+                                            <img src="{{ url('obat/' . $obat[$i]->ob_id . '.png') }}" alt="obat"
                                                 class="ml-2 object-contain object-center w-5/6 h-full">
                                         </div>
                                         <div class="h-2/6 w-full text-center">
@@ -208,6 +209,7 @@
                                             {{-- deskripsi --}}
                                             <p class="w-full h-[80%] text-left text-sm align-middle">
                                                 {{ substr($obat[$i]->ob_deskripsi, 0, 200) }}
+                                                {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
                                             </p>
                                             {{-- href detail --}}
                                             <button class="btn btn-success mb-3 w-full">Beli</button>
@@ -246,13 +248,15 @@
                                 break;
                             @endphp
                         @endif
-                        <div class="w-full h-[25%] bg-secondary mt-3 flex p-2">
+                        <div class="w-full h-[25%] bg-secondary rounded-lg mt-3 flex p-2">
                             <div class="h-full w-[20%]">
-                                <img src="{{ url('foto/dk'.$konsultasi[$i]->dk_id.'.png') }}" alt="" class="rounded-full h-full">
+                                <img src="{{ url('foto/dk' . $konsultasi[$i]->dk_id . '.png') }}" alt=""
+                                    class="rounded-full h-full">
                             </div>
                             <div class="h-full w-[50%] flex flex-col justify-center mx-3">
-                                <p class="text-lg font-bold text-white">{{$konsultasi[$i]->Dokter->dk_nama}}</p>
-                                <p class="text-sm text-white">Tanggal Konsultasi {{date_format($konsultasi[$i]->created_at,"m/d/Y")}}</p>
+                                <p class="text-lg font-bold text-white">{{ $konsultasi[$i]->Dokter->dk_nama }}</p>
+                                <p class="text-sm text-white">Tanggal Konsultasi
+                                    {{ date_format($konsultasi[$i]->created_at, 'm/d/Y') }}</p>
                             </div>
                             <div class="h-full w-[20%] flex flex-col item-center justify-center">
                                 <div class="btn btn-success">Detail</div>
@@ -271,20 +275,34 @@
                             <a class="font-bold font-lg text-secondary">See More...</a>
                         </div>
                     </div>
-                    {{-- card --}}
-                    <div class="w-full h-[25%] bg-secondary mt-3 flex p-2">
-                        <div class="h-full w-[20%]">
-                            <img src="{{ url('image/obat.png') }}" alt="obat"
-                                class="rounded-full object-contain object-center w-5/6 h-full">
-                        </div>
-                        <div class="h-full w-[50%] flex-col items-start justify-start mx-3">
-                            <p class="text-lg font-bold mt-3 text-white">Panadol RGB</p>
-                            <p class="text-sm mb-3 text-white">Tanggal Beli 12/20/2022</p>
-                        </div>
-                        <div class="h-full w-[20%] flex flex-col item-center justify-center">
-                            <div class="btn btn-success">Detail</div>
-                        </div>
-                    </div>
+
+                    @php
+                        $i = 0;
+                    @endphp
+                    @foreach ($hjual_obat as $item)
+                        @foreach ($item->DjualObat as $item2)
+                            <div class="w-full rounded-lg h-[25%] bg-secondary mt-3 flex p-2">
+                                <div class="h-full w-[20%]">
+                                    <img src="{{ url('image/obat.png') }}" alt="obat"
+                                        class="rounded-full object-contain object-center w-5/6 h-full">
+                                </div>
+                                <div class="h-full w-[50%] flex-col items-start justify-start mx-3">
+                                    <p class="text-lg font-bold mt-3 text-white">{{$item2->Obat->ob_nama}}</p>
+                                    <p class="text-sm mb-3 text-white">Tanggal Beli {{date('d F Y', strtotime($item->created_at))}}</p>
+                                </div>
+                                <div class="h-full w-[20%] flex flex-col item-center justify-center">
+                                    <div class="btn btn-success">Detail</div>
+                                </div>
+                            </div>
+
+                            @if (++$i==3)
+                                @php
+                                    break;
+                                @endphp
+                            @endif
+                        @endforeach
+                    @endforeach
+
 
                 </div>
             </div>
