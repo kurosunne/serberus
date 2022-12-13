@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\JanjiTemu;
+use App\Models\JanjiRawat;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +16,7 @@ class JanjiRawatSeeder extends Seeder
      */
     public function run()
     {
-        DB::table("janji_temu")->truncate();
-        JanjiTemu::factory()->count(25)->create();
+        DB::table("janji_rawat")->truncate();
+        JanjiRawat::factory()->count(25)->create();
     }
 }
