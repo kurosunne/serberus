@@ -5,16 +5,26 @@
         @extends('pasien.navbar')
         <div class="h-4/5 w-11/12 flex flex-col items-center justify-start mt-10 p-4 border-black rounded-[15px]"
             style="border: 4px solid #FFB034">
-            <div class="h-10 w-full m-0 flex flex-row m-0">
-                <div class="h-full w-[30%] flex flex-col justify-start items-start">
+            <form class="h-10 w-full m-0 flex flex-row m-0" action="{{ route('pasien.obat', ['page' => $page]) }}">
+                <div class="max-w-sm text-xl mt-2 w-1/12 text-center">Sortir</div>
+                <select name="filter" id="rs"
+                    class="input input-bordered input-primary h-5/6 max-w-md mt-2 w-1/8 mr-2">
+                    <option value="alfasc">Alfabetikal A-Z</option>
+                    <option value="alfdesc">Alfabetikal Z-A</option>
+                    <option value="harasc">Harga Terendah</option>
+                    <option value="hardesc">Harga Tertinggi</option>
+                </select>
+
+                <div class="h-full mt-1 w-[30%] flex flex-col justify-start items-start">
                     <div class="flex justify-center">
                         <div class="mb-3 xl:w-96">
                             <div class="input-group relative flex flex-row items-stretch w-full mb-4 rounded">
                                 <input type="search"
                                     class="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                    placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
-                                <span
-                                    class="input-group-text flex items-center px-3 py-1.5 text-base font-normal text-gray-700 text-center whitespace-nowrap rounded"
+                                    placeholder="Search" aria-label="Search" aria-describedby="button-addon2"
+                                    name="search">
+                                <button
+                                    class="input-group-text flex items-center px-3 py-1.5 text-base font-normal text-gray-700 text-center btn-primary whitespace-nowrap rounded"
                                     id="basic-addon2">
                                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search"
                                         class="w-4" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -23,38 +33,20 @@
                                             d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z">
                                         </path>
                                     </svg>
-                                </span>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="h-full w-4/6 flex flex-row items-center justify-end">
+                <div class="h-full w-4/6 flex flex-row items-center justify-end ml-auto">
                     <div class="w-full h-full flex items-center">
-                        <div class=" w-[40%] max-w-md text-lg text-bold">Menampilkan {{ count($obat) }} dari {{$total->ctr}}  barang
+                        <div class=" w-[40%] max-w-md text-lg font-bold ml-auto">Menampilkan {{ count($obat) }} dari
+                            {{ $total->ctr }} barang
                         </div>
-                        <div class=" w-2/6 max-w-md text-xl text-center">Filter Dengan</div>
-                        <select name="rs" id="rs"
-                            class="input input-bordered input-primary w-1/4 h-5/6 max-w-md mt-2">
-                            <option value="dumi">Obat</option>
-                            <option value="dumi">Vitamin</option>
-                        </select>
-                        @error('rs')
-                            <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
-                        @enderror
                     </div>
-                    <div class="max-w-md text-xl w-1/4 text-center">Sortir Dengan</div>
-                    <select name="rs" id="rs"
-                        class="input input-bordered input-primary h-5/6 max-w-md mt-2 w-1/4">
-                        <option value="dumi">Alfabetikal A-Z</option>
-                        <option value="dumi">Alfabetikal Z-A</option>
-                        <option value="dumi">Harga Terendah</option>
-                        <option value="dumi">Harga Tertinggi</option>
-                    </select>
-                    @error('rs')
-                        <div class=" w-full max-w-md text-xl text-error mt-2">{{ $message }}</div>
-                    @enderror
                 </div>
-            </div>
+            </form>
+
             <div class="h-5/6 w-full my-4 flex flex-col">
                 {{-- List barang  nanti di for --}}
                 <div class="h-3/6 w-full flex flex-row">
@@ -88,7 +80,7 @@
                                         {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
                                     </p>
                                     {{-- href detail --}}
-                                    <button class="btn btn-success mb-3 w-full">Beli</button>
+                                    <a href="{{route('pasien.detailobat',["id"=>$obat[$i]->ob_id])}}"><button class="btn btn-success mb-3 w-full">Beli</button></a>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +117,7 @@
                                         {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
                                     </p>
                                     {{-- href detail --}}
-                                    <button class="btn btn-success mb-3 w-full">Beli</button>
+                                    <a href="{{route('pasien.detailobat',["id"=>$obat[$i]->ob_id])}}"><button class="btn btn-success mb-3 w-full">Beli</button></a>
                                 </div>
                             </div>
                         </div>
@@ -136,27 +128,32 @@
                 <div
                     class="h-10 w-3/6 flex flex-row items-center justify-center place-content-stretch p-1 text-primary text-lg">
                     <div class="w-[15%] h-full ml-10">
-                        <a href="{{route('pasien.obat',["page"=>1])}}" class="write text-secondary">
+                        <a href="{{ route('pasien.obat', ['page' => 1, 'search' => $search, 'filter' => $filter]) }}"
+                            class="write text-secondary">
                             << First </a>
                     </div>
                     <div class="w-[15%] h-full ml-2">
-                        @if ($page!=1)
-                        <a href="{{route('pasien.obat',["page"=>$page-1])}}" class="write ">
-                            < Prev</a>
-                        @else
-                            <a class="write">< Prev </a>
+                        @if ($page != 1)
+                            <a href="{{ route('pasien.obat', ['page' => $page - 1, 'search' => $search, 'filter' => $filter]) }}"
+                                class="write ">
+                                < Prev</a>
+                                @else
+                                    <a class="write">
+                                        < Prev </a>
                         @endif
 
                     </div>
                     <div class="w-[15%] h-full">
-                        @if ($page!=intval($total->ctr/8+1))
-                            <a href="{{route('pasien.obat',["page"=>$page+1])}}" class="write">Next ></a>
+                        @if ($page != intval($total->ctr / 8 + 1))
+                            <a href="{{ route('pasien.obat', ['page' => $page + 1, 'search' => $search, 'filter' => $filter]) }}"
+                                class="write">Next ></a>
                         @else
                             <a class="write">Next ></a>
                         @endif
                     </div>
                     <div class="w-[15%] h-full">
-                        <a href="{{route('pasien.obat',["page"=>intval($total->ctr/8+1)])}}" class="write text-secondary">Last >></a>
+                        <a href="{{ route('pasien.obat', ['page' => intval($total->ctr / 8 + 1), 'search' => $search, 'filter' => $filter]) }}"
+                            class="write text-secondary">Last >></a>
                     </div>
                 </div>
             </div>

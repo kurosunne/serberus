@@ -10,11 +10,11 @@
                 <div class="h-full w-6/12 flex flex-col justify-center">
                     <div class="w-full h-full flex items-center justify-center">
                         <a href="{{ route('pasien.janji') }}">
-                            <div class="btn btn-primary ml-10 mr-3">Janji Temu Dokter</div>
+                            <div class="btn btn-primary ml-10 mr-3">Janji Temu</div>
                         </a>
                         <a href="{{ route('pasien.janjiperawat') }}">
                             <div class=" text-black btn btn-secondary ml-3">
-                                <p class="text-white"> Janji Temu Perawat</p>
+                                <p class="text-white"> Janji Rawat</p>
                             </div>
                         </a>
                     </div>

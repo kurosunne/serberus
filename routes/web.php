@@ -52,9 +52,10 @@ Route::prefix('pasien')->controller(PasienController::class)->middleware('cek.lo
 
     Route::get('/janjitemu', 'indexJanji')->name('pasien.janji');
     Route::get('/janjitemu/detail', 'indexDetailJanji')->name('pasien.detailjanji');
-    Route::get('/janjitemuperawat','indexJanjiPerawat')->name('pasien.janjiperawat');
+    Route::get('/janjirawat','indexJanjiPerawat')->name('pasien.janjiperawat');
 
-    Route::get('/obat/detail', 'indexDetailObat')->name('pasien.detailobat');
+    Route::get('/obat/detail/{id}', 'indexDetailObat')->name('pasien.detailobat');
+    Route::post('/obat/beli/{id}', 'indexBeliObat')->name('pasien.beliobat');
     Route::get('/obat/{page}', 'indexObat')->name('pasien.obat');
 
     Route::get('/keranjang', 'indexKeranjang')->name('pasien.keranjang');
@@ -126,6 +127,7 @@ Route::prefix('admin')->controller(AdminController::class)->middleware('cek.logi
 
 Route::get('logout', function () {
     Session::remove('active');
+    Session::remove('keranjang');
     Auth::guard('pasien')->logout();
     Auth::guard('dokter')->logout();
     Auth::guard('perawat')->logout();
