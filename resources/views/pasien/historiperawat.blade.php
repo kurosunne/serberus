@@ -10,10 +10,10 @@
                 <div class="h-full w-6/12 flex flex-col justify-center">
                     <div class="w-full h-full flex items-center justify-center">
                         <a href="{{ route('pasien.historitemu') }}">
-                            <div class="btn btn-primary ml-10 mr-3">Riwayat Temu Dokter</div>
+                            <div class="btn btn-primary ml-10 mr-3">Riwayat Temu</div>
                         </a>
                         <a href="{{ route('pasien.historiperawat') }}">
-                            <div class="btn btn-primary">Riwayat Temu Perawat</div>
+                            <div class="btn btn-primary">Riwayat Rawat</div>
                         </a>
                         <a href="{{ route('pasien.historiobat') }}">
                             <div class=" text-black btn btn-secondary ml-3">
