@@ -2,7 +2,7 @@
 
 @section("menu-items")
 @php
-    $cr = $cr ?? ''
+    $cr = Route::current()->action['as'];
 @endphp
 <li class="{{ $cr == 'dokter.home' ? 'text-white' : '' }}"><a href="{{ route('dokter.home') }}"
     class="btn-ghost btn text-xl normal-case">Beranda</a></li>

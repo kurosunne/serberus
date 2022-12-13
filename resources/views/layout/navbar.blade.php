@@ -1,7 +1,3 @@
-@php
-    $cr = Route::current()->action['as'];
-@endphp
-
 <div class="navbar bg-secondary">
     <div class="navbar-start">
         <div class="dropdown">
