@@ -51,7 +51,7 @@
                                         <td class="{{$i%2==0 ? "bg-primary":""}}">{{$item2->do_stok}} pcs</td>
                                         <td class="{{$i%2==0 ? "bg-primary":""}}">{{"Rp ". number_format($item2->Obat->ob_harga,2,',','.')}}</td>
                                         <td class="{{$i%2==0 ? "bg-primary":""}}">{{"Rp ". number_format(($item2->Obat->ob_harga * $item2->do_stok ),2,',','.')}}</td>
-                                        <td class="{{$i%2==0 ? "bg-primary":""}}">{{date('d F Y', strtotime($item->ho_tanggal))}}</td>
+                                        <td class="{{$i%2==0 ? "bg-primary":""}}">{{date('d F Y', strtotime($item->created_at))}}</td>
                                     </tr>
                                 @endforeach
                             @endforeach

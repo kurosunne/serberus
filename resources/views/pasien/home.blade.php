@@ -134,7 +134,8 @@
                                                 {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
                                             </p>
                                             {{-- href detail --}}
-                                            <a href="{{route('pasien.detailobat',["id"=>$obat[$i]->ob_id])}}"><button class="btn btn-success mb-3 w-full">Beli</button></a>
+                                            <a href="{{ route('pasien.detailobat', ['id' => $obat[$i]->ob_id]) }}"><button
+                                                    class="btn btn-success mb-3 w-full">Beli</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -171,7 +172,8 @@
                                                 {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
                                             </p>
                                             {{-- href detail --}}
-                                            <a href="{{route('pasien.detailobat',["id"=>$obat[$i]->ob_id])}}"><button class="btn btn-success mb-3 w-full">Beli</button></a>
+                                            <a href="{{ route('pasien.detailobat', ['id' => $obat[$i]->ob_id]) }}"><button
+                                                    class="btn btn-success mb-3 w-full">Beli</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +214,8 @@
                                                 {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
                                             </p>
                                             {{-- href detail --}}
-                                            <a href="{{route('pasien.detailobat',["id"=>$obat[$i]->ob_id])}}"><button class="btn btn-success mb-3 w-full">Beli</button></a>
+                                            <a href="{{ route('pasien.detailobat', ['id' => $obat[$i]->ob_id]) }}"><button
+                                                    class="btn btn-success mb-3 w-full">Beli</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -280,26 +283,31 @@
                         $i = 0;
                     @endphp
                     @foreach ($hjual_obat as $item)
+                        @if ($i >= 3)
+                            @php
+                                break;
+                            @endphp
+                        @endif
                         @foreach ($item->DjualObat as $item2)
+                            @if ($i++ >= 3)
+                                @php
+                                    break;
+                                @endphp
+                            @endif
                             <div class="w-full rounded-lg h-[25%] bg-secondary mt-3 flex p-2">
                                 <div class="h-full w-[20%]">
                                     <img src="{{ url('image/obat.png') }}" alt="obat"
                                         class="rounded-full object-contain object-center w-5/6 h-full">
                                 </div>
                                 <div class="h-full w-[50%] flex-col items-start justify-start mx-3">
-                                    <p class="text-lg font-bold mt-3 text-white">{{$item2->Obat->ob_nama}}</p>
-                                    <p class="text-sm mb-3 text-white">Tanggal Beli {{date('d F Y', strtotime($item->created_at))}}</p>
+                                    <p class="text-lg font-bold mt-3 text-white">{{ $item2->Obat->ob_nama }}</p>
+                                    <p class="text-sm mb-3 text-white">Tanggal Beli
+                                        {{ date('d F Y', strtotime($item->created_at)) }}</p>
                                 </div>
-                                <div class="h-full w-[20%] flex flex-col item-center justify-center">
-                                    <div class="btn btn-success">Detail</div>
+                                <div class="h-full w-[25%] flex flex-col item-center justify-center">
+                                    <a href="{{route('pasien.detailobat',['id' => $item2->ob_id])}}" class="btn btn-success">Detail Obat</a>
                                 </div>
                             </div>
-
-                            @if (++$i==3)
-                                @php
-                                    break;
-                                @endphp
-                            @endif
                         @endforeach
                     @endforeach
 

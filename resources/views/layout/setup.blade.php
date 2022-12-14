@@ -7,6 +7,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     @vite('resources/js/app.js')
+    <script type="text/javascript"
+	      src="https://app.sandbox.midtrans.com/snap/snap.js"
+	      data-client-key="SB-Mid-client-38oOCo7vkXtCsA9G"></script>
 </head>
 <body class="h-full">
     @yield('header')

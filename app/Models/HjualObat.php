@@ -24,4 +24,6 @@ class HjualObat extends Model
     {
         return $this->hasMany(DjualObat::class,"ho_id","ho_id");
     }
+
+    // protected $fillable = ['ps_id','ho_status','ho_orderId','ho_grossAmount','ho_paymentType','ho_paymentCode','ho_pdfUrl'];
 }

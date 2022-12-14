@@ -17,7 +17,6 @@ class AuthController extends Controller
 {
     public function indexPasien(Request $req)
     {
-        # code...
         return view('loginregis/welcome');
     }
 
@@ -191,7 +190,7 @@ class AuthController extends Controller
         ]);
 
         $psId = Pasien::limit(1)->latest('ps_id')->first()->ps_id;
-        File::copy('foto/psdef.png' , 'foto/ps'.$psId.'.png');
+        File::copy('foto/psdef.png', 'foto/ps' . $psId . '.png');
 
         return back()->with('succ', 'Berhasil mendaftar');
     }
@@ -247,7 +246,7 @@ class AuthController extends Controller
         ]);
 
         $prId = Perawat::limit(1)->latest('pr_id')->first()->pr_id;
-        File::copy('foto/prdef.png' , 'foto/pr'.$prId.'.png');
+        File::copy('foto/prdef.png', 'foto/pr' . $prId . '.png');
 
         return back()->with('succ', 'Berhasil mendaftar');
     }
@@ -262,14 +261,14 @@ class AuthController extends Controller
 
     public function registerDokter(Request $req)
     {
-        $sp=$req->spesialis;
+        $sp = $req->spesialis;
         $req->validate(
             [
                 'nama' =>  ['required'],
-                'email' =>  ['required','email','unique:dokter,dk_email','unique:perawat,pr_email','unique:pasien,ps_email'],
-                'telepon' => ['required','digits_between :10,15','numeric','unique:dokter,dk_telp','unique:perawat,pr_telp','unique:pasien,ps_telp'],
-                'password' => ['required','min:8'],
-                'confirm' =>['required','same:password'],
+                'email' =>  ['required', 'email', 'unique:dokter,dk_email', 'unique:perawat,pr_email', 'unique:pasien,ps_email'],
+                'telepon' => ['required', 'digits_between :10,15', 'numeric', 'unique:dokter,dk_telp', 'unique:perawat,pr_telp', 'unique:pasien,ps_telp'],
+                'password' => ['required', 'min:8'],
+                'confirm' => ['required', 'same:password'],
                 'sip' => ['required'],
             ],
             [
@@ -311,9 +310,9 @@ class AuthController extends Controller
         ]);
 
         $dkId = Dokter::limit(1)->latest('dk_id')->first()->dk_id;
-        $req->file('sip')->storeAs('sip',$dkId.'.png','local');
+        $req->file('sip')->storeAs('sip', $dkId . '.png', 'local');
 
-        File::copy('foto/dkdef.png' , 'foto/dk'.$dkId.'.png');
+        File::copy('foto/dkdef.png', 'foto/dk' . $dkId . '.png');
 
         return back()->with('succ', 'Berhasil mendaftar');
     }

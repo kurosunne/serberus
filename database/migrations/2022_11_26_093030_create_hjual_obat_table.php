@@ -16,6 +16,12 @@ return new class extends Migration
         Schema::create('hjual_obat', function (Blueprint $table) {
             $table->id("ho_id");
             $table->unsignedBigInteger("ps_id");
+            $table->string('ho_status');
+            $table->string('ho_orderId');
+            $table->string('ho_grossAmount');
+            $table->string('ho_paymentType');
+            $table->string('ho_paymentCode')->nullable();
+            $table->string('ho_pdfUrl')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

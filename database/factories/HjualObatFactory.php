@@ -17,8 +17,15 @@ class HjualObatFactory extends Factory
      */
     public function definition()
     {
+        $psId = $this->faker->randomElement(Pasien::all()->pluck(['ps_id']));
         return [
-            "ps_id" => $this->faker->randomElement(Pasien::all()->pluck(['ps_id'])),
+            "ps_id" => $psId,
+            "ho_status" => "settlement",
+            "ho_orderId" => rand(),
+            "ho_grossAmount" => 0,
+            "ho_paymentType" => "gopay",
+            "ho_paymentCode" => null,
+            "ho_pdfUrl" => null,
         ];
     }
 }

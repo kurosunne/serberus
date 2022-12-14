@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DjualObat;
 use App\Models\Dokter;
 use App\Models\HjualObat;
 use App\Models\JanjiTemu;
@@ -246,18 +247,50 @@ class PasienController extends Controller
         $obat = Obat::find($req->id);
         return view('pasien.detailObat', compact("obat"));
     }
+
     public function indexKeranjang(Request $req)
     {
         $keranjang = array();
         $qty = array();
+        $total = 0;
+        $snapToken = null;
+        $user = Pasien::where("ps_email", Session::get("active")["email"])->first();
+
         if (Session::has("keranjang")) {
+            \Midtrans\Config::$serverKey = 'SB-Mid-server-LgeD2CDZdUd7ylEVlREoqyZ5';
+            \Midtrans\Config::$isProduction = false;
+            \Midtrans\Config::$isSanitized = true;
+            \Midtrans\Config::$is3ds = true;
+
+            $item_details = array();
             foreach (Session::get("keranjang") as $key => $value) {
-                array_push($keranjang,Obat::find($value["ob_id"]));
-                array_push($qty,$value["ob_stok"]);
+                $new = Obat::find($value["ob_id"]);
+                array_push($keranjang, $new);
+                array_push($qty, $value["ob_stok"]);
+                array_push($item_details, ['id' => $new->ob_id, 'price' => $new->ob_harga, 'quantity' => $qty[$key], 'name' => $new->ob_nama]);
+                $total += ($value["ob_stok"] * $new->ob_harga);
             }
+
+            $params = array(
+                'transaction_details' => array(
+                    'order_id' => rand(),
+                    'gross_amount' => $total,
+                ),
+                'item_details' => $item_details,
+                'customer_details' => array(
+                    'first_name' => $user->ps_nama,
+                    'email' => $user->ps_email,
+                    'phone' => $user->ps_telp,
+                ),
+            );
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
         }
-        return view('pasien.keranjang', compact('keranjang','qty'));
+
+
+
+        return view('pasien.keranjang', compact('keranjang', 'qty', 'total', 'snapToken'));
     }
+
     public function indexObat(Request $req)
     {
         $page = $req->page;
@@ -320,7 +353,51 @@ class PasienController extends Controller
     {
         $keranjang = Session::get("keranjang");
         unset($keranjang[$req->key]);
-        Session::put("keranjang",$keranjang);
+        if (count($keranjang)==0) {
+           Session::forget("keranjang");
+        }else{
+            Session::put("keranjang", $keranjang);
+        }
+
+        return back();
+    }
+
+    public function updateKeranjang(Request $req)
+    {
+        $keranjang = Session::get("keranjang");
+        $keranjang[$req->key]["ob_stok"] = $req->jml;
+        Session::put("keranjang", $keranjang);
+        return back();
+    }
+
+    public function postKeranjang(Request $req)
+    {
+        $json = json_decode($req->get('json'));
+        $user = Pasien::where("ps_email", Session::get("active")["email"])->first();
+
+        $hjual = new HjualObat();
+        $hjual->ps_id = $user->ps_id;
+        $hjual->ho_status = $json->transaction_status;
+        $hjual->ho_orderId = $json->order_id;
+        $hjual->ho_grossAmount = $json->gross_amount;
+        $hjual->ho_paymentType = $json->payment_type;
+        $hjual->ho_paymentCode = isset($json->payment_code) ? $json->payment_code : null;
+        $hjual->ho_pdfUrl = isset($json->pdf_url) ? $json->pdf_url : null;
+        $hjual->save();
+
+        $hoId = HjualObat::orderBy("ho_id","desc")->first()->ho_id;
+
+        foreach (Session::get("keranjang") as $key => $value) {
+            $djual = new DjualObat();
+            $djual->do_stok = $value["ob_stok"];
+            $djual->ob_id = $value["ob_id"];
+            $djual->do_total = (Obat::find($value["ob_id"])->ob_harga * $value["ob_stok"]);
+            $djual->ho_id = $hoId;
+            $djual->save();
+        }
+
+        Session::remove("keranjang");
+        Session::put("msg", "Transaksi Berhasil Dibuat");
         return back();
     }
 }
