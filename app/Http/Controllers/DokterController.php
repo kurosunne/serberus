@@ -66,8 +66,46 @@ class DokterController extends Controller
 
     public function indexRiwayat(Request $req)
     {
-        return view('dokter.riwayat');
-    }
+        if($req->query("order") && !$req->query("sort")){
+            return redirect()->route('dokter.riwayat');
+        }
+
+        $user = Dokter::where("dk_email", Session::get("active")["email"])->first();
+        $janji_temu = JanjiTemu::onlyTrashed()
+        ->where("dk_id", $user->dk_id)
+        ->join('pasien', 'janji_temu.ps_id','=', 'pasien.ps_id')
+        ->select(['je_id', 'ps_nama', 'jt_tanggal', 'janji_temu.created_at', 'janji_temu.updated_at']);
+
+        $sort_key = [
+            "id" => "je_id",
+            "pasien" => "ps_nama",
+            "tanggal" => "jt_tanggal",
+        ];
+
+        $sort_status = [
+            "sort" => $req->query("sort") ?? "id",
+            "order" => $req->query("order") ?? "asc"
+        ];
+        $sort = $sort_status["sort"];
+        $order = $sort_status["order"];
+
+        $janji_temu = $janji_temu->orderBy($sort_key[$sort], $order)->get();
+        $sort_link = [
+            "id" => [
+                "sort" => "id",
+                "order" => ($sort == "id" && $order == "desc") ? "asc" : (($sort != "id" )? "asc" : "desc"),
+            ],
+            "pasien" => [
+                "sort" => "pasien",
+                "order" => ($sort == "pasien" && $order == "desc") ? "asc" : (($sort != "pasien" )? "asc" : "desc"),
+            ],
+            "tanggal" => [
+                "sort" => "tanggal",
+                "order" => ($sort == "tanggal" && $order == "desc") ? "asc" : (($sort != "tanggal" )? "asc" : "desc"),
+            ],
+        ];
+
+        return view('dokter.riwayat', compact('janji_temu', 'sort_link', "sort_status"));    }
 
     public function indexKonsultasi(Request $req)
     {
