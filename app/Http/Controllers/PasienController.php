@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TransaksiMail;
 use App\Models\DjualObat;
 use App\Models\Dokter;
 use App\Models\HjualObat;
@@ -10,8 +11,10 @@ use App\Models\JanjiRawat;
 use App\Models\Konsultasi;
 use App\Models\Obat;
 use App\Models\Pasien;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class PasienController extends Controller
@@ -385,19 +388,22 @@ class PasienController extends Controller
         $hjual->ho_pdfUrl = isset($json->pdf_url) ? $json->pdf_url : null;
         $hjual->save();
 
-        $hoId = HjualObat::orderBy("ho_id","desc")->first()->ho_id;
+        $hoId = HjualObat::orderBy("ho_id","desc")->first();
 
         foreach (Session::get("keranjang") as $key => $value) {
             $djual = new DjualObat();
             $djual->do_stok = $value["ob_stok"];
             $djual->ob_id = $value["ob_id"];
             $djual->do_total = (Obat::find($value["ob_id"])->ob_harga * $value["ob_stok"]);
-            $djual->ho_id = $hoId;
+            $djual->ho_id = $hoId->ho_id;
             $djual->save();
         }
 
         Session::remove("keranjang");
         Session::put("msg", "Transaksi Berhasil Dibuat");
+
+        $transaksi = DjualObat::where("ho_id",$hoId->ho_id)->get();
+        Mail::to('kitsunne.yt@gmail.com')->send(new TransaksiMail($user,$transaksi,$hoId));
         return back();
     }
 }
