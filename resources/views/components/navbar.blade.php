@@ -1,4 +1,4 @@
-<div class="navbar bg-secondary">
+<div {{ $attributes->class(['navbar', 'bg']) }}>
     <div class="navbar-start">
         <div class="dropdown">
             <label tabindex="0" class="btn-ghost btn lg:hidden" id="hamburger-toggle">
@@ -8,7 +8,7 @@
                 </svg>
             </label>
             <ul class="dropdown-content menu menu-compact p-0 bg-neutral-content">
-                @yield('menu-items')
+                {{$slot}}
             </ul>
         </div>
         <div class="flex w-1/4 flex-wrap items-center justify-center">
@@ -18,7 +18,7 @@
     </div>
     <div class="navbar-center hidden lg:flex" id="menu-items">
         <ul class="menu menu-horizontal p-0">
-            @yield('menu-items')
+            {{$slot}}
         </ul>
     </div>
     <div class="navbar-end">
