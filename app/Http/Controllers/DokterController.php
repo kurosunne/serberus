@@ -105,7 +105,8 @@ class DokterController extends Controller
             ],
         ];
 
-        return view('dokter.riwayat', compact('janji_temu', 'sort_link', "sort_status"));    }
+        return view('dokter.riwayat', compact('janji_temu', 'sort_link', "sort_status"));
+    }
 
     public function indexKonsultasi(Request $req)
     {
