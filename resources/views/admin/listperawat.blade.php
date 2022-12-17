@@ -114,9 +114,9 @@
                             <td>
                                 <a href="{{route('admin.perawat',["editId"=>$pr->pr_id])}}" class="btn btn-info text-white" {{ $pr->trashed() ? "disabled" : "" }}>Edit</a>
                                 @if ($pr->trashed())
-                                    <a href="{{ url("admin/deleteperawat/$pr->pr_id") }}" class="btn btn-success">Unban</a>
+                                    <a href="{{ url("admin/perawat/$pr->pr_id/delete") }}" class="btn btn-success">Unban</a>
                                 @else
-                                    <a href="{{ url("admin/deleteperawat/$pr->pr_id") }}" class="btn btn-error">Ban</a>
+                                    <a href="{{ url("admin/perawat/$pr->pr_id/delete") }}" class="btn btn-error">Ban</a>
                                 @endif
                             </td>
                         </tr>

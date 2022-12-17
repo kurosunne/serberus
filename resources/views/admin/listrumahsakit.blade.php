@@ -90,10 +90,10 @@
                             <td>
                                 <a href="{{route('admin.rumahsakit',["editId"=>$rs->rs_id])}}" class="btn btn-secondary text-white" {{ $rs->trashed() ? "disabled" : "" }} >Edit</a>
                                 @if ($rs->trashed())
-                                    <a href="{{ url("admin/deleterumahsakit/$rs->rs_id") }}"
+                                    <a href="{{ url("admin/rumahsakit/$rs->rs_id/delete") }}"
                                         class="btn btn-success">Unban</a>
                                 @else
-                                    <a href="{{ url("admin/deleterumahsakit/$rs->rs_id") }}" class="btn btn-error">Ban</a>
+                                    <a href="{{ url("admin/rumahsakit/$rs->rs_id/delete") }}" class="btn btn-error">Ban</a>
                                 @endif
                             </td>
                         </tr>

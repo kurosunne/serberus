@@ -150,13 +150,12 @@
                             <td>{{ $ob->ob_stok}}</td>
                             <td>{{ $ob->ob_kandunganVal }} {{ $ob->ob_kandunganSatuan }}</td>
                             <td>
-                                <a href="{{ route('admin.obat', ['editId' => $ob->ob_id]) }}"
-                                    class="btn btn-info text-white">Edit</a>
+                                <a href="{{route('admin.obat',["editId"=>$ob->ob_id])}}" class="btn btn-secondary text-white" {{ $ob->trashed() ? "disabled" : "" }} >Edit</a>
                                 @if ($ob->trashed())
-                                    <a href="{{ url("admin/deleteobat/$ob->ob_id") }}"
+                                    <a href="{{ url("admin/obat/$ob->ob_id/delete") }}"
                                         class="btn btn-success">Unban</a>
                                 @else
-                                    <a href="{{ url("admin/deleteobat/$ob->ob_id") }}" class="btn btn-error">Ban</a>
+                                    <a href="{{ url("admin/obat/$ob->ob_id/delete") }}" class="btn btn-error">Ban</a>
                                 @endif
                             </td>
                         </tr>

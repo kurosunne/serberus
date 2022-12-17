@@ -113,9 +113,9 @@
                             <td>
                                 <a href="{{route('admin.pasien',["editId"=>$ps->ps_id])}}" class="btn btn-info text-white" {{ $ps->trashed() ? "disabled" : "" }}>Edit</a>
                                 @if ($ps->trashed())
-                                    <a href="{{ url("admin/deletepasien/$ps->ps_id") }}" class="btn btn-success">Unban</a>
+                                    <a href="{{ url("admin/pasien/$ps->ps_id/delete") }}" class="btn btn-success">Unban</a>
                                 @else
-                                    <a href="{{ url("admin/deletepasien/$ps->ps_id") }}" class="btn btn-error">Ban</a>
+                                    <a href="{{ url("admin/pasien/$ps->ps_id/delete") }}" class="btn btn-error">Ban</a>
                                 @endif
                             </td>
                         </tr>

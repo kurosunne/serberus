@@ -162,10 +162,10 @@
                                 <a href="{{ route('admin.dokter', ['editId' => $dk->dk_id]) }}"
                                     class="btn btn-info text-white">Edit</a>
                                 @if ($dk->trashed())
-                                    <a href="{{ url("admin/deletedokter/$dk->dk_id") }}"
+                                    <a href="{{ url("admin/dokter/$dk->dk_id/delete") }}"
                                         class="btn btn-success">Unban</a>
                                 @else
-                                    <a href="{{ url("admin/deletedokter/$dk->dk_id") }}" class="btn btn-error">Ban</a>
+                                    <a href="{{ url("admin/dokter/$dk->dk_id/delete") }}" class="btn btn-error">Ban</a>
                                 @endif
                             </td>
                         </tr>

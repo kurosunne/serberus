@@ -314,6 +314,8 @@ class AdminController extends Controller
             $res=$dokter->restore();
         }
         else{
+            $dokter->dk_status = 2;
+            $dokter->save();
             $res=$dokter->delete();
         }
 
