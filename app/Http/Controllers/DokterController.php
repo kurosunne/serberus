@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chat;
 use App\Models\Dokter;
 use App\Models\JanjiTemu;
 use App\Models\Konsultasi;
@@ -108,8 +109,26 @@ class DokterController extends Controller
         return view('dokter.riwayat', compact('janji_temu', 'sort_link', "sort_status"));
     }
 
-    public function indexKonsultasi(Request $req)
+    public function indexKonsultasi(Request $req, String $konsultasi_id = null)
     {
-        return view('dokter.konsultasi');
+        $user = Dokter::where("dk_email", Session::get("active")["email"])->first();
+        $konsultasi = Konsultasi::where("dk_id", $user->dk_id)->get();
+
+        return view('dokter.konsultasi',compact('konsultasi', 'konsultasi_id'));
+    }
+
+    public function chatKonsultasi(Request $req, String $konsultasi_id = null)
+    {
+        $chat = Chat::where("ks_id", $konsultasi_id)->get();
+        return json_encode($chat);
+    }
+
+    public function sendChatKonsultasi(Request $req, String $konsultasi_id = null)
+    {
+        Chat::insert([
+            "ch_sender_is_dokter" => $req->sender_is_dokter,
+            "ks_id" => $konsultasi_id,
+            "ch_teks" => $req->message
+        ]);
     }
 }

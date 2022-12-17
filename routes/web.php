@@ -90,7 +90,9 @@ Route::prefix('dokter')->controller(DokterController::class)->middleware('cek.lo
 
     Route::get('/janji', 'indexJanji')->name('dokter.janji');
 
-    Route::get('/konsultasi', 'indexKonsultasi')->name('dokter.konsultasi');
+    Route::get('/konsultasi/{konsultasi_id?}', 'indexKonsultasi')->name('dokter.konsultasi');
+    Route::get('/konsultasi/{konsultasi_id?}/chat', 'chatKonsultasi')->name('dokter.chat');
+    Route::post('/konsultasi/{konsultasi_id}/send', 'sendChatKonsultasi')->name('dokter.send');
 
     Route::get('/riwayat', 'indexRiwayat')->name('dokter.riwayat');
 });
