@@ -311,6 +311,8 @@ class AdminController extends Controller
         $dokter = Dokter::withTrashed()->find($req->dk_id);
 
         if($dokter->trashed()){
+            $dokter->dk_status = 1;
+            $dokter->save();
             $res=$dokter->restore();
         }
         else{
