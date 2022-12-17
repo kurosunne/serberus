@@ -70,7 +70,7 @@ class AuthController extends Controller
                 'email' => $req->email,
                 'role' => 'perawat'
             ]);
-            return redirect()->route('perawat.home');
+            return redirect()->route('perawat.janji');
         } else {
             return back()->with('msg', 'Password tidak sesuai');
         }
