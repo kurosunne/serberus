@@ -10,6 +10,7 @@
     <script type="text/javascript"
 	      src="https://app.sandbox.midtrans.com/snap/snap.js"
 	      data-client-key="SB-Mid-client-38oOCo7vkXtCsA9G"></script>
+    @yield('links')
 </head>
 <body class="h-screen flex flex-col">
     @yield('header')
