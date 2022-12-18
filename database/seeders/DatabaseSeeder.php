@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HjualObatSeeder::class);
         $this->call(DjualObatSeeder::class);
         $this->call(ChatSeeder::class);
+        $this->call(ResepDokterSeeder::class);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
