@@ -5,7 +5,7 @@
 @endsection
 
 @section('main')
-    <div class="flex w-full grow">
+    <div class="flex w-full grow  overflow-y-hidden">
         <div class="w-1/4 bg-secondary-focus overflow-y-auto">
             @foreach ($konsultasi as $k)
                 <a href="{{ route('dokter.konsultasi', $k->ks_id) }}">
@@ -15,8 +15,8 @@
                 </a>
             @endforeach
         </div>
-        <div class="flex flex-col w-3/4 bg-slate-300 p-5 overflow-y-auto">
-            <div class="w-full flex-grow" id="chatroom"></div>
+        <div class="flex flex-col w-3/4 bg-slate-300 p-5">
+            <div class="w-full flex-grow overflow-y-auto" id="chatroom"></div>
             <div class="w-full h-16 my-auto flex items-center gap-x-2 px-2 pt-auto">
                 @if($konsultasi_id)
                     <input type="text" placeholder="Type here..." class="input input-bordered w-full" id="chat-text" onkeydown="submit(this)"/>
@@ -39,10 +39,10 @@
             content.classList.add("chat-bubble")
             if(data["ch_sender_is_dokter"] == 0){
                 item.classList.add("chat-start", "pr-80")
-                content.classList.add("bg-secondary", "text-base-100")
+                content.classList.add("bg-base-100", "text-secondary")
             }else{
                 item.classList.add("chat-end","pl-80")
-                content.classList.add("bg-base-100", "text-secondary")
+                content.classList.add("bg-secondary", "text-base-100")
             }
             content.innerHTML = data["ch_teks"];
             item.appendChild(content)
@@ -50,6 +50,7 @@
         }
 
         @if ($konsultasi_id)
+
         let chatSend = document.getElementById("chat-send")
 
 
@@ -77,6 +78,7 @@
             xhr.setRequestHeader("X-CSRF-TOKEN", "{{ csrf_token() }}")
             xhr.send(`message=${chatText.value}&sender_is_dokter=1`)
         })
+
         @endif
 
 

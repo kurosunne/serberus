@@ -9,7 +9,7 @@ $cr = Route::current()->action['as'];
     <li class="{{ $cr == 'pasien.obat' || $cr == 'pasien.detailobat'  ? 'text-white' : '' }}"><a
         href="{{ route('pasien.obat', ['page' => 1]) }}" class="btn btn-ghost normal-case text-xl">Beli
         Obat</a></li>
-    <li class="{{ $cr == '' ? 'text-white' : '' }}"><a href=""
+    <li class="{{ $cr == 'pasien.konsultasi' ? 'text-white' : '' }}"><a href="{{ route('pasien.konsultasi') }}"
         class="btn btn-ghost normal-case text-xl">Konsultasi</a></li>
     <li class="{{ $cr == 'pasien.historitemu' || $cr =='pasien.historiperawat' ||$cr == 'pasien.historiobat'  ? 'text-white' : '' }}"><a href="{{ route('pasien.historitemu') }}"
         class="btn btn-ghost normal-case text-xl">Riwayat</a></li>

@@ -64,6 +64,10 @@ Route::prefix('pasien')->controller(PasienController::class)->middleware('cek.lo
     Route::post('/keranjang/update/{key}', 'updateKeranjang')->name('pasien.updateKeranjang');
     Route::post('/keranjang/bayar', 'updateKeranjang')->name('pasien.updateKeranjang');
 
+    Route::get('/konsultasi/{konsultasi_id?}', 'indexKonsultasi')->name('pasien.konsultasi');
+    Route::get('/konsultasi/{konsultasi_id?}/chat', 'chatKonsultasi')->name('pasien.chat');
+    Route::post('/konsultasi/{konsultasi_id}/send', 'sendChatKonsultasi')->name('pasien.send');
+
     Route::get('/history/janjitemu', 'indexRiwayattemu')->name('pasien.historitemu');
     Route::get('/histori/obat', 'indexRiwayatobat')->name('pasien.historiobat');
     Route::get('/histori/janjitemuperawat', 'indexRiwayatPerawat')->name('pasien.historiperawat');

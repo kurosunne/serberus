@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\TransaksiMail;
+use App\Models\Chat;
 use App\Models\DjualObat;
 use App\Models\Dokter;
 use App\Models\HjualObat;
@@ -325,10 +326,27 @@ class PasienController extends Controller
         return view('pasien.obat', compact('obat', 'total', 'page', 'search', 'filter'));
     }
 
-    public function indexKonsultasi(Request $req)
+    public function indexKonsultasi(Request $req, String $konsultasi_id = null)
     {
-        # code...
-        return view('pasien.konsultasi');
+        $user = Pasien::where("ps_email", Session::get("active")["email"])->first();
+        $konsultasi = Konsultasi::where("ps_id", $user->ps_id)->get();
+
+        return view('pasien.konsultasi',compact('konsultasi', 'konsultasi_id'));
+    }
+
+    public function chatKonsultasi(Request $req, String $konsultasi_id = null)
+    {
+        $chat = Chat::where("ks_id", $konsultasi_id)->get();
+        return json_encode($chat);
+    }
+
+    public function sendChatKonsultasi(Request $req, String $konsultasi_id = null)
+    {
+        Chat::insert([
+            "ch_sender_is_dokter" => $req->sender_is_dokter,
+            "ks_id" => $konsultasi_id,
+            "ch_teks" => $req->message
+        ]);
     }
 
     public function indexBeliObat(Request $req)
@@ -406,4 +424,6 @@ class PasienController extends Controller
         Mail::to('kitsunne.yt@gmail.com')->send(new TransaksiMail($user,$transaksi,$hoId));
         return back();
     }
+
+
 }
