@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dokter;
+use App\Models\HjualObat;
 use App\Models\Obat;
 use App\Models\Pasien;
 use App\Models\RumahSakit;
@@ -10,13 +11,20 @@ use App\Models\Perawat;
 use App\Models\Spesialis;
 use App\Models\TipeObat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
     public function home(){
-        return view('admin.homeadmin');
+        $total_harga = HjualObat::select(DB::raw("CAST(SUM(ho_grossAmount) as int) as total_harga, Month(created_at) as m"))
+        ->GroupBy(DB::raw("Month(created_at)"))->orderBy("m")->pluck("total_harga");
+
+        $bulan = HjualObat::select(DB::raw("MONTHNAME(created_at) as bulan, Month(created_at) as m"))
+        ->GroupBy(DB::raw("MONTHNAME(created_at), Month(created_at)"))->orderBy("m")->pluck("bulan");
+
+        return view('admin.homeadmin',compact('total_harga','bulan'));
     }
     public function perawat(Request $req)
     {
