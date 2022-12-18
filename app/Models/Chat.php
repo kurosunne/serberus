@@ -11,7 +11,7 @@ class Chat extends Model
     protected $table = "chat";
     protected $primaryKey = "ch_id";
     public $incrementing = true;
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function Konsultasi()
     {

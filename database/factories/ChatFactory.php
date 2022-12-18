@@ -21,6 +21,7 @@ class ChatFactory extends Factory
             "ch_sender_is_dokter" => $this->faker->numberBetween(0,1),
             "ks_id" => $this->faker->randomElement(Konsultasi::all()->pluck(['ks_id'])),
             "ch_teks" => $this->faker->sentence(),
+            "created_at" => $this->faker->dateTimeThisYear()
         ];
     }
 }
