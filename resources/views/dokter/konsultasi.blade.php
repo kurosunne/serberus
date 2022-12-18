@@ -19,7 +19,7 @@
             <div class="w-full flex-grow" id="chatroom"></div>
             <div class="w-full h-16 my-auto flex items-center gap-x-2 px-2 pt-auto">
                 @if($konsultasi_id)
-                    <input type="text" placeholder="Type here..." class="input input-bordered w-full" id="chat-text"/>
+                    <input type="text" placeholder="Type here..." class="input input-bordered w-full" id="chat-text" onkeydown="submit(this)"/>
                     <button class="btn btn-secondary rounded-full" id="chat-send"><i class="fa-sharp fa-solid fa-paper-plane"></i></button>
                 @endif
             </div>
@@ -30,6 +30,7 @@
         setInterval(() => {
             refreshChat()
         }, 1000);
+
 
         function createBubble(data){
             let item = document.createElement("div")
@@ -50,16 +51,20 @@
 
         @if ($konsultasi_id)
         let chatSend = document.getElementById("chat-send")
+
+
+        function submit(e){
+            if(event.key == "Enter"){
+                chatSend.click()
+            }
+        }
+
         chatSend.addEventListener('click', ()=>{
             let chatText = document.getElementById("chat-text")
             if(chatText.value.trim().length == 0){
                 chatText.value = ""
                 return
             }
-            // let data = {
-            //     "message" : chatText.value,
-            //     "sender_is_dokter" : 1
-            // }
             const xhr = new XMLHttpRequest();
             xhr.onload = function(){
                 if(this.readyState === XMLHttpRequest.DONE && this.status === 200){
