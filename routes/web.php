@@ -97,6 +97,9 @@ Route::prefix('dokter')->controller(DokterController::class)->middleware('cek.lo
     Route::get('/konsultasi/{konsultasi_id?}', 'indexKonsultasi')->name('dokter.konsultasi');
     Route::get('/konsultasi/{konsultasi_id?}/chat', 'chatKonsultasi')->name('dokter.chat');
     Route::post('/konsultasi/{konsultasi_id}/send', 'sendChatKonsultasi')->name('dokter.send');
+    Route::post('/konsultasi/{konsultasi_id}/resep', 'buatResepObatKonsultasi')->name('dokter.resep');
+    Route::get('/obat', 'getObat')->name('dokter.obat');
+    Route::get('/resep/{resep_id}', 'detailResep')->name('dokter.detailResep');
 
     Route::get('/riwayat', 'indexRiwayat')->name('dokter.riwayat');
 });

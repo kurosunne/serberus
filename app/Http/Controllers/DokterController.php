@@ -6,6 +6,8 @@ use App\Models\Chat;
 use App\Models\Dokter;
 use App\Models\JanjiTemu;
 use App\Models\Konsultasi;
+use App\Models\Obat;
+use App\Models\ResepDokter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -113,8 +115,9 @@ class DokterController extends Controller
     {
         $user = Dokter::where("dk_email", Session::get("active")["email"])->first();
         $konsultasi = Konsultasi::where("dk_id", $user->dk_id)->get();
+        $obat = Obat::all();
 
-        return view('dokter.konsultasi',compact('konsultasi', 'konsultasi_id'));
+        return view('dokter.konsultasi',compact('konsultasi', 'konsultasi_id', 'obat'));
     }
 
     public function chatKonsultasi(Request $req, String $konsultasi_id = null)
@@ -129,6 +132,28 @@ class DokterController extends Controller
             "ch_sender_is_dokter" => $req->sender_is_dokter,
             "ks_id" => $konsultasi_id,
             "ch_teks" => $req->message
+        ]);
+    }
+
+    public function buatResepObatKonsultasi(Request $req, String $konsultasi_id = null)
+    {
+        $listObat = json_decode($req->prescription);
+        foreach ($listObat as $key => $obat) {
+            $ob_id = $obat->obat;
+            $re_hari = $obat->hari;
+            $re_keterangan = $obat->keterangan;
+            ResepDokter::insert([
+                "ks_id" => $konsultasi_id,
+                "ob_id" => $ob_id,
+                "re_hari" => $re_hari,
+                "re_keterangan" => $re_keterangan
+            ]);
+        }
+        $re_id = ResepDokter::orderBy('re_id', 'desc')->take(count($listObat))->pluck('re_id');
+        Chat::insert([
+            "ch_sender_is_dokter" => 1,
+            "ks_id" => $konsultasi_id,
+            "ch_teks" => "re//$re_id",
         ]);
     }
 }
