@@ -9,7 +9,7 @@ Janji Temu:
 
     <table class="table">
         <tr>
-            <th>je_id</th>
+            <th>jt_id</th>
             <th>ps_id</th>
             <th>dk_id</th>
             <th>jt_tanggal</th>
@@ -18,7 +18,7 @@ Janji Temu:
         </tr>
         @foreach ($janji_temu as $a)
         <tr>
-            <td>{{ $a->je_id }}</td>
+            <td>{{ $a->jt_id }}</td>
             <td>{{ $a->ps_id }}</td>
             <td>{{ $a->dk_id }}</td>
             <td>{{ $a->jt_tanggal }}</td>

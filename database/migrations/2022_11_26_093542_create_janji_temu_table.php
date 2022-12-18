@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('janji_temu', function (Blueprint $table) {
-            $table->id("je_id");
+            $table->id("jt_id");
             $table->unsignedBigInteger("ps_id");
             $table->unsignedBigInteger("dk_id");
             $table->date("jt_tanggal");

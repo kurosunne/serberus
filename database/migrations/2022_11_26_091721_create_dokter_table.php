@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string("dk_email", 40);
             $table->string("dk_telp", 15);
             $table->string("dk_password", 255);
-            $table->integer("dk_status");
             $table->timestamps();
             $table->softDeletes();
 

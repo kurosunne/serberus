@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer("ch_sender_is_dokter");
             $table->unsignedBigInteger("ks_id");
             $table->text("ch_teks");
+            $table->timestamps();
 
             $table->foreign("ks_id")->references("ks_id")->on("konsultasi")->onUpdate("cascade")->onDelete("cascade");
         });

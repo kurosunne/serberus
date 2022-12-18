@@ -28,7 +28,6 @@ class DokterFactory extends Factory
             "dk_email" => Str::lower($firstname).Str::lower($lastname)."@gmail.com",
             "dk_telp" => $this->faker->numerify("08##########"),
             "dk_password" => Hash::make("123"),
-            "dk_status" => 1,
             "sp_id" => $this->faker->numberBetween(1,$spesialis[0]->count),
             "rs_id" => $this->faker->numberBetween(1,$rumahsakit[0]->count)
         ];
