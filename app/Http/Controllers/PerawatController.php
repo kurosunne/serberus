@@ -74,6 +74,19 @@ class PerawatController extends Controller
         return view('perawat.konsultasi');
     }
 
+    public function deleterawat(Request $req)
+    {
+        $janji_rawat = JanjiRawat::withTrashed()->find($req->jr_id);
+
+        $res = $janji_rawat->delete();
+
+        if ($res) {
+            return redirect()->route('perawat.janji')->with('success', 'Berhasil menyelesaikan janji rawat');
+        } else {
+            return redirect()->route('perawat.janji')->with('error', 'Data gagal dihapus');
+        }
+    }
+
     public function indexRiwayat(Request $req)
     {
         if($req->query("order") && !$req->query("sort")){
@@ -84,7 +97,7 @@ class PerawatController extends Controller
         $janji_rawat = JanjiRawat::onlyTrashed()
         ->where("pr_id", $user->pr_id)
         ->join('pasien', 'janji_rawat.ps_id','=', 'pasien.ps_id')
-        ->select(['jr_id', 'ps_nama', 'jr_tanggal', 'janji_rawat.created_at', 'janji_rawat.updated_at']);
+        ->select(['jr_id', 'ps_nama', 'jr_tanggal', 'janji_rawat.created_at', 'janji_rawat.updated_at', 'ps_telp']);
 
         $sort_key = [
             "id" => "jr_id",

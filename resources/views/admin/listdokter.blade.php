@@ -108,10 +108,6 @@
                             <a href="{{ route('admin.getsip', ['id' => $editId]) }}"
                                 class="btn btn-outline btn-accent">Download
                                 SIP</a>
-                            <input type="radio" value="1" name="createstatusdokter" class="radio radio-success ml-8" {{$editId != -1 ? ($dokterEdit->dk_status==1 ? "checked" : "") : ""}}/>
-                            <span class="block uppercase tracking-wide text-gray-700 text-xs font-bold ml-1">Aktif</span>
-                            <input type="radio" value="0" name="createstatusdokter" class="radio radio-error ml-8" {{$editId != -1 ? ($dokterEdit->dk_status==0 ? "checked" : "") : ""}} />
-                            <span class="block uppercase tracking-wide text-gray-700 text-xs font-bold ml-1">Non-Aktif</span>
                         </div>
 
                     </div>
@@ -144,7 +140,6 @@
                         <th class="bg-accent">Email Dokter</th>
                         <th class="bg-accent">No. Telpon</th>
                         <th class="bg-accent">Rumah Sakit</th>
-                        <th class="bg-accent">Status</th>
                         <th class="bg-accent">Action</th>
                     </tr>
                 </thead>
@@ -157,10 +152,9 @@
                             <td>{{ $dk->dk_email }}</td>
                             <td>{{ $dk->dk_telp }}</td>
                             <td>{{ $dk->RumahSakit->rs_nama }}</td>
-                            <td class="font-bold {{ $dk->dk_status==1 ? "text-success" : "text-error" }}">{{ $dk->dk_status==1 ? "Aktif" : "Non-Aktif" }}</td>
                             <td>
                                 <a href="{{ route('admin.dokter', ['editId' => $dk->dk_id]) }}"
-                                    class="btn btn-info text-white">Edit</a>
+                                    class="btn btn-info text-white"{{ $dk->trashed() ? "disabled" : "" }}> Edit</a>
                                 @if ($dk->trashed())
                                     <a href="{{ url("admin/dokter/$dk->dk_id/delete") }}"
                                         class="btn btn-success">Unban</a>

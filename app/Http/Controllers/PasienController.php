@@ -41,7 +41,7 @@ class PasienController extends Controller
         $user = Pasien::where("ps_email", Session::get("active")["email"])->first();
 
         $sort_key = [
-            "id" => "je_id",
+            "id" => "jt_id",
             "dokter" => "dk_nama",
             "tanggal" => "jt_tanggal",
             "status" => "janji_temu.deleted_at",
@@ -57,7 +57,7 @@ class PasienController extends Controller
         $janji_temu = JanjiTemu::onlyTrashed()
             ->where("ps_id", $user->ps_id)
             ->join('dokter', 'janji_temu.dk_id', '=', 'dokter.dk_id')
-            ->select(['je_id', 'dk_nama', 'dk_telp', 'jt_tanggal', 'janji_temu.created_at', 'janji_temu.updated_at', 'janji_temu.deleted_at']);
+            ->select(['jt_id', 'dk_nama', 'dk_telp', 'jt_tanggal', 'janji_temu.created_at', 'janji_temu.updated_at', 'janji_temu.deleted_at']);
 
         $janji_temu = $janji_temu->orderBy($sort_key[$sort], $order)->get();
 
@@ -150,7 +150,7 @@ class PasienController extends Controller
         $user = Pasien::where("ps_email", Session::get("active")["email"])->first();
 
         $sort_key = [
-            "id" => "je_id",
+            "id" => "jt_id",
             "dokter" => "dk_nama",
             "tanggal" => "jt_tanggal",
             "status" => "janji_temu.deleted_at",
@@ -165,7 +165,7 @@ class PasienController extends Controller
 
         $janji_temu = JanjiTemu::where("ps_id", $user->ps_id)
             ->join('dokter', 'janji_temu.dk_id', '=', 'dokter.dk_id')
-            ->select(['je_id', 'dk_nama', 'dk_telp', 'jt_tanggal', 'janji_temu.created_at', 'janji_temu.updated_at', 'janji_temu.deleted_at']);
+            ->select(['jt_id', 'dk_nama', 'dk_telp', 'jt_tanggal', 'janji_temu.created_at', 'janji_temu.updated_at', 'janji_temu.deleted_at']);
 
         $janji_temu = $janji_temu->orderBy($sort_key[$sort], $order)->get();
 

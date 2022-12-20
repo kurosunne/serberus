@@ -42,7 +42,6 @@
                                     @endif
                                 </th class="bg-secondary">
                                 <th class="bg-secondary">No. Telp Pasien</th>
-                                <th class="bg-secondary">Action</th>
                             </th>
                             </tr>
                         </thead>
@@ -54,9 +53,7 @@
                                     <td>{{ $a->ps_nama }}</td>
                                     <td>{{ date_format(DateTime::createFromFormat('Y-m-d', $a->jt_tanggal), 'd F Y ') }}</td>
                                     <td>{{ $a->ps_telp }}</td>
-                                    <td>
-                                        <div class="btn btn-success"> Detail</div>
-                                    </td>
+
                                 </tr>
                             @endforeach
                         </tbody>

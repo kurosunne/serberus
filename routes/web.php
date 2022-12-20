@@ -85,6 +85,8 @@ Route::prefix('perawat')->controller(PerawatController::class)->middleware('cek.
 
     Route::get('/konsultasi', 'indexKonsultasi')->name('perawat.konsultasi');
 
+    Route::get('/janji/{jr_id}/delete', 'deleterawat')->name('perawat.deleterawat');
+
     Route::get('/riwayat', 'indexRiwayat')->name('perawat.riwayat');
 });
 
@@ -101,6 +103,7 @@ Route::prefix('dokter')->controller(DokterController::class)->middleware('cek.lo
     Route::get('/obat', 'getObat')->name('dokter.obat');
     Route::get('/resep/{resep_id}', 'detailResep')->name('dokter.detailResep');
 
+    Route::get('/janji/{jt_id}/delete', 'deletejanji')->name('dokter.deleteJanji');
     Route::get('/riwayat', 'indexRiwayat')->name('dokter.riwayat');
 });
 

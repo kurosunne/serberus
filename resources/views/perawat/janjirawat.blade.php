@@ -62,7 +62,7 @@
                                     </td>
                                     <td>{{ $a->trashed() ? 'Completed' : 'Active' }}</td>
                                     <td>
-                                        <div class="btn btn-success"> Detail</div>
+                                        <a href="{{ url("perawat/janji/$a->jr_id/delete") }}" class="btn btn-success">Finish</a>
                                     </td>
                                 </tr>
                             @endforeach

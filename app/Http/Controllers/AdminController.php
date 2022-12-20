@@ -199,7 +199,6 @@ class AdminController extends Controller
         $dk->dk_password=Hash::make($req->createpasswordokter);
         $dk->rs_id=$req->createrumahsakitdokter;
         $dk->sp_id= $req->createspesialisdokter;
-        $dk->dk_status = 1;
         $dk->save();
 
         $dkId = Dokter::where("dk_email",$req->createemaildokter)->first()->dk_id;
@@ -319,12 +318,10 @@ class AdminController extends Controller
         $dokter = Dokter::withTrashed()->find($req->dk_id);
 
         if($dokter->trashed()){
-            $dokter->dk_status = 1;
             $dokter->save();
             $res=$dokter->restore();
         }
         else{
-            $dokter->dk_status = 2;
             $dokter->save();
             $res=$dokter->delete();
         }
@@ -471,7 +468,6 @@ class AdminController extends Controller
         $dk->dk_email = $req->createemaildokter;
         $dk->rs_id=$req->createrumahsakitdokter;
         $dk->sp_id= $req->createspesialisdokter;
-        $dk->dk_status = $req->createstatusdokter;
         $dk->save();
 
         return redirect()->route('admin.dokter');

@@ -25,20 +25,17 @@ class DokterController extends Controller
 
     public function indexJanji(Request $req)
     {
-        if($req->query("order") && !$req->query("sort")){
+        if ($req->query("order") && !$req->query("sort")) {
             return redirect()->route('dokter.janji');
         }
 
         $user = Dokter::where("dk_email", Session::get("active")["email"])->first();
-        $janji_temu = DB::table('janji_temu')
-        ->where("dk_id", $user->dk_id)
-        ->join('pasien', 'janji_temu.ps_id','=', 'pasien.ps_id')
-        ->select(['je_id', 'ps_nama', 'jt_tanggal', 'janji_temu.created_at', 'janji_temu.updated_at']);
 
         $sort_key = [
-            "id" => "je_id",
+            "id" => "jt_id",
             "pasien" => "ps_nama",
             "tanggal" => "jt_tanggal",
+            "status" => "janji_temu.deleted_at",
         ];
 
         $sort_status = [
@@ -48,24 +45,47 @@ class DokterController extends Controller
         $sort = $sort_status["sort"];
         $order = $sort_status["order"];
 
+        $janji_temu = JanjiTemu::where("dk_id", $user->dk_id)
+            ->join('pasien', 'janji_temu.ps_id', '=', 'pasien.ps_id')
+            ->select(['jt_id', 'ps_nama', 'ps_telp', 'jt_tanggal', 'janji_temu.created_at', 'janji_temu.updated_at', 'janji_temu.deleted_at']);
+
         $janji_temu = $janji_temu->orderBy($sort_key[$sort], $order)->get();
+
         $sort_link = [
             "id" => [
                 "sort" => "id",
-                "order" => ($sort == "id" && $order == "desc") ? "asc" : (($sort != "id" )? "asc" : "desc"),
+                "order" => ($sort == "id" && $order == "desc") ? "asc" : (($sort != "id") ? "asc" : "desc"),
             ],
             "pasien" => [
-                "sort" => "pasien",
-                "order" => ($sort == "pasien" && $order == "desc") ? "asc" : (($sort != "pasien" )? "asc" : "desc"),
+                "sort" => "dokter",
+                "order" => ($sort == "dokter" && $order == "desc") ? "asc" : (($sort != "dokter") ? "asc" : "desc"),
             ],
             "tanggal" => [
                 "sort" => "tanggal",
-                "order" => ($sort == "tanggal" && $order == "desc") ? "asc" : (($sort != "tanggal" )? "asc" : "desc"),
+                "order" => ($sort == "tanggal" && $order == "desc") ? "asc" : (($sort != "tanggal") ? "asc" : "desc"),
+            ],
+            "status" => [
+                "sort" => "status",
+                "order" => ($sort == "status" && $order == "desc") ? "asc" : (($sort != "status") ? "asc" : "desc"),
             ],
         ];
 
         return view('dokter.janjitemu', compact('janji_temu', 'sort_link', "sort_status"));
     }
+
+    public function deletejanji(Request $req)
+    {
+        $janji_temu = JanjiTemu::withTrashed()->find($req->jt_id);
+
+        $res = $janji_temu->delete();
+
+        if ($res) {
+            return redirect()->route('dokter.janji')->with('success', 'Berhasil menyelesaikan janji temu');
+        } else {
+            return redirect()->route('dokter.janji')->with('error', 'Data gagal dihapus');
+        }
+    }
+
 
     public function indexRiwayat(Request $req)
     {
@@ -77,10 +97,10 @@ class DokterController extends Controller
         $janji_temu = JanjiTemu::onlyTrashed()
         ->where("dk_id", $user->dk_id)
         ->join('pasien', 'janji_temu.ps_id','=', 'pasien.ps_id')
-        ->select(['je_id', 'ps_nama', 'jt_tanggal', 'janji_temu.created_at', 'janji_temu.updated_at']);
+        ->select(['jt_id', 'ps_nama', 'jt_tanggal', 'janji_temu.created_at', 'janji_temu.updated_at', 'ps_telp']);
 
         $sort_key = [
-            "id" => "je_id",
+            "id" => "jt_id",
             "pasien" => "ps_nama",
             "tanggal" => "jt_tanggal",
         ];

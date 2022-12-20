@@ -41,8 +41,16 @@
                                         <i class="fa-solid fa-arrow-down"></i>
                                     @endif
                                 </th class="bg-secondary">
-                                <th class="bg-secondary">Dibuat pada</th>
-                                <th class="bg-secondary">Diubah pada</th>
+                                <th class="bg-secondary">No Telp Pasien</th>
+                                <th class="bg-secondary"><a
+                                    href="{{ route('dokter.janji', $sort_link['status']) }}">Status</a>
+                                @if ($sort_status['sort'] == 'status' && $sort_status['order'] == 'asc')
+                                    <i class="fa-solid fa-arrow-up"></i>
+                                @endif
+                                @if ($sort_status['sort'] == 'status' && $sort_status['order'] == 'desc')
+                                    <i class="fa-solid fa-arrow-down"></i>
+                                @endif</th>
+                                <th class="bg-secondary">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,8 +60,11 @@
                                     </td>
                                     <td>{{ $a->ps_nama }}</td>
                                     <td>{{ date_format(DateTime::createFromFormat('Y-m-d', $a->jt_tanggal), 'd F Y ') }}</td>
-                                    <td>{{ $a->created_at }}</td>
-                                    <td>{{ $a->updated_at }}</td>
+                                    <td>{{ $a->ps_telp }}</td>
+                                    <td>{{ $a->trashed() ? 'Completed' : 'Active' }}</td>
+                                    <td>
+                                        <a href="{{ url("dokter/janji/$a->jt_id/delete") }}" class="btn btn-success">Finish</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
