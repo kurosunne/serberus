@@ -53,7 +53,6 @@
                                     <td>{{ $a->ps_nama }}</td>
                                     <td>{{ date_format(DateTime::createFromFormat('Y-m-d', $a->jt_tanggal), 'd F Y ') }}</td>
                                     <td>{{ $a->ps_telp }}</td>
-
                                 </tr>
                             @endforeach
                         </tbody>

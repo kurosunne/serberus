@@ -68,7 +68,6 @@
                                         <i class="fa-solid fa-arrow-down"></i>
                                     @endif
                                 </th>
-                                <th class="bg-secondary">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,9 +79,6 @@
                                     <td>{{ $a->dk_nama }}</td>
                                     <td>{{ $a->dk_telp }}</td>
                                     <td>{{ $a->trashed() ? 'Completed' : 'Active' }}</td>
-                                    <td>
-                                        <div class="btn btn-success"> Detail</div>
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

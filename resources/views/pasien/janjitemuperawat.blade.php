@@ -64,7 +64,6 @@
                                 @if ($sort_status['sort'] == 'status' && $sort_status['order'] == 'desc')
                                     <i class="fa-solid fa-arrow-down"></i>
                                 @endif</th>
-                                <th class="bg-secondary">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,9 +75,6 @@
                                     <td>{{ $a->pr_nama }}</td>
                                     <td>{{ $a->pr_telp }}</td>
                                     <td>{{ $a->trashed() ? 'Completed' : 'Active' }}</td>
-                                    <td>
-                                        <div class="btn btn-success"> Detail</div>
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
