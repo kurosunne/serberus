@@ -421,7 +421,7 @@ class PasienController extends Controller
         Session::put("msg", "Transaksi Berhasil Dibuat");
 
         $transaksi = DjualObat::where("ho_id",$hoId->ho_id)->get();
-        Mail::to('kitsunne.yt@gmail.com')->send(new TransaksiMail($user,$transaksi,$hoId));
+        Mail::to($user->ps_email)->send(new TransaksiMail($user,$transaksi,$hoId));
         return back();
     }
 
