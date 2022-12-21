@@ -186,7 +186,7 @@ class AuthController extends Controller
             'ps_email' => $req->email,
             'ps_telp' => $req->telepon,
             'ps_alamat' => $req->alamat,
-            'ps_password' => $req->password,
+            'ps_password' => Hash::make($req->password),
         ]);
 
         $psId = Pasien::limit(1)->latest('ps_id')->first()->ps_id;
@@ -241,7 +241,7 @@ class AuthController extends Controller
             'pr_nama' => $req->nama,
             'pr_email' => $req->email,
             'pr_telp' => $req->telepon,
-            'pr_password' => $req->password,
+            'pr_password' => Hash::make($req->password),
             'rs_id' => $req->rs,
         ]);
 
