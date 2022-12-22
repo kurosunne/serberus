@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('hjual_obat', function (Blueprint $table) {
             $table->id("ho_id");
+            $table->string("ho_alamat",100);
             $table->unsignedBigInteger("ps_id");
             $table->string('ho_status');
             $table->string('ho_orderId');

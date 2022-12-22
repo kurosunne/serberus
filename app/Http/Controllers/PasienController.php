@@ -13,6 +13,7 @@ use App\Models\Konsultasi;
 use App\Models\Obat;
 use App\Models\Pasien;
 use App\Models\ResepDokter;
+use App\Models\Perawat;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,11 +27,11 @@ class PasienController extends Controller
     {
         # code...
         $dokter = Dokter::inRandomOrder()->limit(9)->get();
-        $obat = Obat::inRandomOrder()->limit(9)->get();
+        $perawat = Perawat::inRandomOrder()->limit(9)->get();
         $pasien = Pasien::where('ps_email', Session::get('active')['email'])->first();
         $konsultasi = Konsultasi::where('ps_id', $pasien->ps_id)->orderBy('ks_id', 'desc')->get();
         $hjual_obat = HjualObat::where('ps_id', $pasien->ps_id)->orderBy("ho_id", 'desc')->get();
-        return view('pasien.home', compact('dokter', 'obat', 'konsultasi', 'hjual_obat'));
+        return view('pasien.home', compact('dokter', 'perawat', 'konsultasi', 'hjual_obat'));
     }
 
     public function indexRiwayattemu(Request $req)
@@ -247,6 +248,59 @@ class PasienController extends Controller
         # code...
         return view('pasien.detailJanjiTemu');
     }
+
+    public function createJanji(Request $req)
+    {
+        $user = Pasien::where("ps_email", Session::get("active")["email"])->first();
+        Session::put("msg","Tanggal Janji Temu Minimal H+2");
+        $req->validate([
+            "tanggal" => ['required','after:tomorrow']
+        ]);
+        $janji_temu = new JanjiTemu();
+        $janji_temu->jt_tanggal = $req->tanggal;
+        $janji_temu->ps_id = $user->ps_id;
+        $janji_temu->dk_id = $req->dokter_id;
+        $janji_temu->save();
+
+        if (count(Konsultasi::where("ps_id",$user->ps_id)->where("dk_id",$req->dokter_id)->get())!=1) {
+            $konsultasi = new Konsultasi();
+            $konsultasi->dk_id = $req->dokter_id;
+            $konsultasi->ps_id = $user->ps_id;
+            $konsultasi->save();
+        }
+        Session::put("msg","Berhasil Membuat Janji Temu");
+        return redirect()->route('pasien.konsultasi');
+    }
+
+    public function createJanjiRawat(Request $req)
+    {
+        $user = Pasien::where("ps_email", Session::get("active")["email"])->first();
+        Session::put("msg","Tanggal Janji Rawat Minimal H+2");
+        $req->validate([
+            "tanggal" => ['required','after:tomorrow']
+        ]);
+        $janji_rawat = new JanjiRawat();
+        $janji_rawat->jr_tanggal = $req->tanggal;
+        $janji_rawat->ps_id = $user->ps_id;
+        $janji_rawat->pr_id = $req->perawat_id;
+        $janji_rawat->save();
+
+        Session::put("msg","Berhasil Membuat Janji Rawat");
+        return back();
+    }
+
+    public function createKonsultasi(Request $req)
+    {
+        $user = Pasien::where("ps_email", Session::get("active")["email"])->first();
+        if (count(Konsultasi::where("ps_id",$user->ps_id)->where("dk_id",$req->dokter_id)->get())!=1) {
+            $konsultasi = new Konsultasi();
+            $konsultasi->dk_id = $req->dokter_id;
+            $konsultasi->ps_id = $user->ps_id;
+            $konsultasi->save();
+        }
+        return redirect()->route('pasien.konsultasi');
+    }
+
     public function indexDetailObat(Request $req)
     {
         $obat = Obat::find($req->id);
@@ -400,6 +454,7 @@ class PasienController extends Controller
 
         $hjual = new HjualObat();
         $hjual->ps_id = $user->ps_id;
+        $hjual->ho_alamat = $req->alamat;
         $hjual->ho_status = $json->transaction_status;
         $hjual->ho_orderId = $json->order_id;
         $hjual->ho_grossAmount = $json->gross_amount;

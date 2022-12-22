@@ -20,9 +20,9 @@
                 <p style="font-size:1.2rem; margin:0px; margin-bottom:1.5rem; margin-left:2rem;">Berikut adalah detail transaksi yang sudah berhasil terbuat</p>
                 <p style="font-size:1.2rem; margin:0px; margin-bottom:0.5rem; margin-left:2rem; font-weight:bold">Order ID : {{$hjual->ho_orderId}}</p>
                 <p style="font-size:1.2rem; margin:0px; margin-bottom:0.5rem; margin-left:2rem; font-weight:bold">Tanggal Transaksi : {{date_format($hjual->created_at, 'd F Y')}}</p>
-                <p style="font-size:1.2rem; margin:0px; margin-bottom:0.5rem; margin-left:2rem; font-weight:bold">Waktu Transaksi : {{date_format($hjual->created_at, 'H:i:s')}}</p>
+                <p style="font-size:1.2rem; margin:0px; margin-bottom:0.5rem; margin-left:2rem; font-weight:bold">Waktu Transaksi : {{date_format($hjual->created_at, 'H:i:s')}} WIB</p>
                 <p style="font-size:1.2rem; margin:0px; margin-bottom:0.5rem; margin-left:2rem; font-weight:bold">Jenis Pembayaran : {{strtoupper($hjual->ho_paymentType)}}</p>
-                <p style="font-size:1.2rem; margin:0px; margin-bottom:0.5rem; margin-left:2rem; font-weight:bold">Status Transaksi : {{$hjual->status == "settlement" ? "Sudah Dibayar" : "Menunggu Pembayaran"}} WIB</p>
+                <p style="font-size:1.2rem; margin:0px; margin-bottom:0.5rem; margin-left:2rem; font-weight:bold">Status Transaksi : {{$hjual->status == "settlement" ? "Sudah Dibayar" : "Menunggu Pembayaran"}}</p>
                 <p style="font-size:1.2rem; margin:0px; margin-bottom:0.5rem; margin-left:2rem; font-weight:bold">Nama Pembeli : {{$user->ps_nama}}</p>
                 <p style="font-size:1.2rem; margin:0px; margin-bottom:0.5rem; margin-left:2rem; font-weight:bold">Alamat Pembeli : {{$user->ps_alamat}}</p>
                 <p style="font-size:1.2rem; margin:0px; margin-bottom:1rem; margin-left:2rem; font-weight:bold">Detail Transaksi :</p>

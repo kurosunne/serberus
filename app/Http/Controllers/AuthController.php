@@ -181,13 +181,13 @@ class AuthController extends Controller
             ]
         );
 
-        Pasien::insert([
-            'ps_nama' => $req->nama,
-            'ps_email' => $req->email,
-            'ps_telp' => $req->telepon,
-            'ps_alamat' => $req->alamat,
-            'ps_password' => Hash::make($req->password),
-        ]);
+        $pasien = new Pasien();
+        $pasien->ps_nama = $req->nama;
+        $pasien->ps_email = $req->email;
+        $pasien->ps_telp = $req->telepon;
+        $pasien->ps_alamat = $req->alamat;
+        $pasien->ps_password = Hash::make($req->password);
+        $pasien->save();
 
         $psId = Pasien::limit(1)->latest('ps_id')->first()->ps_id;
         File::copy('foto/psdef.png', 'foto/ps' . $psId . '.png');
@@ -237,13 +237,13 @@ class AuthController extends Controller
             ]
         );
 
-        Perawat::insert([
-            'pr_nama' => $req->nama,
-            'pr_email' => $req->email,
-            'pr_telp' => $req->telepon,
-            'pr_password' => Hash::make($req->password),
-            'rs_id' => $req->rs,
-        ]);
+        $perawat = new Perawat();
+        $perawat->pr_nama = $req->nama;
+        $perawat->pr_email = $req->email;
+        $perawat->pr_telp = $req->telepon;
+        $perawat->pr_password = Hash::make($req->password);
+        $perawat->rs_id = $req->rs;
+        $perawat->save();
 
         $prId = Perawat::limit(1)->latest('pr_id')->first()->pr_id;
         File::copy('foto/prdef.png', 'foto/pr' . $prId . '.png');
@@ -299,15 +299,15 @@ class AuthController extends Controller
             ]
         );
 
-        Dokter::insert([
-            'dk_nama' => $req->nama,
-            'dk_email' => $req->email,
-            'dk_telp' => $req->telepon,
-            'dk_password' => Hash::make($req->password),
-            'rs_id' => $req->rs,
-            'sp_id' => $req->spesialis,
-            'dk_status' => 0
-        ]);
+        $dokter = new Dokter();
+        $dokter->dk_nama = $req->nama;
+        $dokter->dk_email = $req->email;
+        $dokter->dk_telp = $req->telepon;
+        $dokter->dk_password = Hash::make($req->password);
+        $dokter->rs_id = $req->rs;
+        $dokter->sp_id = $req->spesialis;
+        $dokter->dk_status = 0;
+        $dokter->save();
 
         $dkId = Dokter::limit(1)->latest('dk_id')->first()->dk_id;
         $req->file('sip')->storeAs('sip', $dkId . '.png', 'local');

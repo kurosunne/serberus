@@ -9,7 +9,7 @@
                     style="border: 4px solid #FFB034">
                     <div class="h-10 w-full text-center mt-1 mb-1">
                         <p class="font-bold text-xl">
-                            Unggulan Kami
+                            Dokter Unggulan Kami
                         </p>
                     </div>
                     {{-- carosel --}}
@@ -25,13 +25,18 @@
                                             class="rounded-full h-full" />
                                     </div>
                                     {{-- deskripsi card --}}
-                                    <div class="card-body items-center text-center">
-                                        <h2 class="card-title text-white">{{ $dokter[$i]->dk_nama }}</h2>
-                                        <p class="text-lg text-white">Spesialis {{ $dokter[$i]->spesialis->sp_nama }}</p>
+                                    <div class="card-body items-center text-center pt-0 mb-0">
+                                        <h2 class="mt-0 card-title text-white">{{ $dokter[$i]->dk_nama }}</h2>
+                                        <h2 class="text-white text-lg">Spesialis {{ $dokter[$i]->spesialis->sp_nama }}</h2>
                                         {{-- button href --}}
-                                        <div class="card-actions w-full">
-                                            <button class="btn btn-primary w-full ">Detail</button>
-                                        </div>
+                                        <form method="POST" action="{{route('pasien.createJanji',['dokter_id' => $dokter[$i]->dk_id])}}" class="w-full flex pt-0 mt-0 mb-0">
+                                            @csrf
+                                            <input class="input w-[49%]" type="date" name="tanggal">
+                                            <button class="btn btn-primary ml-1 w-[49%] ">Create Janji</button>
+                                        </form>
+                                        <a class="w-full mt-0" href="{{route('pasien.createKonsultasi',['dokter_id' => $dokter[$i]->dk_id])}}">
+                                            <button class="btn btn-primary w-full">Konsultasi</button>
+                                        </a>
                                     </div>
                                 </div>
                             @endfor
@@ -51,13 +56,18 @@
                                             class="rounded-full h-full" />
                                     </div>
                                     {{-- deskripsi card --}}
-                                    <div class="card-body items-center text-center">
-                                        <h2 class="card-title text-white">{{ $dokter[$i]->dk_nama }}</h2>
-                                        <p class="text-lg text-white">Spesialis {{ $dokter[$i]->spesialis->sp_nama }}</p>
+                                    <div class="card-body items-center text-center pt-0 mb-0">
+                                        <h2 class="mt-0 card-title text-white">{{ $dokter[$i]->dk_nama }}</h2>
+                                        <h2 class="text-white text-lg">Spesialis {{ $dokter[$i]->spesialis->sp_nama }}</h2>
                                         {{-- button href --}}
-                                        <div class="card-actions w-full">
-                                            <button class="btn btn-primary  w-full">Detail</button>
-                                        </div>
+                                        <form method="POST" action="{{route('pasien.createJanji',['dokter_id' => $dokter[$i]->dk_id])}}" class="w-full flex pt-0 mt-0 mb-0">
+                                            @csrf
+                                            <input class="input w-[49%]" type="date" name="tanggal">
+                                            <button class="btn btn-primary ml-1 w-[49%] ">Create Janji</button>
+                                        </form>
+                                        <a class="w-full mt-0" href="{{route('pasien.createKonsultasi',['dokter_id' => $dokter[$i]->dk_id])}}">
+                                            <button class="btn btn-primary w-full">Konsultasi</button>
+                                        </a>
                                     </div>
                                 </div>
                             @endfor
@@ -77,13 +87,18 @@
                                             class="rounded-full h-full" />
                                     </div>
                                     {{-- deskripsi card --}}
-                                    <div class="card-body items-center text-center">
-                                        <h2 class="card-title text-white">{{ $dokter[$i]->dk_nama }}</h2>
-                                        <p class="text-lg text-white">Spesialis {{ $dokter[$i]->spesialis->sp_nama }}</p>
+                                    <div class="card-body items-center text-center pt-0 mb-0">
+                                        <h2 class="mt-0 card-title text-white">{{ $dokter[$i]->dk_nama }}</h2>
+                                        <h2 class="text-white text-lg">Spesialis {{ $dokter[$i]->spesialis->sp_nama }}</h2>
                                         {{-- button href --}}
-                                        <div class="card-actions  w-full">
-                                            <button class="btn btn-primary  w-full">Detail</button>
-                                        </div>
+                                        <form method="POST" action="{{route('pasien.createJanji',['dokter_id' => $dokter[$i]->dk_id])}}" class="w-full flex pt-0 mt-0 mb-0">
+                                            @csrf
+                                            <input class="input w-[49%]" type="date" name="tanggal">
+                                            <button class="btn btn-primary ml-1 w-[49%] ">Create Janji</button>
+                                        </form>
+                                        <a class="w-full mt-0" href="{{route('pasien.createKonsultasi',['dokter_id' => $dokter[$i]->dk_id])}}">
+                                            <button class="btn btn-primary w-full">Konsultasi</button>
+                                        </a>
                                     </div>
                                 </div>
                             @endfor
@@ -102,7 +117,7 @@
                 <div class="w-full h-3/6 rounded-[15px] mt-6" style="border: 4px solid #FFB034">
                     <div class="h-10 w-full text-center mt-1 mb-1">
                         <p class="font-bold text-xl">
-                            Obat Terlaris
+                            Perawat Unggulan Kami
                         </p>
                     </div>
                     {{-- carosel --}}
@@ -111,32 +126,21 @@
                         <div id="obat1" class="carousel-item relative w-full">
                             @for ($i = 0; $i < 3; $i++)
                                 {{-- card --}}
-                                <div class="card card-side bg-secondary w-[30%] shadow-xl mx-4 ml-8">
-                                    <figure class="w-[40%] h-full flex flex-col item-center justify-center">
-                                        <div class="h-1/2 w-full">
-                                            {{-- image card --}}
-                                            <img src="{{ url('obat/' . $obat[$i]->ob_id . '.png') }}" alt="obat"
-                                                class="ml-2 object-contain object-center w-5/6 h-full">
-                                        </div>
-                                        <div class="h-2/6 w-full text-center">
-                                            {{-- judul dan harga barang --}}
-                                            <h2 class="w-full text-center text-white font-bold text-lg">
-                                                {{ $obat[$i]->ob_nama }}</h2>
-                                            <p class="w-full text-white">Rp.
-                                                {{ number_format($obat[$i]->ob_harga, 2, ',', '.') }}</p>
-                                        </div>
-                                    </figure>
-                                    <div class="card-body w-[60%] text-center p-4">
-                                        <div class="w-full h-full bg-base-100 rounded-lg p-2 justify-center">
-                                            {{-- deskripsi --}}
-                                            <p class="w-full h-[80%] text-left text-sm align-middle">
-                                                {{ substr($obat[$i]->ob_deskripsi, 0, 200) }}
-                                                {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
-                                            </p>
-                                            {{-- href detail --}}
-                                            <a href="{{ route('pasien.detailobat', ['id' => $obat[$i]->ob_id]) }}"><button
-                                                    class="btn btn-success mb-3 w-full">Beli</button></a>
-                                        </div>
+                                <div class="card w-[30%] bg-secondary shadow-xl mx-4 ml-8">
+                                    {{-- foto card --}}
+                                    <div class="h-2/6 mt-4 flex item-center justify-center pt-3">
+                                        <img src="{{ url('foto/pr' . $perawat[$i]->pr_id . '.png') }}" alt="Dokter"
+                                            class="rounded-full h-full" />
+                                    </div>
+                                    {{-- deskripsi card --}}
+                                    <div class="card-body items-center text-center pt-0 mb-0">
+                                        <h2 class="my-2 card-title text-white">{{ $perawat[$i]->pr_nama }}</h2>
+                                        {{-- button href --}}
+                                        <form method="POST" action="{{route('pasien.createJanjiRawat',['perawat_id' => $perawat[$i]->pr_id])}}" class="w-full flex-col items-center pt-0 mt-0 mb-0">
+                                            @csrf
+                                            <input class="input w-full" type="date" name="tanggal">
+                                            <button class="btn btn-primary mt-2 w-full ">Create Janji Rawat</button>
+                                        </form>
                                     </div>
                                 </div>
                             @endfor
@@ -149,32 +153,25 @@
                         <div id="obat2" class="carousel-item relative w-full">
                             @for ($i = 3; $i < 6; $i++)
                                 {{-- card --}}
-                                <div class="card card-side bg-secondary w-[30%] shadow-xl mx-4 ml-8">
-                                    <figure class="w-[40%] h-full flex flex-col item-center justify-center">
-                                        <div class="h-1/2 w-full">
-                                            {{-- image card --}}
-                                            <img src="{{ url('obat/' . $obat[$i]->ob_id . '.png') }}" alt="obat"
-                                                class="ml-2 object-contain object-center w-5/6 h-full">
-                                        </div>
-                                        <div class="h-2/6 w-full text-center">
-                                            {{-- judul dan harga barang --}}
-                                            <h2 class="w-full text-center text-white font-bold text-lg">
-                                                {{ $obat[$i]->ob_nama }}</h2>
-                                            <p class="w-full text-white">Rp.
-                                                {{ number_format($obat[$i]->ob_harga, 2, ',', '.') }}</p>
-                                        </div>
-                                    </figure>
-                                    <div class="card-body w-[60%] text-center p-4">
-                                        <div class="w-full h-full bg-base-100 rounded-lg p-2 justify-center">
-                                            {{-- deskripsi --}}
-                                            <p class="w-full h-[80%] text-left text-sm align-middle">
-                                                {{ substr($obat[$i]->ob_deskripsi, 0, 200) }}
-                                                {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
-                                            </p>
-                                            {{-- href detail --}}
-                                            <a href="{{ route('pasien.detailobat', ['id' => $obat[$i]->ob_id]) }}"><button
-                                                    class="btn btn-success mb-3 w-full">Beli</button></a>
-                                        </div>
+                                <div class="card w-[30%] bg-secondary shadow-xl mx-4 ml-8">
+                                    {{-- foto card --}}
+                                    <div class="h-2/6 mt-4 flex item-center justify-center pt-3">
+                                        <img src="{{ url('foto/dk' . $dokter[$i]->dk_id . '.png') }}" alt="Dokter"
+                                            class="rounded-full h-full" />
+                                    </div>
+                                    {{-- deskripsi card --}}
+                                    <div class="card-body items-center text-center pt-0 mb-0">
+                                        <h2 class="mt-0 card-title text-white">{{ $dokter[$i]->dk_nama }}</h2>
+                                        <h2 class="text-white text-lg">Spesialis {{ $dokter[$i]->spesialis->sp_nama }}</h2>
+                                        {{-- button href --}}
+                                        <form method="POST" action="{{route('pasien.createJanji',['dokter_id' => $dokter[$i]->dk_id])}}" class="w-full flex pt-0 mt-0 mb-0">
+                                            @csrf
+                                            <input class="input w-[49%]" type="date" name="tanggal">
+                                            <button class="btn btn-primary ml-1 w-[49%] ">Create Janji</button>
+                                        </form>
+                                        <a class="w-full mt-0" href="{{route('pasien.createKonsultasi',['dokter_id' => $dokter[$i]->dk_id])}}">
+                                            <button class="btn btn-primary w-full">Konsultasi</button>
+                                        </a>
                                     </div>
                                 </div>
                             @endfor
@@ -191,32 +188,26 @@
                         <div id="obat3" class="carousel-item relative w-full">
                             @for ($i = 6; $i < 9; $i++)
                                 {{-- card --}}
-                                <div class="card card-side bg-secondary w-[30%] shadow-xl mx-4 ml-8">
-                                    <figure class="w-[40%] h-full flex flex-col item-center justify-center">
-                                        <div class="h-1/2 w-full">
-                                            {{-- image card --}}
-                                            <img src="{{ url('obat/' . $obat[$i]->ob_id . '.png') }}" alt="obat"
-                                                class="ml-2 object-contain object-center w-5/6 h-full">
-                                        </div>
-                                        <div class="h-2/6 w-full text-center">
-                                            {{-- judul dan harga barang --}}
-                                            <h2 class="w-full text-center text-white font-bold text-lg">
-                                                {{ $obat[$i]->ob_nama }}</h2>
-                                            <p class="w-full text-white">Rp.
-                                                {{ number_format($obat[$i]->ob_harga, 2, ',', '.') }}</p>
-                                        </div>
-                                    </figure>
-                                    <div class="card-body w-[60%] text-center p-4">
-                                        <div class="w-full h-full bg-base-100 rounded-lg p-2 justify-center">
-                                            {{-- deskripsi --}}
-                                            <p class="w-full h-[80%] text-left text-sm align-middle">
-                                                {{ substr($obat[$i]->ob_deskripsi, 0, 200) }}
-                                                {{ strlen($obat[$i]->ob_deskripsi) >= 200 ? '...' : '' }}
-                                            </p>
-                                            {{-- href detail --}}
-                                            <a href="{{ route('pasien.detailobat', ['id' => $obat[$i]->ob_id]) }}"><button
-                                                    class="btn btn-success mb-3 w-full">Beli</button></a>
-                                        </div>
+                                {{-- card --}}
+                                <div class="card w-[30%] bg-secondary shadow-xl mx-4 ml-8">
+                                    {{-- foto card --}}
+                                    <div class="h-2/6 mt-4 flex item-center justify-center pt-3">
+                                        <img src="{{ url('foto/dk' . $dokter[$i]->dk_id . '.png') }}" alt="Dokter"
+                                            class="rounded-full h-full" />
+                                    </div>
+                                    {{-- deskripsi card --}}
+                                    <div class="card-body items-center text-center pt-0 mb-0">
+                                        <h2 class="mt-0 card-title text-white">{{ $dokter[$i]->dk_nama }}</h2>
+                                        <h2 class="text-white text-lg">Spesialis {{ $dokter[$i]->spesialis->sp_nama }}</h2>
+                                        {{-- button href --}}
+                                        <form method="POST" action="{{route('pasien.createJanji',['dokter_id' => $dokter[$i]->dk_id])}}" class="w-full flex pt-0 mt-0 mb-0">
+                                            @csrf
+                                            <input class="input w-[49%]" type="date" name="tanggal">
+                                            <button class="btn btn-primary ml-1 w-[49%] ">Create Janji</button>
+                                        </form>
+                                        <a class="w-full mt-0" href="{{route('pasien.createKonsultasi',['dokter_id' => $dokter[$i]->dk_id])}}">
+                                            <button class="btn btn-primary w-full">Konsultasi</button>
+                                        </a>
                                     </div>
                                 </div>
                             @endfor
@@ -262,7 +253,7 @@
                                     {{ date_format($konsultasi[$i]->created_at, 'm/d/Y') }}</p>
                             </div>
                             <div class="h-full w-[20%] flex flex-col item-center justify-center">
-                                <div class="btn btn-success">Detail</div>
+                                <a href="{{route('pasien.konsultasi',["konsultasi_id"=>$konsultasi[$i]->ks_id])}}" class="btn btn-success">Detail</a>
                             </div>
                         </div>
                     @endfor

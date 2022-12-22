@@ -61,9 +61,9 @@
             <form action="" id="submit_form" method="POST">
                 @csrf
                 <input type="hidden" name="json" id="json_callback">
+                <input type="text" name="alamat" id="map-address" class="w-full input input-bordered input-primary mt-5">
             </form>
             <div class="w-[95%] flex flex-col items-center">
-                <input type="text" id="map-address" class="w-full input input-bordered input-primary">
                 <input type="hidden" id="map-location">
                 <div class="w-full h-[30rem] rounded mt-12" style="border: 4px solid #FFB034" id="map"></div>
                 <div class="w-full mt-4">

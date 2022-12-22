@@ -51,8 +51,10 @@ Route::prefix('pasien')->controller(PasienController::class)->middleware('cek.lo
     Route::get('/', 'indexHome')->name('pasien.home');
 
     Route::get('/janjitemu', 'indexJanji')->name('pasien.janji');
+    Route::post('/janjitemu/{dokter_id}', 'createJanji')->name('pasien.createJanji');
     Route::get('/janjitemu/detail', 'indexDetailJanji')->name('pasien.detailjanji');
     Route::get('/janjirawat','indexJanjiPerawat')->name('pasien.janjiperawat');
+    Route::post('/janjirawat/{perawat_id}','createJanjiRawat')->name('pasien.createJanjiRawat');
 
     Route::get('/obat/detail/{id}', 'indexDetailObat')->name('pasien.detailobat');
     Route::post('/obat/beli/{id}', 'indexBeliObat')->name('pasien.beliobat');
@@ -65,6 +67,7 @@ Route::prefix('pasien')->controller(PasienController::class)->middleware('cek.lo
     Route::post('/keranjang/bayar', 'updateKeranjang')->name('pasien.updateKeranjang');
 
     Route::get('/konsultasi/{konsultasi_id?}', 'indexKonsultasi')->name('pasien.konsultasi');
+    Route::get('/konsultasi/create/{dokter_id}', 'createKonsultasi')->name('pasien.createKonsultasi');
     Route::get('/konsultasi/{konsultasi_id?}/chat', 'chatKonsultasi')->name('pasien.chat');
     Route::post('/konsultasi/{konsultasi_id}/send', 'sendChatKonsultasi')->name('pasien.send');
 
