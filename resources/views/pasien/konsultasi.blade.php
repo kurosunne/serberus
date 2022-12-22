@@ -44,7 +44,24 @@
                 item.classList.add("chat-end","pl-80")
                 content.classList.add("bg-primary-focus", "text-base-100")
             }
-            content.innerHTML = data["ch_teks"];
+            let contentText = data["ch_teks"];
+            if(contentText.startsWith("//_resep_obat_//")){
+                content.innerHTML += `<div class="flex flex-col">`
+                content.innerHTML += `<span class="font-semibold w-full flex justify-center border-b-2 pb-2">Resep Dokter</span>`
+                @foreach ($resep as $r)
+                    content.innerHTML += `
+                        <div class="flex w-full justify-between gap-x-2">
+                            <span>{{$r->Obat->ob_nama}}</span>
+                            <span>x{{$r->re_hari}}</span>
+                        </div>
+                        <div class="pb-2">{{$r->re_keterangan}}</div>
+                    `
+                @endforeach
+                content.innerHTML += `</span>`
+            }
+            else{
+                content.innerHTML = contentText
+            }
             item.appendChild(content)
             return item;
         }

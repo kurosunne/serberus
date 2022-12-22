@@ -12,6 +12,7 @@ use App\Models\JanjiRawat;
 use App\Models\Konsultasi;
 use App\Models\Obat;
 use App\Models\Pasien;
+use App\Models\ResepDokter;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -330,8 +331,9 @@ class PasienController extends Controller
     {
         $user = Pasien::where("ps_email", Session::get("active")["email"])->first();
         $konsultasi = Konsultasi::where("ps_id", $user->ps_id)->get();
+        $resep = ResepDokter::where('ks_id', $konsultasi_id)->get();
 
-        return view('pasien.konsultasi',compact('konsultasi', 'konsultasi_id'));
+        return view('pasien.konsultasi',compact('konsultasi', 'konsultasi_id', 'resep'));
     }
 
     public function chatKonsultasi(Request $req, String $konsultasi_id = null)

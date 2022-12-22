@@ -100,8 +100,12 @@ Route::prefix('dokter')->controller(DokterController::class)->middleware('cek.lo
     Route::get('/konsultasi/{konsultasi_id?}/chat', 'chatKonsultasi')->name('dokter.chat');
     Route::post('/konsultasi/{konsultasi_id}/send', 'sendChatKonsultasi')->name('dokter.send');
     Route::post('/konsultasi/{konsultasi_id}/resep', 'buatResepObatKonsultasi')->name('dokter.resep');
+    Route::get("/konsultasi/{konsultasi_id}/resep/list", "getListResepObat")->name('dokter.listresep');
+    Route::get("/konsultasi/{konsultasi_id}/resep/status", "getStatusResepObat")->name('dokter.statusresep');
+    Route::get("/konsultasi/{konsultasi_id}/delete", "deleteKonsultasi")->name('dokter.delete');
+
     Route::get('/obat', 'getObat')->name('dokter.obat');
-    Route::get('/resep/{resep_id}', 'detailResep')->name('dokter.detailResep');
+    Route::get('/resep/{konsultasi_id}', 'detailResep')->name('dokter.detailResep');
 
     Route::get('/janji/{jt_id}/delete', 'deletejanji')->name('dokter.deleteJanji');
     Route::get('/riwayat', 'indexRiwayat')->name('dokter.riwayat');

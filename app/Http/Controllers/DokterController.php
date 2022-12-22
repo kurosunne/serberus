@@ -136,8 +136,9 @@ class DokterController extends Controller
         $user = Dokter::where("dk_email", Session::get("active")["email"])->first();
         $konsultasi = Konsultasi::where("dk_id", $user->dk_id)->get();
         $obat = Obat::all();
+        $resep = ResepDokter::where('ks_id', $konsultasi_id)->get();
 
-        return view('dokter.konsultasi',compact('konsultasi', 'konsultasi_id', 'obat'));
+        return view('dokter.konsultasi',compact('konsultasi', 'konsultasi_id', 'obat', 'resep'));
     }
 
     public function chatKonsultasi(Request $req, String $konsultasi_id = null)
@@ -173,7 +174,26 @@ class DokterController extends Controller
         Chat::insert([
             "ch_sender_is_dokter" => 1,
             "ks_id" => $konsultasi_id,
-            "ch_teks" => "re//$re_id",
+            "ch_teks" => "//_resep_obat_//",
         ]);
+    }
+
+    public function getStatusResepObat(Request $req, String $konsultasi_id)
+    {
+        $resep = ResepDokter::where('ks_id', $konsultasi_id)->first();
+        if($resep == null)
+            return -1;
+        return $resep->re_id;
+    }
+
+    public function detailResep(Request $req)
+    {
+
+    }
+
+    public function deleteKonsultasi(Request $req, $konsultasi_id)
+    {
+        Konsultasi::find($konsultasi_id)->delete();
+        return redirect()->route('dokter.konsultasi')->with('succ', 'Konsultasi Selesai!');
     }
 }
