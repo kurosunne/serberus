@@ -241,7 +241,7 @@
                         </div>
                         <div class="h-full w-1/2 flex items-center justify-end">
                             {{-- route menuju riwayat --}}
-                            <a class="font-bold font-lg text-secondary" href="">See More...</a>
+                            <a class="font-bold font-lg text-secondary" href="{{ route('pasien.historitemu') }}">See More...</a>
                         </div>
                     </div>
                     @for ($i = 0; $i < 3; $i++)
@@ -275,7 +275,7 @@
                         </div>
                         <div class="h-full w-1/2 flex items-center justify-end">
                             {{-- route menuju riwayat --}}
-                            <a class="font-bold font-lg text-secondary">See More...</a>
+                            <a class="font-bold font-lg text-secondary" href="{{ route('pasien.historiobat') }}">See More...</a>
                         </div>
                     </div>
 
