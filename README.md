@@ -26,5 +26,5 @@ HERE_API_KEY=zfq75h81VmgMqBa9vpjkbhm27G8VKur9tPN19e1jNUg
 
 3) Catatan 
 - akun admin
-email : andesron@gmail.com
+email : anderson@gmail.com
 password : 123
